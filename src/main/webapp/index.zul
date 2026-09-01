@@ -3,4 +3,5 @@
 
 
     <include src="/admin/roles.zul"/>
+    <include src="/admin/usermanagement.zul"/>
 </window>
