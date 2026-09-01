@@ -74,4 +74,12 @@ public class Role implements Serializable {
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+	@Override
+	public String toString() {
+		return "Role [roleId=" + roleId + ", roleName=" + roleName + ", description=" + description + ", status="
+				+ status + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+	}
+    
+    
 }

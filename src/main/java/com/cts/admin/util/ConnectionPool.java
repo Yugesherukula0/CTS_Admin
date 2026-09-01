@@ -20,7 +20,7 @@ public class ConnectionPool {
 			
 			dataSource = new ComboPooledDataSource();
 			Properties properties = new Properties();
-			InputStream inputStream = new FileInputStream("resources/db.properties");
+			InputStream inputStream = new FileInputStream("D:\\WS_IISPL\\CTS_Admin_Module\\src\\main\\resources\\db.properties");
 			properties.load(inputStream);
 			
 			dataSource.setDriverClass(properties.getProperty("DRIVER_CLASS"));
