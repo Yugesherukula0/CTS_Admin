@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<zk>
+<zk >
 
     <!-- ============================================================
          ROLE MANAGEMENT - CENTER CONTENT ONLY
@@ -284,7 +284,8 @@
         id="roleManagementPage"
         width="100%"
         spacing="0"
-        sclass="role-management-page">
+        sclass="role-management-page"
+         apply="com.cts.admin.controller.RoleManagementController">
 
 
         <!-- ========================================================
@@ -375,7 +376,6 @@
 
             <listbox
                 id="roleListbox"
-                width="calc(100% - 56px)"
                 sclass="role-listbox"
                 emptyMessage="No roles available">
 

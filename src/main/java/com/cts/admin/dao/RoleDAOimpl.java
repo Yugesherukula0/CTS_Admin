@@ -9,7 +9,7 @@ import java.util.List;
 import com.cts.admin.model.Role;
 import com.cts.admin.util.ConnectionPool;
 
-public class RoleDAOimpl implements RoleDAO{
+public class RoleDAOImpl implements RoleDAO{
 	
 	 @Override
     public List<Role> getAllRoles() {
@@ -35,6 +35,7 @@ public class RoleDAOimpl implements RoleDAO{
                 role.setStatus(resultSet.getString("status"));
                 role.setCreatedAt(resultSet.getTimestamp("created_at"));
                 role.setUpdatedAt(resultSet.getTimestamp("updated_at"));
+                System.out.println(role);
 
                 roles.add(role);
             }
