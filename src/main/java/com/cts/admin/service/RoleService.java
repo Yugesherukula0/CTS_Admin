@@ -5,10 +5,14 @@ import java.util.List;
 import com.cts.admin.model.Role;
 
 public interface RoleService {
-	
-	 public List<Role> getAllRoles();
-	 public Role getRoleById(Long roleId);
-	 public boolean createRole(Role role);
-	 public boolean updateRole(Role role);
-	 public boolean updateRoleStatus(Long roleId, String status);
+
+    List<Role> getAllRoles();
+
+    Role getRoleById(Long roleId);
+
+    boolean createRole(Role role);
+
+    boolean updateRole(Role role);
+
+    boolean updateRoleStatus(Long roleId, String status);
 }

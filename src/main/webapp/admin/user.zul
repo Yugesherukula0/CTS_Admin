@@ -856,14 +856,14 @@
 
                     <listheader
                         id="userIdHeader"
-                        label="User ID"
+                        label="S.No"
                         width="10%"/>
 
 
                     <listheader
                         id="usernameHeader"
                         label="Username"
-                        width="12%"/>
+                        width="15%"/>
 
 
                     <listheader
@@ -888,7 +888,7 @@
                     <listheader
                         id="lastLoginHeader"
                         label="Last Login"
-                        width="18%"
+                        width="10%"
                         align="center"/>
 
 
@@ -916,6 +916,11 @@
                      ================================================= -->
 
             </listbox>
+            <paging
+    				id="userPaging"
+    				pageSize="10"
+    				detailed="true"
+    				style="margin: 15px 30px 25px 30px;" />
 
         </div>
 

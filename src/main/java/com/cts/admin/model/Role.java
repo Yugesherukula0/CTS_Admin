@@ -19,6 +19,7 @@ public class Role implements Serializable {
 
     public Role(Long roleId, String roleName, String description,
                 String status, Timestamp createdAt, Timestamp updatedAt) {
+
         this.roleId = roleId;
         this.roleName = roleName;
         this.description = description;
@@ -75,11 +76,13 @@ public class Role implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-	@Override
-	public String toString() {
-		return "Role [roleId=" + roleId + ", roleName=" + roleName + ", description=" + description + ", status="
-				+ status + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
-	}
-    
-    
+    @Override
+    public String toString() {
+        return "Role [roleId=" + roleId
+                + ", roleName=" + roleName
+                + ", description=" + description
+                + ", status=" + status
+                + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + "]";
+    }
 }

@@ -9,21 +9,25 @@ import java.util.List;
 import com.cts.admin.model.Role;
 import com.cts.admin.util.ConnectionPool;
 
-public class RoleDAOImpl implements RoleDAO{
-	
-	 @Override
+public class RoleDAOImpl implements RoleDAO {
+
+    @Override
     public List<Role> getAllRoles() {
 
         List<Role> roles = new ArrayList<>();
 
-        String sql = "SELECT role_id, role_name, description, status, "
-                   + "created_at, updated_at "
-                   + "FROM roles "
-                   + "ORDER BY role_id";
+        String sql =
+                "SELECT role_id, role_name, description, status, " +
+                "created_at, updated_at " +
+                "FROM roles " +
+                "ORDER BY role_id";
 
-        try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection =
+                     ConnectionPool.getDataSource().getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql);
+             ResultSet resultSet =
+                     statement.executeQuery()) {
 
             while (resultSet.next()) {
 
@@ -35,7 +39,6 @@ public class RoleDAOImpl implements RoleDAO{
                 role.setStatus(resultSet.getString("status"));
                 role.setCreatedAt(resultSet.getTimestamp("created_at"));
                 role.setUpdatedAt(resultSet.getTimestamp("updated_at"));
-                System.out.println(role);
 
                 roles.add(role);
             }
@@ -46,17 +49,24 @@ public class RoleDAOImpl implements RoleDAO{
 
         return roles;
     }
-    
+
     @Override
     public Role getRoleById(Long roleId) {
 
-        String sql = "SELECT role_id, role_name, description, status, "
-                   + "created_at, updated_at "
-                   + "FROM roles "
-                   + "WHERE role_id = ?";
+        if (roleId == null) {
+            return null;
+        }
 
-        try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sql =
+                "SELECT role_id, role_name, description, status, " +
+                "created_at, updated_at " +
+                "FROM roles " +
+                "WHERE role_id = ?";
+
+        try (Connection connection =
+                     ConnectionPool.getDataSource().getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
 
             statement.setLong(1, roleId);
 
@@ -83,16 +93,23 @@ public class RoleDAOImpl implements RoleDAO{
 
         return null;
     }
-    
+
     @Override
     public boolean createRole(Role role) {
 
-        String sql = "INSERT INTO roles "
-                   + "(role_name, description, status) "
-                   + "VALUES (?, ?, ?)";
+        if (role == null) {
+            return false;
+        }
 
-        try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sql =
+                "INSERT INTO roles " +
+                "(role_name, description, status) " +
+                "VALUES (?, ?, ?)";
+
+        try (Connection connection =
+                     ConnectionPool.getDataSource().getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
 
             statement.setString(1, role.getRoleName());
             statement.setString(2, role.getDescription());
@@ -105,18 +122,25 @@ public class RoleDAOImpl implements RoleDAO{
             return false;
         }
     }
-    
+
     @Override
     public boolean updateRole(Role role) {
 
-        String sql = "UPDATE roles "
-                   + "SET role_name = ?, "
-                   + "description = ?, "
-                   + "updated_at = CURRENT_TIMESTAMP "
-                   + "WHERE role_id = ?";
+        if (role == null || role.getRoleId() == null) {
+            return false;
+        }
 
-        try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sql =
+                "UPDATE roles " +
+                "SET role_name = ?, " +
+                "description = ?, " +
+                "updated_at = CURRENT_TIMESTAMP " +
+                "WHERE role_id = ?";
+
+        try (Connection connection =
+                     ConnectionPool.getDataSource().getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
 
             statement.setString(1, role.getRoleName());
             statement.setString(2, role.getDescription());
@@ -129,17 +153,24 @@ public class RoleDAOImpl implements RoleDAO{
             return false;
         }
     }
-    
+
     @Override
     public boolean updateRoleStatus(Long roleId, String status) {
 
-        String sql = "UPDATE roles "
-                   + "SET status = ?, "
-                   + "updated_at = CURRENT_TIMESTAMP "
-                   + "WHERE role_id = ?";
+        if (roleId == null || status == null) {
+            return false;
+        }
 
-        try (Connection connection = ConnectionPool.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sql =
+                "UPDATE roles " +
+                "SET status = ?, " +
+                "updated_at = CURRENT_TIMESTAMP " +
+                "WHERE role_id = ?";
+
+        try (Connection connection =
+                     ConnectionPool.getDataSource().getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
 
             statement.setString(1, status);
             statement.setLong(2, roleId);
