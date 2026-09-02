@@ -43,14 +43,14 @@
 
         .shell-header {
             width: 100%;
-            height: 56px;
-            min-height: 56px;
+            height: 68px;
+            min-height: 68px;
             background: #18243A;
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            padding: 0 24px;
+            padding: 0 28px;
             box-sizing: border-box;
             flex-shrink: 0;
         }
@@ -60,13 +60,13 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .header-menu-icon,
         .header-menu-icon.z-label {
             color: #FFFFFF !important;
-            font-size: 15px !important;
+            font-size: 16px !important;
             font-weight: 900 !important;
             letter-spacing: 3px !important;
             cursor: pointer !important;
@@ -76,9 +76,9 @@
         .header-brand,
         .header-brand.z-label {
             color: #FFFFFF !important;
-            font-size: 14px !important;
+            font-size: 15px !important;
             font-weight: 700 !important;
-            letter-spacing: 0.8px !important;
+            letter-spacing: 1px !important;
             white-space: nowrap !important;
         }
 
@@ -95,14 +95,14 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            gap: 5px;
-            padding: 0 14px;
+            gap: 6px;
+            padding: 0 16px;
         }
 
         .header-meta-icon,
         .header-meta-icon.z-label {
             color: #8A9BB5 !important;
-            font-size: 13px !important;
+            font-size: 14px !important;
             flex-shrink: 0 !important;
         }
 
@@ -116,7 +116,7 @@
         /* Thin vertical divider */
         .header-divider {
             width: 1px;
-            height: 20px;
+            height: 24px;
             background: #2E4060;
             flex-shrink: 0;
         }
@@ -127,39 +127,39 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 14px;
+            padding: 0 16px;
             cursor: pointer;
         }
 
         .header-notif-icon,
         .header-notif-icon.z-label {
             color: #8A9BB5 !important;
-            font-size: 18px !important;
+            font-size: 20px !important;
         }
 
         /* Red badge */
         .header-notif-badge,
         .header-notif-badge.z-label {
             position: absolute !important;
-            top: 0px !important;
-            right: 4px !important;
+            top: -1px !important;
+            right: 5px !important;
             background: #E53E3E !important;
             color: #FFFFFF !important;
             font-size: 10px !important;
             font-weight: 700 !important;
-            min-width: 16px !important;
-            height: 16px !important;
-            border-radius: 8px !important;
+            min-width: 17px !important;
+            height: 17px !important;
+            border-radius: 9px !important;
             text-align: center !important;
-            line-height: 16px !important;
+            line-height: 17px !important;
             padding: 0 3px !important;
             box-sizing: border-box !important;
         }
 
         /* Avatar circle */
         .header-avatar {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: 2px solid #4A5568;
             background: #2D3748;
@@ -167,14 +167,14 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            margin-left: 4px;
+            margin-left: 6px;
             flex-shrink: 0;
         }
 
         .header-avatar-icon,
         .header-avatar-icon.z-label {
             color: #8A9BB5 !important;
-            font-size: 16px !important;
+            font-size: 17px !important;
         }
 
 
