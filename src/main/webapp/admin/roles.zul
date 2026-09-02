@@ -109,7 +109,7 @@
            ============================================================ */
 
         .role-listbox {
-            margin: 0 28px 22px 28px;
+            margin: 20px 28px 22px 28px;
             border: 1px solid #D9E1EB;
             border-radius: 8px;
             box-sizing: border-box;
