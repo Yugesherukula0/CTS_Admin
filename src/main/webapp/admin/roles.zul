@@ -51,28 +51,6 @@
            INFORMATION BANNER
            ============================================================ */
 
-        .role-info-box {
-            width: 100%;
-            background: #F0F7FF;
-            border: 1px solid #C7DDF7;
-            border-radius: 9px;
-            padding: 15px 20px;
-            box-sizing: border-box;
-            margin-bottom: 28px;
-        }
-
-        .role-info-icon {
-            color: #175CD3;
-            font-size: 20px;
-            font-weight: 700;
-            margin-right: 12px;
-        }
-
-        .role-info-text {
-            color: #173B73;
-            font-size: 15px;
-        }
-
 
         /* ============================================================
            SYSTEM ROLES CARD
@@ -313,27 +291,6 @@
         <!-- ========================================================
              INFORMATION MESSAGE
              ======================================================== -->
-
-        <hbox
-            id="roleInformationBox"
-            width="100%"
-            align="center"
-            spacing="0"
-            sclass="role-info-box">
-
-            <label
-                id="roleInformationIcon"
-                value="ⓘ"
-                sclass="role-info-icon"/>
-
-            <label
-                id="roleInformationText"
-                value="The CTS system defines exactly 6 core operational roles for cheque processing across Batch Capture, Inward, and Outward clearing lifecycles."
-                sclass="role-info-text"
-                multiline="true"/>
-
-        </hbox>
-
 
         <!-- ========================================================
              SYSTEM ROLES CARD
