@@ -21,7 +21,7 @@
            ============================================================ */
 
         .role-management-page {
-            padding: 30px 55px 40px 55px;
+            padding: 34px 40px 40px 40px;
             box-sizing: border-box;
         }
 
@@ -31,7 +31,7 @@
            ============================================================ */
 
         .role-page-header {
-            margin-bottom: 26px;
+            margin-bottom: 24px;
         }
 
         .role-page-title {
@@ -70,7 +70,7 @@
            ============================================================ */
 
         .system-roles-header {
-            padding: 19px 28px;
+            padding: 22px 28px;
             border-bottom: 1px solid #DDE4ED;
             box-sizing: border-box;
         }
@@ -87,7 +87,7 @@
            ============================================================ */
 
         .role-listbox {
-            margin: 20px 28px 22px 28px;
+            margin: 22px 28px 28px 28px;
             border: 1px solid #D9E1EB;
             border-radius: 8px;
             box-sizing: border-box;
