@@ -18,7 +18,7 @@ public class ConnectionPool {
 		try {
 			
 			dataSource = new ComboPooledDataSource();
-			Properties properties = new Properties();
+			Properties properties = new Properties(); 
 
 			InputStream inputStream = ConnectionPool.class.getClassLoader().getResourceAsStream("db.properties");
 			properties.load(inputStream);
@@ -29,10 +29,13 @@ public class ConnectionPool {
 			dataSource.setUser(properties.getProperty("USER_NAME"));
 			dataSource.setPassword(properties.getProperty("PASSWORD"));
 			
-			dataSource.setInitialPoolSize(10);
-			dataSource.setMinPoolSize(10);
-			dataSource.setAcquireIncrement(10);
-			dataSource.setMaxPoolSize(40);
+			dataSource.setInitialPoolSize(3);
+			dataSource.setMinPoolSize(3);
+			dataSource.setAcquireIncrement(3);
+			dataSource.setMaxPoolSize(20);
+			dataSource.setCheckoutTimeout(15000);  // fail in 15s instead of hanging forever
+			dataSource.setAcquireRetryAttempts(3);
+			dataSource.setAcquireRetryDelay(1000);
 			
 		} catch (PropertyVetoException | IOException ex) {
 			ex.printStackTrace();
