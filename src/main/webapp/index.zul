@@ -48,85 +48,131 @@
             background: #18243A !important;
             display: flex !important;
             align-items: center !important;
-            padding: 0 24px !important;
+            padding: 0 20px !important;
             box-sizing: border-box !important;
             flex-shrink: 0 !important;
             z-index: 100 !important;
         }
 
+        /* Hamburger ||| */
+        .header-menu-icon,
+        .header-menu-icon.z-label {
+            color: #FFFFFF !important;
+            font-size: 18px !important;
+            font-weight: 900 !important;
+            margin-right: 12px !important;
+            letter-spacing: 3px !important;
+            cursor: pointer !important;
+        }
+
+        /* CTS BANKING / DASHBOARD */
+        .header-brand,
+        .header-brand.z-label {
+            color: #FFFFFF !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.8px !important;
+            flex: 1 !important;
+        }
+
+        /* Spacer — pushes right group to far right edge */
+        .header-spacer {
+            flex: 1 !important;
+        }
+
+        /* Right side container */
         .header-right,
         .header-right.z-hlayout {
             display: flex !important;
             align-items: center !important;
-            gap: 20px !important;
-            margin-left: auto !important;
+            gap: 0 !important;
         }
 
+        /* Date and Last Login groups */
         .header-meta-group,
         .header-meta-group.z-hlayout {
             display: flex !important;
             align-items: center !important;
-            gap: 6px !important;
+            gap: 5px !important;
+            padding: 0 16px !important;
         }
 
-        .header-menu-icon {
-            color: #FFFFFF !important;
-            font-size: 20px !important;
-            font-weight: 700 !important;
-            margin-right: 14px !important;
-            cursor: pointer !important;
-            letter-spacing: 2px !important;
-        }
-
-        .header-brand {
-            color: #FFFFFF !important;
-            font-size: 16px !important;
-            font-weight: 700 !important;
-            letter-spacing: 0.5px !important;
-            flex: 1 !important;
-        }
-
-        .header-meta-icon {
-            font-size: 14px !important;
-            color: #B0BBCC !important;
-        }
-
-        .header-meta-text {
-            color: #B0BBCC !important;
+        .header-meta-icon,
+        .header-meta-icon.z-label {
             font-size: 13px !important;
+            color: #A0AEC0 !important;
         }
 
+        .header-meta-text,
+        .header-meta-text.z-label {
+            color: #A0AEC0 !important;
+            font-size: 13px !important;
+            white-space: nowrap !important;
+        }
+
+        /* Thin vertical divider between sections */
         .header-divider {
-            width: 1px;
-            height: 22px;
-            background: #2E3D56;
-            display: inline-block;
+            width: 1px !important;
+            height: 20px !important;
+            background: #2E4060 !important;
+            display: inline-block !important;
+            flex-shrink: 0 !important;
         }
 
+        /* Notification bell wrapper */
         .header-notif {
-            position: relative;
-            cursor: pointer;
+            position: relative !important;
+            cursor: pointer !important;
+            padding: 0 14px !important;
+            display: flex !important;
+            align-items: center !important;
         }
 
-        .header-notif-icon {
-            color: #B0BBCC !important;
+        .header-notif-icon,
+        .header-notif-icon.z-label {
+            color: #A0AEC0 !important;
             font-size: 18px !important;
         }
 
+        /* Red badge on bell */
+        .header-notif-badge,
+        .header-notif-badge.z-label {
+            position: absolute !important;
+            top: -2px !important;
+            right: 6px !important;
+            background: #E53E3E !important;
+            color: #FFFFFF !important;
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            min-width: 16px !important;
+            height: 16px !important;
+            border-radius: 8px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 0 3px !important;
+            line-height: 1 !important;
+        }
+
+        /* Avatar circle */
         .header-avatar {
-            width: 32px;
-            height: 32px;
-            background: #2E3D56;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            width: 34px !important;
+            height: 34px !important;
+            border-radius: 50% !important;
+            border: 2px solid #4A5568 !important;
+            background: #2D3748 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            margin-left: 6px !important;
+            flex-shrink: 0 !important;
         }
 
-        .header-avatar-icon {
-            color: #B0BBCC !important;
-            font-size: 18px !important;
+        .header-avatar-icon,
+        .header-avatar-icon.z-label {
+            color: #A0AEC0 !important;
+            font-size: 16px !important;
         }
 
 
@@ -247,36 +293,43 @@
 
         <!-- ========================================================
              HEADER
-             hlayout keeps items in a single horizontal row
              ======================================================== -->
 
-        <hlayout sclass="shell-header"
-                 spacing="0">
+        <hlayout sclass="shell-header" spacing="0">
 
+            <!-- Far left: hamburger + brand -->
             <label sclass="header-menu-icon" value="|||"/>
             <label sclass="header-brand" value="CTS BANKING / DASHBOARD"/>
 
-            <!-- Right side meta — hlayout for inline items -->
+            <!-- Spacer pushes right group to far right -->
+            <div sclass="header-spacer"/>
+
+            <!-- Far right: date | last login | bell | avatar -->
             <hlayout sclass="header-right" spacing="0">
 
-                <hlayout sclass="header-meta-group" spacing="4px">
+                <!-- Date -->
+                <hlayout sclass="header-meta-group" spacing="0">
                     <label sclass="header-meta-icon" value="📅"/>
                     <label id="headerDate" sclass="header-meta-text" value=""/>
                 </hlayout>
 
                 <div sclass="header-divider"/>
 
-                <hlayout sclass="header-meta-group" spacing="4px">
+                <!-- Last Login -->
+                <hlayout sclass="header-meta-group" spacing="0">
                     <label sclass="header-meta-icon" value="🕐"/>
                     <label id="headerLastLogin" sclass="header-meta-text" value="Last Login : --"/>
                 </hlayout>
 
                 <div sclass="header-divider"/>
 
+                <!-- Notification bell with red badge -->
                 <div sclass="header-notif">
                     <label sclass="header-notif-icon" value="🔔"/>
+                    <label id="headerNotifBadge" sclass="header-notif-badge" value="9"/>
                 </div>
 
+                <!-- Avatar circle -->
                 <div sclass="header-avatar">
                     <label sclass="header-avatar-icon" value="👤"/>
                 </div>
