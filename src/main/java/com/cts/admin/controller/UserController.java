@@ -769,7 +769,7 @@ public class UserController extends GenericForwardComposer<Component> {
 
 								e.printStackTrace();
 
-								Messagebox.show("Unable to delete user.", "Error", Messagebox.OK, Messagebox.ERROR);
+								Messagebox.show("Unable to delete user. User must be In-active to delete", "Error", Messagebox.OK, Messagebox.ERROR);
 							}
 						}
 					}
