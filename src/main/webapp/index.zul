@@ -298,76 +298,54 @@
 
         <!-- ========================================================
              BODY ROW
+             sidebar + content area side by side via CSS flex
              ======================================================== -->
 
-        <hbox sclass="shell-body"
-              width="100%"
-              heights="100%"
-              spacing="0">
-
+        <div sclass="shell-body">
 
             <!-- ====================================================
                  SIDEBAR
                  ==================================================== -->
 
-            <vbox sclass="shell-sidebar"
-                  spacing="0">
+            <div sclass="shell-sidebar">
 
                 <!-- Dashboard -->
-                <hbox id="navDashboard"
-                      sclass="nav-item"
-                      align="center"
-                      spacing="0">
+                <div id="navDashboard" sclass="nav-item">
                     <label sclass="nav-icon" value="⌂"/>
                     <label sclass="nav-label" value="Dashboard"/>
-                </hbox>
+                </div>
 
                 <!-- Role Management -->
-                <hbox id="navRoles"
-                      sclass="nav-item"
-                      align="center"
-                      spacing="0">
+                <div id="navRoles" sclass="nav-item">
                     <label sclass="nav-icon" value="◈"/>
                     <label sclass="nav-label" value="Role Management"/>
-                </hbox>
+                </div>
 
                 <!-- User Management -->
-                <hbox id="navUsers"
-                      sclass="nav-item"
-                      align="center"
-                      spacing="0">
+                <div id="navUsers" sclass="nav-item">
                     <label sclass="nav-icon" value="👤"/>
                     <label sclass="nav-label" value="User Management"/>
-                </hbox>
+                </div>
 
                 <!-- Batch Monitoring -->
-                <hbox id="navBatch"
-                      sclass="nav-item"
-                      align="center"
-                      spacing="0">
+                <div id="navBatch" sclass="nav-item">
                     <label sclass="nav-icon" value="〜"/>
                     <label sclass="nav-label" value="Batch Monitoring"/>
-                </hbox>
+                </div>
 
                 <!-- Session Management -->
-                <hbox id="navSession"
-                      sclass="nav-item"
-                      align="center"
-                      spacing="0">
+                <div id="navSession" sclass="nav-item">
                     <label sclass="nav-icon" value="◎"/>
                     <label sclass="nav-label" value="Session Management"/>
-                </hbox>
+                </div>
 
                 <!-- Audit Logs -->
-                <hbox id="navAudit"
-                      sclass="nav-item"
-                      align="center"
-                      spacing="0">
+                <div id="navAudit" sclass="nav-item">
                     <label sclass="nav-icon" value="≡"/>
                     <label sclass="nav-label" value="Audit Logs"/>
-                </hbox>
+                </div>
 
-            </vbox>
+            </div>
 
 
             <!-- ====================================================
@@ -375,16 +353,14 @@
                  Dynamic include — swapped by ShellController
                  ==================================================== -->
 
-            <div sclass="shell-content"
-                 hflex="1"
-                 vflex="1">
+            <div sclass="shell-content">
 
                 <include id="contentArea"
                          src="/admin/roles.zul"/>
 
             </div>
 
-        </hbox>
+        </div>
 
     </div>
 

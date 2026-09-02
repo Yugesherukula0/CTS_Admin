@@ -8,7 +8,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zul.Hbox;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Label;
 
@@ -16,7 +16,7 @@ import org.zkoss.zul.Label;
  * ShellController
  *
  * Manages the top-level shell layout:
- *   - Populates header date
+ *   - Populates the header date on load
  *   - Handles sidebar nav item clicks
  *   - Swaps the <include> content area to the selected page
  *
@@ -29,12 +29,12 @@ public class ShellController extends GenericForwardComposer<Component> {
     /*
      * Page sources
      */
-    private static final String PAGE_DASHBOARD         = "/admin/dashboard.zul";
-    private static final String PAGE_ROLES             = "/admin/roles.zul";
-    private static final String PAGE_USERS             = "/admin/user.zul";
-    private static final String PAGE_BATCH_MONITORING  = "/admin/batch-monitoring.zul";
-    private static final String PAGE_SESSION_MGMT      = "/admin/session-management.zul";
-    private static final String PAGE_AUDIT_LOGS        = "/admin/audit-logs.zul";
+    private static final String PAGE_DASHBOARD        = "/admin/dashboard.zul";
+    private static final String PAGE_ROLES            = "/admin/roles.zul";
+    private static final String PAGE_USERS            = "/admin/user.zul";
+    private static final String PAGE_BATCH_MONITORING = "/admin/batch-monitoring.zul";
+    private static final String PAGE_SESSION_MGMT     = "/admin/session-management.zul";
+    private static final String PAGE_AUDIT_LOGS       = "/admin/audit-logs.zul";
 
     /*
      * Header components — auto-wired by id
@@ -45,12 +45,12 @@ public class ShellController extends GenericForwardComposer<Component> {
     /*
      * Sidebar nav items — auto-wired by id
      */
-    private Hbox navDashboard;
-    private Hbox navRoles;
-    private Hbox navUsers;
-    private Hbox navBatch;
-    private Hbox navSession;
-    private Hbox navAudit;
+    private Div navDashboard;
+    private Div navRoles;
+    private Div navUsers;
+    private Div navBatch;
+    private Div navSession;
+    private Div navAudit;
 
     /*
      * Dynamic content area — auto-wired by id
@@ -58,10 +58,10 @@ public class ShellController extends GenericForwardComposer<Component> {
     private Include contentArea;
 
     /*
-     * Track the currently active nav item
-     * so we can remove its active style when switching
+     * Tracks the currently active nav item
+     * so its active style is removed when switching
      */
-    private Hbox activeNavItem;
+    private Div activeNavItem;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -77,12 +77,12 @@ public class ShellController extends GenericForwardComposer<Component> {
         /*
          * Wire click listeners to every nav item
          */
-        wireNavItem(navDashboard,  PAGE_DASHBOARD);
-        wireNavItem(navRoles,      PAGE_ROLES);
-        wireNavItem(navUsers,      PAGE_USERS);
-        wireNavItem(navBatch,      PAGE_BATCH_MONITORING);
-        wireNavItem(navSession,    PAGE_SESSION_MGMT);
-        wireNavItem(navAudit,      PAGE_AUDIT_LOGS);
+        wireNavItem(navDashboard, PAGE_DASHBOARD);
+        wireNavItem(navRoles,     PAGE_ROLES);
+        wireNavItem(navUsers,     PAGE_USERS);
+        wireNavItem(navBatch,     PAGE_BATCH_MONITORING);
+        wireNavItem(navSession,   PAGE_SESSION_MGMT);
+        wireNavItem(navAudit,     PAGE_AUDIT_LOGS);
 
         /*
          * Default active item on load = Role Management
@@ -92,10 +92,10 @@ public class ShellController extends GenericForwardComposer<Component> {
     }
 
     /**
-     * Attaches an onClick listener to a nav item hbox.
+     * Attaches an onClick listener to a nav item div.
      * On click: marks it active, loads the target page into contentArea.
      */
-    private void wireNavItem(Hbox navItem, String pageSrc) {
+    private void wireNavItem(Div navItem, String pageSrc) {
 
         navItem.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 
@@ -112,7 +112,7 @@ public class ShellController extends GenericForwardComposer<Component> {
      * Applies the active CSS class to the selected nav item
      * and removes it from the previously active one.
      */
-    private void setActiveNav(Hbox selected) {
+    private void setActiveNav(Div selected) {
 
         /*
          * Remove active style from previous item
