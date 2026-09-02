@@ -188,6 +188,16 @@
             flex: 1 !important;
             overflow: hidden !important;
             width: 100% !important;
+            border: none !important;
+        }
+
+        /* Strip default borders ZK adds on hlayout/vlayout */
+        .shell-body > .z-hlayout-inner,
+        .shell-sidebar > .z-vlayout-inner,
+        .z-hlayout,
+        .z-vlayout {
+            border: none !important;
+            outline: none !important;
         }
 
 
@@ -271,10 +281,23 @@
             background: #F5F7FC;
         }
 
+        /* Remove any border/margin ZK adds around the included page */
         .shell-content .z-include {
             display: block;
             width: 100%;
             min-height: 100%;
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            outline: none !important;
+        }
+
+        /* ZK wraps include content in an extra div — strip its border too */
+        .shell-content > .z-div,
+        .shell-content > div {
+            border: none !important;
+            outline: none !important;
+            margin: 0 !important;
         }
 
     </style>
