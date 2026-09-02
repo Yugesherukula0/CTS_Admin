@@ -22,9 +22,9 @@
             overflow: hidden;
         }
 
+
         /* ============================================================
-           SHELL LAYOUT
-           Three areas: header (top), sidebar (left), content (right)
+           SHELL ROOT — full viewport, column layout
            ============================================================ */
 
         .shell-root {
@@ -38,108 +38,111 @@
 
         /* ============================================================
            HEADER
+           Uses plain div so display:flex works without fighting ZK
            ============================================================ */
 
-        .shell-header,
-        .shell-header.z-hlayout {
-            width: 100% !important;
-            height: 56px !important;
-            min-height: 56px !important;
-            background: #18243A !important;
-            display: flex !important;
-            align-items: center !important;
-            padding: 0 20px !important;
-            box-sizing: border-box !important;
-            flex-shrink: 0 !important;
-            z-index: 100 !important;
+        .shell-header {
+            width: 100%;
+            height: 56px;
+            min-height: 56px;
+            background: #18243A;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-sizing: border-box;
+            flex-shrink: 0;
         }
 
-        /* Hamburger ||| */
+        /* Left: ||| icon + brand title */
+        .header-left {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+
         .header-menu-icon,
         .header-menu-icon.z-label {
             color: #FFFFFF !important;
-            font-size: 18px !important;
+            font-size: 15px !important;
             font-weight: 900 !important;
-            margin-right: 12px !important;
             letter-spacing: 3px !important;
             cursor: pointer !important;
+            white-space: nowrap !important;
         }
 
-        /* CTS BANKING / DASHBOARD */
         .header-brand,
         .header-brand.z-label {
             color: #FFFFFF !important;
-            font-size: 15px !important;
+            font-size: 14px !important;
             font-weight: 700 !important;
             letter-spacing: 0.8px !important;
-            flex: 1 !important;
+            white-space: nowrap !important;
         }
 
-        /* Spacer — pushes right group to far right edge */
-        .header-spacer {
-            flex: 1 !important;
+        /* Right: date | last login | bell | avatar */
+        .header-right {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0;
         }
 
-        /* Right side container */
-        .header-right,
-        .header-right.z-hlayout {
-            display: flex !important;
-            align-items: center !important;
-            gap: 0 !important;
-        }
-
-        /* Date and Last Login groups */
-        .header-meta-group,
-        .header-meta-group.z-hlayout {
-            display: flex !important;
-            align-items: center !important;
-            gap: 5px !important;
-            padding: 0 16px !important;
+        /* Date / Last Login group */
+        .header-meta-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+            padding: 0 14px;
         }
 
         .header-meta-icon,
         .header-meta-icon.z-label {
+            color: #8A9BB5 !important;
             font-size: 13px !important;
-            color: #A0AEC0 !important;
+            flex-shrink: 0 !important;
         }
 
         .header-meta-text,
         .header-meta-text.z-label {
-            color: #A0AEC0 !important;
+            color: #8A9BB5 !important;
             font-size: 13px !important;
             white-space: nowrap !important;
         }
 
-        /* Thin vertical divider between sections */
+        /* Thin vertical divider */
         .header-divider {
-            width: 1px !important;
-            height: 20px !important;
-            background: #2E4060 !important;
-            display: inline-block !important;
-            flex-shrink: 0 !important;
+            width: 1px;
+            height: 20px;
+            background: #2E4060;
+            flex-shrink: 0;
         }
 
-        /* Notification bell wrapper */
+        /* Bell + badge wrapper */
         .header-notif {
-            position: relative !important;
-            cursor: pointer !important;
-            padding: 0 14px !important;
-            display: flex !important;
-            align-items: center !important;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 14px;
+            cursor: pointer;
         }
 
         .header-notif-icon,
         .header-notif-icon.z-label {
-            color: #A0AEC0 !important;
+            color: #8A9BB5 !important;
             font-size: 18px !important;
         }
 
-        /* Red badge on bell */
+        /* Red badge */
         .header-notif-badge,
         .header-notif-badge.z-label {
             position: absolute !important;
-            top: -2px !important;
-            right: 6px !important;
+            top: 0px !important;
+            right: 4px !important;
             background: #E53E3E !important;
             color: #FFFFFF !important;
             font-size: 10px !important;
@@ -147,37 +150,36 @@
             min-width: 16px !important;
             height: 16px !important;
             border-radius: 8px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
+            text-align: center !important;
+            line-height: 16px !important;
             padding: 0 3px !important;
-            line-height: 1 !important;
+            box-sizing: border-box !important;
         }
 
         /* Avatar circle */
         .header-avatar {
-            width: 34px !important;
-            height: 34px !important;
-            border-radius: 50% !important;
-            border: 2px solid #4A5568 !important;
-            background: #2D3748 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            cursor: pointer !important;
-            margin-left: 6px !important;
-            flex-shrink: 0 !important;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid #4A5568;
+            background: #2D3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: 4px;
+            flex-shrink: 0;
         }
 
         .header-avatar-icon,
         .header-avatar-icon.z-label {
-            color: #A0AEC0 !important;
+            color: #8A9BB5 !important;
             font-size: 16px !important;
         }
 
 
         /* ============================================================
-           BODY ROW  (sidebar + content side by side)
+           BODY ROW — sidebar + content side by side
            ============================================================ */
 
         .shell-body,
@@ -187,6 +189,7 @@
             overflow: hidden !important;
             width: 100% !important;
         }
+
 
         /* ============================================================
            SIDEBAR
@@ -204,7 +207,6 @@
             flex-shrink: 0 !important;
         }
 
-        /* Nav item wrapper — target the z-div ZK generates */
         .nav-item,
         .nav-item > .z-div {
             width: 100% !important;
@@ -223,7 +225,6 @@
             background: #26384F !important;
         }
 
-        /* Active state */
         .nav-item-active,
         .nav-item-active > .z-div {
             background: #2454D6 !important;
@@ -239,7 +240,6 @@
             color: #FFFFFF !important;
         }
 
-        /* Icon — ZK wraps label in span.z-label */
         .nav-icon,
         .nav-icon.z-label {
             color: #8CA4BE !important;
@@ -250,7 +250,6 @@
             display: inline-block !important;
         }
 
-        /* Label */
         .nav-label,
         .nav-label.z-label {
             color: #B0BBCC !important;
@@ -272,7 +271,6 @@
             background: #F5F7FC;
         }
 
-        /* ZK include fills full height */
         .shell-content .z-include {
             display: block;
             width: 100%;
@@ -282,126 +280,97 @@
     </style>
 
 
-    <!-- ============================================================
-         SHELL CONTROLLER
-         Handles sidebar navigation and content swapping
-         ============================================================ -->
-
     <div sclass="shell-root"
          apply="com.cts.admin.controller.ShellController">
 
 
         <!-- ========================================================
              HEADER
+             div used intentionally — hlayout renders as display:table
+             which breaks justify-content:space-between
              ======================================================== -->
 
-        <hlayout sclass="shell-header" spacing="0">
+        <div sclass="shell-header">
 
-            <!-- Far left: hamburger + brand -->
-            <label sclass="header-menu-icon" value="|||"/>
-            <label sclass="header-brand" value="CTS BANKING / DASHBOARD"/>
-
-            <!-- Spacer pushes right group to far right -->
-            <div sclass="header-spacer"/>
+            <!-- Far left: ||| + brand -->
+            <div sclass="header-left">
+                <label sclass="header-menu-icon" value="|||"/>
+                <label sclass="header-brand"     value="CTS BANKING / DASHBOARD"/>
+            </div>
 
             <!-- Far right: date | last login | bell | avatar -->
-            <hlayout sclass="header-right" spacing="0">
+            <div sclass="header-right">
 
-                <!-- Date -->
-                <hlayout sclass="header-meta-group" spacing="0">
+                <div sclass="header-meta-group">
                     <label sclass="header-meta-icon" value="📅"/>
-                    <label id="headerDate" sclass="header-meta-text" value=""/>
-                </hlayout>
-
-                <div sclass="header-divider"/>
-
-                <!-- Last Login -->
-                <hlayout sclass="header-meta-group" spacing="0">
-                    <label sclass="header-meta-icon" value="🕐"/>
-                    <label id="headerLastLogin" sclass="header-meta-text" value="Last Login : --"/>
-                </hlayout>
-
-                <div sclass="header-divider"/>
-
-                <!-- Notification bell with red badge -->
-                <div sclass="header-notif">
-                    <label sclass="header-notif-icon" value="🔔"/>
-                    <label id="headerNotifBadge" sclass="header-notif-badge" value="9"/>
+                    <label id="headerDate"           sclass="header-meta-text" value=""/>
                 </div>
 
-                <!-- Avatar circle -->
+                <div sclass="header-divider"/>
+
+                <div sclass="header-meta-group">
+                    <label sclass="header-meta-icon" value="🕐"/>
+                    <label id="headerLastLogin"      sclass="header-meta-text" value="Last Login : --"/>
+                </div>
+
+                <div sclass="header-divider"/>
+
+                <div sclass="header-notif">
+                    <label sclass="header-notif-icon"  value="🔔"/>
+                    <label id="headerNotifBadge"        sclass="header-notif-badge" value="9"/>
+                </div>
+
                 <div sclass="header-avatar">
                     <label sclass="header-avatar-icon" value="👤"/>
                 </div>
 
-            </hlayout>
+            </div>
 
-        </hlayout>
+        </div>
 
 
         <!-- ========================================================
              BODY ROW
-             hlayout places sidebar and content side by side
              ======================================================== -->
 
         <hlayout sclass="shell-body" spacing="0">
 
-            <!-- ====================================================
-                 SIDEBAR
-                 vlayout stacks nav items vertically
-                 ==================================================== -->
-
             <vlayout sclass="shell-sidebar" spacing="0">
 
-                <!-- Dashboard -->
                 <div id="navDashboard" sclass="nav-item">
-                    <label sclass="nav-icon" value="⌂"/>
+                    <label sclass="nav-icon"  value="⌂"/>
                     <label sclass="nav-label" value="Dashboard"/>
                 </div>
 
-                <!-- Role Management -->
                 <div id="navRoles" sclass="nav-item">
-                    <label sclass="nav-icon" value="◈"/>
+                    <label sclass="nav-icon"  value="◈"/>
                     <label sclass="nav-label" value="Role Management"/>
                 </div>
 
-                <!-- User Management -->
                 <div id="navUsers" sclass="nav-item">
-                    <label sclass="nav-icon" value="👤"/>
+                    <label sclass="nav-icon"  value="👤"/>
                     <label sclass="nav-label" value="User Management"/>
                 </div>
 
-                <!-- Batch Monitoring -->
                 <div id="navBatch" sclass="nav-item">
-                    <label sclass="nav-icon" value="〜"/>
+                    <label sclass="nav-icon"  value="〜"/>
                     <label sclass="nav-label" value="Batch Monitoring"/>
                 </div>
 
-                <!-- Session Management -->
                 <div id="navSession" sclass="nav-item">
-                    <label sclass="nav-icon" value="◎"/>
+                    <label sclass="nav-icon"  value="◎"/>
                     <label sclass="nav-label" value="Session Management"/>
                 </div>
 
-                <!-- Audit Logs -->
                 <div id="navAudit" sclass="nav-item">
-                    <label sclass="nav-icon" value="≡"/>
+                    <label sclass="nav-icon"  value="≡"/>
                     <label sclass="nav-label" value="Audit Logs"/>
                 </div>
 
             </vlayout>
 
-
-            <!-- ====================================================
-                 CONTENT AREA
-                 Dynamic include — swapped by ShellController
-                 ==================================================== -->
-
             <div sclass="shell-content">
-
-                <include id="contentArea"
-                         src="/admin/roles.zul"/>
-
+                <include id="contentArea" src="/admin/roles.zul"/>
             </div>
 
         </hlayout>
