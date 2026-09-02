@@ -21,7 +21,7 @@
            ============================================================ */
 
         .role-management-page {
-            padding: 30px 55px 40px 55px;
+            padding: 34px 40px 40px 40px;
             box-sizing: border-box;
         }
 
@@ -31,7 +31,7 @@
            ============================================================ */
 
         .role-page-header {
-            margin-bottom: 26px;
+            margin-bottom: 24px;
         }
 
         .role-page-title {
@@ -50,28 +50,6 @@
         /* ============================================================
            INFORMATION BANNER
            ============================================================ */
-
-        .role-info-box {
-            width: 100%;
-            background: #F0F7FF;
-            border: 1px solid #C7DDF7;
-            border-radius: 9px;
-            padding: 15px 20px;
-            box-sizing: border-box;
-            margin-bottom: 28px;
-        }
-
-        .role-info-icon {
-            color: #175CD3;
-            font-size: 20px;
-            font-weight: 700;
-            margin-right: 12px;
-        }
-
-        .role-info-text {
-            color: #173B73;
-            font-size: 15px;
-        }
 
 
         /* ============================================================
@@ -92,7 +70,7 @@
            ============================================================ */
 
         .system-roles-header {
-            padding: 19px 28px;
+            padding: 22px 28px;
             border-bottom: 1px solid #DDE4ED;
             box-sizing: border-box;
         }
@@ -109,7 +87,7 @@
            ============================================================ */
 
         .role-listbox {
-            margin: 0 28px 22px 28px;
+            margin: 22px 28px 28px 28px;
             border: 1px solid #D9E1EB;
             border-radius: 8px;
             box-sizing: border-box;
@@ -313,27 +291,6 @@
         <!-- ========================================================
              INFORMATION MESSAGE
              ======================================================== -->
-
-        <hbox
-            id="roleInformationBox"
-            width="100%"
-            align="center"
-            spacing="0"
-            sclass="role-info-box">
-
-            <label
-                id="roleInformationIcon"
-                value="ⓘ"
-                sclass="role-info-icon"/>
-
-            <label
-                id="roleInformationText"
-                value="The CTS system defines exactly 6 core operational roles for cheque processing across Batch Capture, Inward, and Outward clearing lifecycles."
-                sclass="role-info-text"
-                multiline="true"/>
-
-        </hbox>
-
 
         <!-- ========================================================
              SYSTEM ROLES CARD

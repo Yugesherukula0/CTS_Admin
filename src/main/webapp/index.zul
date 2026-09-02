@@ -7,14 +7,44 @@
     <style>
 
         /* ============================================================
-           RESET
+           GLOBAL BORDER RESET
+           Strip all default borders ZK adds on layout components
+           and include wrappers across the entire shell
            ============================================================ */
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
+        .z-hlayout,
+        .z-vlayout,
+        .z-hlayout-inner,
+        .z-vlayout-inner,
+        .z-include,
+        .z-div {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ZK renders hlayout/vlayout as HTML tables —
+           strip borders from the table cells too */
+        .z-hlayout td,
+        .z-vlayout td,
+        .z-hlayout tr,
+        .z-vlayout tr,
+        .z-hlayout table,
+        .z-vlayout table {
+            border: none !important;
+            border-collapse: collapse !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Also strip from the shell-root div itself */
+        .shell-root,
+        .shell-body,
+        .shell-sidebar,
+        .shell-content {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
         }
 
         html, body {
@@ -22,9 +52,9 @@
             overflow: hidden;
         }
 
+
         /* ============================================================
-           SHELL LAYOUT
-           Three areas: header (top), sidebar (left), content (right)
+           SHELL ROOT — full viewport, column layout
            ============================================================ */
 
         .shell-root {
@@ -38,100 +68,148 @@
 
         /* ============================================================
            HEADER
+           Uses plain div so display:flex works without fighting ZK
            ============================================================ */
 
-        .shell-header,
-        .shell-header.z-hlayout {
-            width: 100% !important;
-            height: 56px !important;
-            min-height: 56px !important;
-            background: #18243A !important;
-            display: flex !important;
-            align-items: center !important;
-            padding: 0 24px !important;
-            box-sizing: border-box !important;
-            flex-shrink: 0 !important;
-            z-index: 100 !important;
+        .shell-header {
+            width: 100%;
+            height: 68px;
+            min-height: 68px;
+            background: #18243A;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            box-sizing: border-box;
+            flex-shrink: 0;
         }
 
-        .header-right,
-        .header-right.z-hlayout {
-            display: flex !important;
-            align-items: center !important;
-            gap: 20px !important;
-            margin-left: auto !important;
+        /* Left: ||| icon + brand title */
+        .header-left {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
         }
 
-        .header-meta-group,
-        .header-meta-group.z-hlayout {
-            display: flex !important;
-            align-items: center !important;
-            gap: 6px !important;
-        }
-
-        .header-menu-icon {
-            color: #FFFFFF !important;
-            font-size: 20px !important;
-            font-weight: 700 !important;
-            margin-right: 14px !important;
-            cursor: pointer !important;
-            letter-spacing: 2px !important;
-        }
-
-        .header-brand {
+        .header-menu-icon,
+        .header-menu-icon.z-label {
             color: #FFFFFF !important;
             font-size: 16px !important;
+            font-weight: 900 !important;
+            letter-spacing: 3px !important;
+            cursor: pointer !important;
+            white-space: nowrap !important;
+        }
+
+        .header-brand,
+        .header-brand.z-label {
+            color: #FFFFFF !important;
+            font-size: 15px !important;
             font-weight: 700 !important;
-            letter-spacing: 0.5px !important;
-            flex: 1 !important;
+            letter-spacing: 1px !important;
+            white-space: nowrap !important;
         }
 
-        .header-meta-icon {
+        /* Right: date | last login | bell | avatar */
+        .header-right {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0;
+        }
+
+        /* Date / Last Login group */
+        .header-meta-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+            padding: 0 16px;
+        }
+
+        .header-meta-icon,
+        .header-meta-icon.z-label {
+            color: #8A9BB5 !important;
             font-size: 14px !important;
-            color: #B0BBCC !important;
+            flex-shrink: 0 !important;
         }
 
-        .header-meta-text {
-            color: #B0BBCC !important;
+        .header-meta-text,
+        .header-meta-text.z-label {
+            color: #8A9BB5 !important;
             font-size: 13px !important;
+            white-space: nowrap !important;
         }
 
+        /* Thin vertical divider */
         .header-divider {
             width: 1px;
-            height: 22px;
-            background: #2E3D56;
-            display: inline-block;
+            height: 24px;
+            background: #2E4060;
+            flex-shrink: 0;
         }
 
+        /* Bell + badge wrapper */
         .header-notif {
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
             cursor: pointer;
         }
 
-        .header-notif-icon {
-            color: #B0BBCC !important;
-            font-size: 18px !important;
+        .header-notif-icon,
+        .header-notif-icon.z-label {
+            color: #8A9BB5 !important;
+            font-size: 20px !important;
         }
 
+        /* Red badge */
+        .header-notif-badge,
+        .header-notif-badge.z-label {
+            position: absolute !important;
+            top: -1px !important;
+            right: 5px !important;
+            background: #E53E3E !important;
+            color: #FFFFFF !important;
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            min-width: 17px !important;
+            height: 17px !important;
+            border-radius: 9px !important;
+            text-align: center !important;
+            line-height: 17px !important;
+            padding: 0 3px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Avatar circle */
         .header-avatar {
-            width: 32px;
-            height: 32px;
-            background: #2E3D56;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
+            border: 2px solid #4A5568;
+            background: #2D3748;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            margin-left: 6px;
+            flex-shrink: 0;
         }
 
-        .header-avatar-icon {
-            color: #B0BBCC !important;
-            font-size: 18px !important;
+        .header-avatar-icon,
+        .header-avatar-icon.z-label {
+            color: #8A9BB5 !important;
+            font-size: 17px !important;
         }
 
 
         /* ============================================================
-           BODY ROW  (sidebar + content side by side)
+           BODY ROW — sidebar + content side by side
            ============================================================ */
 
         .shell-body,
@@ -140,7 +218,18 @@
             flex: 1 !important;
             overflow: hidden !important;
             width: 100% !important;
+            border: none !important;
         }
+
+        /* Strip default borders ZK adds on hlayout/vlayout */
+        .shell-body > .z-hlayout-inner,
+        .shell-sidebar > .z-vlayout-inner,
+        .z-hlayout,
+        .z-vlayout {
+            border: none !important;
+            outline: none !important;
+        }
+
 
         /* ============================================================
            SIDEBAR
@@ -158,7 +247,6 @@
             flex-shrink: 0 !important;
         }
 
-        /* Nav item wrapper — target the z-div ZK generates */
         .nav-item,
         .nav-item > .z-div {
             width: 100% !important;
@@ -177,7 +265,6 @@
             background: #26384F !important;
         }
 
-        /* Active state */
         .nav-item-active,
         .nav-item-active > .z-div {
             background: #2454D6 !important;
@@ -193,7 +280,6 @@
             color: #FFFFFF !important;
         }
 
-        /* Icon — ZK wraps label in span.z-label */
         .nav-icon,
         .nav-icon.z-label {
             color: #8CA4BE !important;
@@ -204,7 +290,6 @@
             display: inline-block !important;
         }
 
-        /* Label */
         .nav-label,
         .nav-label.z-label {
             color: #B0BBCC !important;
@@ -226,20 +311,27 @@
             background: #F5F7FC;
         }
 
-        /* ZK include fills full height */
+        /* Remove any border/margin ZK adds around the included page */
         .shell-content .z-include {
             display: block;
             width: 100%;
             min-height: 100%;
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            outline: none !important;
+        }
+
+        /* ZK wraps include content in an extra div — strip its border too */
+        .shell-content > .z-div,
+        .shell-content > div {
+            border: none !important;
+            outline: none !important;
+            margin: 0 !important;
         }
 
     </style>
 
-
-    <!-- ============================================================
-         SHELL CONTROLLER
-         Handles sidebar navigation and content swapping
-         ============================================================ -->
 
     <div sclass="shell-root"
          apply="com.cts.admin.controller.ShellController">
@@ -247,108 +339,91 @@
 
         <!-- ========================================================
              HEADER
-             hlayout keeps items in a single horizontal row
+             div used intentionally — hlayout renders as display:table
+             which breaks justify-content:space-between
              ======================================================== -->
 
-        <hlayout sclass="shell-header"
-                 spacing="0">
+        <div sclass="shell-header">
 
-            <label sclass="header-menu-icon" value="|||"/>
-            <label sclass="header-brand" value="CTS BANKING / DASHBOARD"/>
+            <!-- Far left: ||| + brand -->
+            <div sclass="header-left">
+                <label sclass="header-menu-icon" value="|||"/>
+                <label sclass="header-brand"     value="CTS BANKING / DASHBOARD"/>
+            </div>
 
-            <!-- Right side meta — hlayout for inline items -->
-            <hlayout sclass="header-right" spacing="0">
+            <!-- Far right: date | last login | bell | avatar -->
+            <div sclass="header-right">
 
-                <hlayout sclass="header-meta-group" spacing="4px">
+                <div sclass="header-meta-group">
                     <label sclass="header-meta-icon" value="📅"/>
-                    <label id="headerDate" sclass="header-meta-text" value=""/>
-                </hlayout>
+                    <label id="headerDate"           sclass="header-meta-text" value=""/>
+                </div>
 
                 <div sclass="header-divider"/>
 
-                <hlayout sclass="header-meta-group" spacing="4px">
+                <div sclass="header-meta-group">
                     <label sclass="header-meta-icon" value="🕐"/>
-                    <label id="headerLastLogin" sclass="header-meta-text" value="Last Login : --"/>
-                </hlayout>
+                    <label id="headerLastLogin"      sclass="header-meta-text" value="Last Login : --"/>
+                </div>
 
                 <div sclass="header-divider"/>
 
                 <div sclass="header-notif">
-                    <label sclass="header-notif-icon" value="🔔"/>
+                    <label sclass="header-notif-icon"  value="🔔"/>
+                    <label id="headerNotifBadge"        sclass="header-notif-badge" value="9"/>
                 </div>
 
                 <div sclass="header-avatar">
                     <label sclass="header-avatar-icon" value="👤"/>
                 </div>
 
-            </hlayout>
+            </div>
 
-        </hlayout>
+        </div>
 
 
         <!-- ========================================================
              BODY ROW
-             hlayout places sidebar and content side by side
              ======================================================== -->
 
         <hlayout sclass="shell-body" spacing="0">
 
-            <!-- ====================================================
-                 SIDEBAR
-                 vlayout stacks nav items vertically
-                 ==================================================== -->
-
             <vlayout sclass="shell-sidebar" spacing="0">
 
-                <!-- Dashboard -->
                 <div id="navDashboard" sclass="nav-item">
-                    <label sclass="nav-icon" value="⌂"/>
+                    <label sclass="nav-icon"  value="⌂"/>
                     <label sclass="nav-label" value="Dashboard"/>
                 </div>
 
-                <!-- Role Management -->
                 <div id="navRoles" sclass="nav-item">
-                    <label sclass="nav-icon" value="◈"/>
+                    <label sclass="nav-icon"  value="◈"/>
                     <label sclass="nav-label" value="Role Management"/>
                 </div>
 
-                <!-- User Management -->
                 <div id="navUsers" sclass="nav-item">
-                    <label sclass="nav-icon" value="👤"/>
+                    <label sclass="nav-icon"  value="👤"/>
                     <label sclass="nav-label" value="User Management"/>
                 </div>
 
-                <!-- Batch Monitoring -->
                 <div id="navBatch" sclass="nav-item">
-                    <label sclass="nav-icon" value="〜"/>
+                    <label sclass="nav-icon"  value="〜"/>
                     <label sclass="nav-label" value="Batch Monitoring"/>
                 </div>
 
-                <!-- Session Management -->
                 <div id="navSession" sclass="nav-item">
-                    <label sclass="nav-icon" value="◎"/>
+                    <label sclass="nav-icon"  value="◎"/>
                     <label sclass="nav-label" value="Session Management"/>
                 </div>
 
-                <!-- Audit Logs -->
                 <div id="navAudit" sclass="nav-item">
-                    <label sclass="nav-icon" value="≡"/>
+                    <label sclass="nav-icon"  value="≡"/>
                     <label sclass="nav-label" value="Audit Logs"/>
                 </div>
 
             </vlayout>
 
-
-            <!-- ====================================================
-                 CONTENT AREA
-                 Dynamic include — swapped by ShellController
-                 ==================================================== -->
-
             <div sclass="shell-content">
-
-                <include id="contentArea"
-                         src="/admin/roles.zul"/>
-
+                <include id="contentArea" src="/admin/roles.zul"/>
             </div>
 
         </hlayout>
