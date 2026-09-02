@@ -1,7 +1,6 @@
 package com.cts.admin.util;
 
 import java.beans.PropertyVetoException;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -20,8 +19,10 @@ public class ConnectionPool {
 			
 			dataSource = new ComboPooledDataSource();
 			Properties properties = new Properties();
-			InputStream inputStream = new FileInputStream("D:\\WS_IISPL\\CTS_Admin_Module\\src\\main\\resources\\db.properties");
+
+			InputStream inputStream = ConnectionPool.class.getClassLoader().getResourceAsStream("db.properties");
 			properties.load(inputStream);
+
 			
 			dataSource.setDriverClass(properties.getProperty("DRIVER_CLASS"));
 			dataSource.setJdbcUrl(properties.getProperty("CONNECTION_STRING"));
@@ -33,7 +34,7 @@ public class ConnectionPool {
 			dataSource.setAcquireIncrement(10);
 			dataSource.setMaxPoolSize(40);
 			
-		} catch (IOException | PropertyVetoException ex) {
+		} catch (PropertyVetoException | IOException ex) {
 			ex.printStackTrace();
 		}
 		
