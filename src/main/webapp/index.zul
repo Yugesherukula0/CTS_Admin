@@ -1,7 +1,391 @@
-<?page title="Auto Generated index.zul"?>
-<window  border="normal" >
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?page title="CTS Banking"?>
+
+<zk>
+
+    <style>
+
+        /* ============================================================
+           RESET
+           ============================================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* ============================================================
+           SHELL LAYOUT
+           Three areas: header (top), sidebar (left), content (right)
+           ============================================================ */
+
+        .shell-root {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
 
 
-    <include src="/admin/roles.zul"/>
-    <include src="/admin/user.zul"/>
-</window>
+        /* ============================================================
+           HEADER
+           ============================================================ */
+
+        .shell-header {
+            width: 100%;
+            height: 56px;
+            min-height: 56px;
+            background: #18243A;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        /* Hamburger icon */
+        .header-menu-icon {
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 700;
+            margin-right: 14px;
+            cursor: pointer;
+            letter-spacing: 2px;
+        }
+
+        /* Brand title */
+        .header-brand {
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            flex: 1;
+        }
+
+        /* Right side meta info */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #B0BBCC;
+            font-size: 13px;
+        }
+
+        .header-meta-icon {
+            font-size: 14px;
+        }
+
+        .header-divider {
+            width: 1px;
+            height: 22px;
+            background: #2E3D56;
+        }
+
+        .header-notif {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .header-notif-icon {
+            color: #B0BBCC;
+            font-size: 18px;
+        }
+
+        .header-notif-badge {
+            position: absolute;
+            top: -4px;
+            right: -6px;
+            background: #EF4444;
+            color: #FFFFFF;
+            font-size: 10px;
+            font-weight: 700;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-avatar {
+            width: 32px;
+            height: 32px;
+            background: #2E3D56;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .header-avatar-icon {
+            color: #B0BBCC;
+            font-size: 18px;
+        }
+
+
+        /* ============================================================
+           BODY ROW  (sidebar + content side by side)
+           ============================================================ */
+
+        .shell-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            width: 100%;
+        }
+
+
+        /* ============================================================
+           SIDEBAR
+           ============================================================ */
+
+        .shell-sidebar {
+            width: 200px;
+            min-width: 200px;
+            background: #1E2D45;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        /* Nav item wrapper */
+        .nav-item {
+            width: 100%;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            cursor: pointer;
+            box-sizing: border-box;
+            border-left: 3px solid transparent;
+            transition: background 0.15s;
+        }
+
+        .nav-item:hover {
+            background: #26384F;
+        }
+
+        /* Active state */
+        .nav-item-active {
+            background: #2454D6 !important;
+            border-left: 3px solid #FFFFFF;
+        }
+
+        .nav-item-active .nav-label {
+            color: #FFFFFF !important;
+            font-weight: 700 !important;
+        }
+
+        .nav-item-active .nav-icon {
+            color: #FFFFFF !important;
+        }
+
+        /* Icon */
+        .nav-icon {
+            color: #8CA4BE;
+            font-size: 16px;
+            width: 22px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Label */
+        .nav-label {
+            color: #B0BBCC;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+
+        /* ============================================================
+           CONTENT AREA
+           ============================================================ */
+
+        .shell-content {
+            flex: 1;
+            height: 100%;
+            overflow-y: auto;
+            background: #F5F7FC;
+        }
+
+        /* ZK include fills full height */
+        .shell-content .z-include {
+            display: block;
+            width: 100%;
+            min-height: 100%;
+        }
+
+    </style>
+
+
+    <!-- ============================================================
+         SHELL CONTROLLER
+         Handles sidebar navigation and content swapping
+         ============================================================ -->
+
+    <div sclass="shell-root"
+         apply="com.cts.admin.controller.ShellController">
+
+
+        <!-- ========================================================
+             HEADER
+             ======================================================== -->
+
+        <hbox sclass="shell-header"
+              width="100%"
+              align="center"
+              spacing="0">
+
+            <!-- Brand -->
+            <label sclass="header-menu-icon" value="|||"/>
+            <label sclass="header-brand" value="CTS BANKING / DASHBOARD"/>
+
+            <!-- Right side -->
+            <hbox sclass="header-right"
+                  align="center"
+                  spacing="0">
+
+                <!-- Date -->
+                <hbox sclass="header-meta" align="center" spacing="0">
+                    <label sclass="header-meta-icon" value="📅"/>
+                    <label id="headerDate" sclass="header-meta" value=""/>
+                </hbox>
+
+                <div sclass="header-divider"/>
+
+                <!-- Last Login -->
+                <hbox sclass="header-meta" align="center" spacing="0">
+                    <label sclass="header-meta-icon" value="🕐"/>
+                    <label id="headerLastLogin" sclass="header-meta" value="Last Login : --"/>
+                </hbox>
+
+                <div sclass="header-divider"/>
+
+                <!-- Notification bell -->
+                <div sclass="header-notif">
+                    <label sclass="header-notif-icon" value="🔔"/>
+                </div>
+
+                <!-- Avatar -->
+                <div sclass="header-avatar">
+                    <label sclass="header-avatar-icon" value="👤"/>
+                </div>
+
+            </hbox>
+
+        </hbox>
+
+
+        <!-- ========================================================
+             BODY ROW
+             ======================================================== -->
+
+        <hbox sclass="shell-body"
+              width="100%"
+              heights="100%"
+              spacing="0">
+
+
+            <!-- ====================================================
+                 SIDEBAR
+                 ==================================================== -->
+
+            <vbox sclass="shell-sidebar"
+                  spacing="0">
+
+                <!-- Dashboard -->
+                <hbox id="navDashboard"
+                      sclass="nav-item"
+                      align="center"
+                      spacing="0">
+                    <label sclass="nav-icon" value="⌂"/>
+                    <label sclass="nav-label" value="Dashboard"/>
+                </hbox>
+
+                <!-- Role Management -->
+                <hbox id="navRoles"
+                      sclass="nav-item"
+                      align="center"
+                      spacing="0">
+                    <label sclass="nav-icon" value="◈"/>
+                    <label sclass="nav-label" value="Role Management"/>
+                </hbox>
+
+                <!-- User Management -->
+                <hbox id="navUsers"
+                      sclass="nav-item"
+                      align="center"
+                      spacing="0">
+                    <label sclass="nav-icon" value="👤"/>
+                    <label sclass="nav-label" value="User Management"/>
+                </hbox>
+
+                <!-- Batch Monitoring -->
+                <hbox id="navBatch"
+                      sclass="nav-item"
+                      align="center"
+                      spacing="0">
+                    <label sclass="nav-icon" value="〜"/>
+                    <label sclass="nav-label" value="Batch Monitoring"/>
+                </hbox>
+
+                <!-- Session Management -->
+                <hbox id="navSession"
+                      sclass="nav-item"
+                      align="center"
+                      spacing="0">
+                    <label sclass="nav-icon" value="◎"/>
+                    <label sclass="nav-label" value="Session Management"/>
+                </hbox>
+
+                <!-- Audit Logs -->
+                <hbox id="navAudit"
+                      sclass="nav-item"
+                      align="center"
+                      spacing="0">
+                    <label sclass="nav-icon" value="≡"/>
+                    <label sclass="nav-label" value="Audit Logs"/>
+                </hbox>
+
+            </vbox>
+
+
+            <!-- ====================================================
+                 CONTENT AREA
+                 Dynamic include — swapped by ShellController
+                 ==================================================== -->
+
+            <div sclass="shell-content"
+                 hflex="1"
+                 vflex="1">
+
+                <include id="contentArea"
+                         src="/admin/roles.zul"/>
+
+            </div>
+
+        </hbox>
+
+    </div>
+
+</zk>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk>
+
+    <style>
+
+        .placeholder-page {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            background: #F5F7FC;
+            padding: 60px;
+        }
+
+        .placeholder-card {
+            background: #FFFFFF;
+            border: 1px solid #DDE4ED;
+            border-radius: 12px;
+            padding: 60px 80px;
+            text-align: center;
+            max-width: 560px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .placeholder-icon {
+            font-size: 52px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .placeholder-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #18243A;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .placeholder-subtitle {
+            font-size: 15px;
+            color: #667085;
+            line-height: 1.6;
+            display: block;
+            margin-bottom: 28px;
+        }
+
+        .placeholder-badge {
+            display: inline-block;
+            background: #FEF3C7;
+            border: 1px solid #FDE68A;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #92400E;
+        }
+
+    </style>
+
+    <div sclass="placeholder-page">
+        <div sclass="placeholder-card">
+            <label sclass="placeholder-icon" value="📋"/>
+            <label sclass="placeholder-title" value="Audit Logs"/>
+            <label sclass="placeholder-subtitle"
+                   value="This module is currently under development and has not been implemented yet. Check back in a future release."
+                   multiline="true"/>
+            <label sclass="placeholder-badge" value="🚧  Under Development"/>
+        </div>
+    </div>
+
+</zk>
