@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk>
+
+<?link rel="stylesheet" type="text/css" href="~./css/placeholder.css"?>
+
+    <div sclass="placeholder-page">
+        <vlayout sclass="placeholder-card" spacing="0">
+            <label sclass="placeholder-icon"     value="🏠"/>
+            <label sclass="placeholder-title"    value="Dashboard"/>
+            <label sclass="placeholder-subtitle"
+                   value="This module is currently under development and has not been implemented yet. Check back in a future release."
+                   multiline="true"/>
+            <label sclass="placeholder-badge"    value="🚧  Under Development"/>
+        </vlayout>
+    </div>
+
+</zk>

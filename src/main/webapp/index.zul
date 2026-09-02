@@ -1,7 +1,129 @@
-<?page title="Auto Generated index.zul"?>
-<window  border="normal" >
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?page title="CTS Banking"?>
+<?link rel="stylesheet" type="text/css" href="~./css/shell.css"?>
+
+<zk>
 
 
-    <include src="/admin/roles.zul"/>
-    <include src="/admin/user.zul"/>
-</window>
+
+    <!-- ============================================================
+         SHELL CONTROLLER
+         Handles sidebar navigation and content swapping
+         ============================================================ -->
+
+    <div sclass="shell-root"
+         apply="com.cts.admin.controller.ShellController">
+
+
+        <!-- ========================================================
+             HEADER
+             hlayout keeps items in a single horizontal row
+             ======================================================== -->
+
+        <hlayout sclass="shell-header"
+                 spacing="0">
+
+            <label sclass="header-menu-icon" value="|||"/>
+            <label sclass="header-brand" value="CTS BANKING / DASHBOARD"/>
+
+            <!-- Right side meta — hlayout for inline items -->
+            <hlayout sclass="header-right" spacing="0">
+
+                <hlayout sclass="header-meta-group" spacing="4px">
+                    <label sclass="header-meta-icon" value="📅"/>
+                    <label id="headerDate" sclass="header-meta-text" value=""/>
+                </hlayout>
+
+                <div sclass="header-divider"/>
+
+                <hlayout sclass="header-meta-group" spacing="4px">
+                    <label sclass="header-meta-icon" value="🕐"/>
+                    <label id="headerLastLogin" sclass="header-meta-text" value="Last Login : --"/>
+                </hlayout>
+
+                <div sclass="header-divider"/>
+
+                <div sclass="header-notif">
+                    <label sclass="header-notif-icon" value="🔔"/>
+                </div>
+
+                <div sclass="header-avatar">
+                    <label sclass="header-avatar-icon" value="👤"/>
+                </div>
+
+            </hlayout>
+
+        </hlayout>
+
+
+        <!-- ========================================================
+             BODY ROW
+             hlayout places sidebar and content side by side
+             ======================================================== -->
+
+        <hlayout sclass="shell-body" spacing="0">
+
+            <!-- ====================================================
+                 SIDEBAR
+                 vlayout stacks nav items vertically
+                 ==================================================== -->
+
+            <vlayout sclass="shell-sidebar" spacing="0">
+
+                <!-- Dashboard -->
+                <div id="navDashboard" sclass="nav-item">
+                    <label sclass="nav-icon" value="⌂"/>
+                    <label sclass="nav-label" value="Dashboard"/>
+                </div>
+
+                <!-- Role Management -->
+                <div id="navRoles" sclass="nav-item">
+                    <label sclass="nav-icon" value="◈"/>
+                    <label sclass="nav-label" value="Role Management"/>
+                </div>
+
+                <!-- User Management -->
+                <div id="navUsers" sclass="nav-item">
+                    <label sclass="nav-icon" value="👤"/>
+                    <label sclass="nav-label" value="User Management"/>
+                </div>
+
+                <!-- Batch Monitoring -->
+                <div id="navBatch" sclass="nav-item">
+                    <label sclass="nav-icon" value="〜"/>
+                    <label sclass="nav-label" value="Batch Monitoring"/>
+                </div>
+
+                <!-- Session Management -->
+                <div id="navSession" sclass="nav-item">
+                    <label sclass="nav-icon" value="◎"/>
+                    <label sclass="nav-label" value="Session Management"/>
+                </div>
+
+                <!-- Audit Logs -->
+                <div id="navAudit" sclass="nav-item">
+                    <label sclass="nav-icon" value="≡"/>
+                    <label sclass="nav-label" value="Audit Logs"/>
+                </div>
+
+            </vlayout>
+
+
+            <!-- ====================================================
+                 CONTENT AREA
+                 Dynamic include — swapped by ShellController
+                 ==================================================== -->
+
+            <div sclass="shell-content">
+
+                <include id="contentArea"
+                         src="/admin/roles.zul"/>
+
+            </div>
+
+        </hlayout>
+
+    </div>
+
+</zk>
