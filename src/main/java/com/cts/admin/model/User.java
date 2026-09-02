@@ -2,6 +2,7 @@ package com.cts.admin.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class User implements Serializable {
 
@@ -11,10 +12,12 @@ public class User implements Serializable {
     private String username;
     private String fullName;
     private String passwordHash;
-    private Long roleId;
+
+    private Role role;
+
     private String status;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
     private Timestamp lastLoginAt;
 
     public User() {
@@ -52,12 +55,12 @@ public class User implements Serializable {
         this.passwordHash = passwordHash;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getStatus() {
@@ -68,19 +71,19 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -90,5 +93,17 @@ public class User implements Serializable {
 
     public void setLastLoginAt(Timestamp lastLoginAt) {
         this.lastLoginAt = lastLoginAt;
+    }
+
+    @Override
+    public String toString() {
+        return "User [userId=" + userId
+                + ", username=" + username
+                + ", fullName=" + fullName
+                + ", role=" + role
+                + ", status=" + status
+                + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt
+                + ", lastLoginAt=" + lastLoginAt + "]";
     }
 }

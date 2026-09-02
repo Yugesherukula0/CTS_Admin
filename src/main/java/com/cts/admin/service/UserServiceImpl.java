@@ -8,93 +8,153 @@ import com.cts.admin.model.User;
 
 public class UserServiceImpl implements UserService {
 
-	private final UserDAO userDAO;
+    private final UserDAO userDAO;
 
-	public UserServiceImpl() {
-		userDAO = new UserDAOImpl();
-	}
+    public UserServiceImpl() {
+        userDAO = new UserDAOImpl();
+    }
 
-	public List<User> getAllUsers() {
-		return userDAO.getAllUsers();
-	}
+    @Override
+    public List<User> getUsers(int limit, int offset) {
+        return userDAO.getUsers(limit, offset);
+    }
 
-	public User getUserById(Long userId) {
-		return userDAO.getUserById(userId);
-	}
+    @Override
+    public int getUserCount() {
+        return userDAO.getUserCount();
+    }
 
-	public boolean usernameExists(String username) {
-		return userDAO.usernameExists(username);
-	}
+    @Override
+    public User getUserById(Long userId) {
+        return userDAO.getUserById(userId);
+    }
 
-	public boolean createUser(User user) {
+    @Override
+    public boolean usernameExists(String username) {
+        return userDAO.usernameExists(username);
+    }
 
-		if (user == null) {
-			return false;
-		}
+    @Override
+    public boolean createUser(User user) {
 
-		if (user.getUsername() == null || user.getUsername().trim().isEmpty()) {
-			return false;
-		}
+        if (user == null) {
+            return false;
+        }
 
-		if (user.getFullName() == null || user.getFullName().trim().isEmpty()) {
-			return false;
-		}
+        if (user.getUsername() == null
+                || user.getUsername().trim().isEmpty()) {
 
-		if (user.getRoleId() == null) {
-			return false;
-		}
+            return false;
+        }
 
-		if (usernameExists(user.getUsername().trim())) {
-			return false;
-		}
+        if (user.getFullName() == null
+                || user.getFullName().trim().isEmpty()) {
 
-		user.setUsername(user.getUsername().trim());
-		user.setFullName(user.getFullName().trim());
+            return false;
+        }
 
-		if (user.getStatus() == null || user.getStatus().trim().isEmpty()) {
-			user.setStatus("ACTIVE");
-		}
+        if (user.getRole() == null
+                || user.getRole().getRoleId() == null) {
 
-		return userDAO.createUser(user);
-	}
+            return false;
+        }
 
-	public boolean updateUser(User user) {
+        if (usernameExists(user.getUsername().trim())) {
+            return false;
+        }
 
-		if (user == null || user.getUserId() == null) {
-			return false;
-		}
+        user.setUsername(
+                user.getUsername().trim()
+        );
 
-		return userDAO.updateUser(user);
-	}
+        user.setFullName(
+                user.getFullName().trim()
+        );
 
-	public boolean updateUserStatus(Long userId, String status) {
+        if (user.getStatus() == null
+                || user.getStatus().trim().isEmpty()) {
 
-		if (userId == null || status == null || status.trim().isEmpty()) {
-			return false;
-		}
+            user.setStatus("ACTIVE");
+        }
 
-		return userDAO.updateUserStatus(userId, status);
-	}
-	@Override
-	public void deleteUser(Long userId) {
+        return userDAO.createUser(user);
+    }
 
-	    if (userId == null) {
-	        throw new IllegalArgumentException("User ID cannot be null.");
-	    }
+    @Override
+    public boolean updateUser(User user) {
 
-	    User user = userDAO.getUserById(userId);
+        if (user == null
+                || user.getUserId() == null) {
+            return false;
+        }
 
-	    if (user == null) {
-	        throw new IllegalArgumentException("User not found.");
-	    }
+        if (user.getUsername() == null
+                || user.getUsername().trim().isEmpty()) {
+            return false;
+        }
 
-	    if ("ACTIVE".equalsIgnoreCase(user.getStatus())) {
-	        throw new IllegalStateException(
-	            "Active user cannot be deleted. Deactivate the user first."
-	        );
-	    }
+        if (user.getFullName() == null
+                || user.getFullName().trim().isEmpty()) {
+            return false;
+        }
 
-	    userDAO.deleteUser(userId);
-	}
+        if (user.getRole() == null
+                || user.getRole().getRoleId() == null) {
+            return false;
+        }
 
+        user.setUsername(user.getUsername().trim());
+        user.setFullName(user.getFullName().trim());
+
+        return userDAO.updateUser(user);
+    }
+
+    @Override
+    public boolean updateUserStatus(
+            Long userId,
+            String status) {
+
+        if (userId == null
+                || status == null
+                || status.trim().isEmpty()) {
+
+            return false;
+        }
+
+        return userDAO.updateUserStatus(
+                userId,
+                status
+        );
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+
+        if (userId == null) {
+
+            throw new IllegalArgumentException(
+                    "User ID cannot be null."
+            );
+        }
+
+        User user = userDAO.getUserById(userId);
+
+        if (user == null) {
+
+            throw new IllegalArgumentException(
+                    "User not found."
+            );
+        }
+
+        if ("ACTIVE".equalsIgnoreCase(
+                user.getStatus())) {
+
+            throw new IllegalStateException(
+                    "Active user cannot be deleted. "
+                    + "Deactivate the user first."
+            );
+        }
+
+        userDAO.deleteUser(userId);
+    }
 }

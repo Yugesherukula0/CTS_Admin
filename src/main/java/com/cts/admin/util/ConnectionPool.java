@@ -19,8 +19,10 @@ public class ConnectionPool {
 			
 			dataSource = new ComboPooledDataSource();
 			Properties properties = new Properties();
+
 			InputStream inputStream = ConnectionPool.class.getClassLoader().getResourceAsStream("db.properties");
 			properties.load(inputStream);
+
 			
 			dataSource.setDriverClass(properties.getProperty("DRIVER_CLASS"));
 			dataSource.setJdbcUrl(properties.getProperty("CONNECTION_STRING"));
@@ -32,7 +34,7 @@ public class ConnectionPool {
 			dataSource.setAcquireIncrement(10);
 			dataSource.setMaxPoolSize(40);
 			
-		} catch (IOException | PropertyVetoException ex) {
+		} catch (PropertyVetoException | IOException ex) {
 			ex.printStackTrace();
 		}
 		

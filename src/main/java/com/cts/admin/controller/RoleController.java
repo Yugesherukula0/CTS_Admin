@@ -25,8 +25,10 @@ public class RoleController extends GenericForwardComposer<Component> {
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
+
         super.doAfterCompose(comp);
-        System.out.println("RoleManagementController loaded");
+
+        System.out.println("RoleController loaded");
 
         roleService = new RoleServiceImpl();
 
@@ -49,33 +51,62 @@ public class RoleController extends GenericForwardComposer<Component> {
 
                 Listitem item = new Listitem();
 
-                // Role Name
+                /*
+                 * Role Name
+                 */
                 Listcell roleNameCell = new Listcell();
-                Label roleName = new Label(role.getRoleName());
+
+                Label roleName =
+                        new Label(role.getRoleName());
+
                 roleName.setSclass("role-name");
+
                 roleNameCell.appendChild(roleName);
                 item.appendChild(roleNameCell);
 
-                // Description
+                /*
+                 * Description
+                 */
                 Listcell descriptionCell = new Listcell();
-                Label description = new Label(role.getDescription());
+
+                Label description =
+                        new Label(
+                            role.getDescription() == null
+                                ? ""
+                                : role.getDescription()
+                        );
+
                 description.setSclass("role-description");
+
                 descriptionCell.appendChild(description);
                 item.appendChild(descriptionCell);
 
-                // Status
+                /*
+                 * Status
+                 */
                 Listcell statusCell = new Listcell();
-                Label status = new Label(role.getStatus());
+
+                Label status =
+                        new Label(
+                            role.getStatus() == null
+                                ? ""
+                                : role.getStatus()
+                        );
+
                 status.setSclass("role-status");
+
                 statusCell.appendChild(status);
                 item.appendChild(statusCell);
 
-                // Created Date
+                /*
+                 * Created Date
+                 */
                 Listcell createdDateCell = new Listcell();
 
                 String formattedDate = "";
 
                 if (role.getCreatedAt() != null) {
+
                     SimpleDateFormat dateFormat =
                             new SimpleDateFormat("dd-MM-yyyy");
 
@@ -83,13 +114,18 @@ public class RoleController extends GenericForwardComposer<Component> {
                             dateFormat.format(role.getCreatedAt());
                 }
 
-                Label createdDate = new Label(formattedDate);
+                Label createdDate =
+                        new Label(formattedDate);
+
                 createdDate.setSclass("role-created-date");
 
                 createdDateCell.appendChild(createdDate);
                 item.appendChild(createdDateCell);
 
-                // Keep the Role object with the row
+                /*
+                 * Keep the complete Role object
+                 * attached to this row.
+                 */
                 item.setValue(role);
 
                 roleListbox.appendChild(item);
