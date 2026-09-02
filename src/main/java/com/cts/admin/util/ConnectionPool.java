@@ -1,7 +1,6 @@
 package com.cts.admin.util;
 
 import java.beans.PropertyVetoException;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -20,8 +19,7 @@ public class ConnectionPool {
 			
 			dataSource = new ComboPooledDataSource();
 			Properties properties = new Properties();
-			InputStream inputStream =  ConnectionPool.class
-                    .getResourceAsStream("/db.properties");
+			InputStream inputStream = ConnectionPool.class.getClassLoader().getResourceAsStream("db.properties");
 			properties.load(inputStream);
 			
 			dataSource.setDriverClass(properties.getProperty("DRIVER_CLASS"));
