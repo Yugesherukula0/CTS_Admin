@@ -61,6 +61,8 @@ public class UserController extends GenericForwardComposer<Component> {
 			List<User> users = userService.getAllUsers();
 
 			userListbox.getItems().clear();
+			
+			int serialNumber=1;
 
 			for (User user : users) {
 
@@ -72,7 +74,7 @@ public class UserController extends GenericForwardComposer<Component> {
 
 				Listcell userIdCell = new Listcell();
 
-				userIdCell.appendChild(new Label(String.valueOf(user.getUserId())));
+				userIdCell.appendChild(new Label(String.valueOf(serialNumber)));
 
 				item.appendChild(userIdCell);
 
@@ -259,6 +261,8 @@ public class UserController extends GenericForwardComposer<Component> {
 				item.setValue(user);
 
 				userListbox.appendChild(item);
+				
+				serialNumber++;
 			}
 
 		} catch (Exception e) {
@@ -267,6 +271,7 @@ public class UserController extends GenericForwardComposer<Component> {
 
 			Messagebox.show("Unable to load users.", "Error", Messagebox.OK, Messagebox.ERROR);
 		}
+		
 	}
 
 	// ============================================================
@@ -739,4 +744,6 @@ public class UserController extends GenericForwardComposer<Component> {
 					}
 				});
 	}
+	
+	
 }

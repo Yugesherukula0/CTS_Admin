@@ -20,7 +20,8 @@ public class ConnectionPool {
 			
 			dataSource = new ComboPooledDataSource();
 			Properties properties = new Properties();
-			InputStream inputStream = new FileInputStream("D:\\WS_IISPL\\CTS_Admin_Module\\src\\main\\resources\\db.properties");
+			InputStream inputStream =  ConnectionPool.class
+                    .getResourceAsStream("/db.properties");
 			properties.load(inputStream);
 			
 			dataSource.setDriverClass(properties.getProperty("DRIVER_CLASS"));
@@ -28,10 +29,10 @@ public class ConnectionPool {
 			dataSource.setUser(properties.getProperty("USER_NAME"));
 			dataSource.setPassword(properties.getProperty("PASSWORD"));
 			
-			dataSource.setInitialPoolSize(5);
-			dataSource.setMinPoolSize(5);
-			dataSource.setAcquireIncrement(5);
-			dataSource.setMaxPoolSize(20);
+			dataSource.setInitialPoolSize(10);
+			dataSource.setMinPoolSize(10);
+			dataSource.setAcquireIncrement(10);
+			dataSource.setMaxPoolSize(40);
 			
 		} catch (IOException | PropertyVetoException ex) {
 			ex.printStackTrace();
