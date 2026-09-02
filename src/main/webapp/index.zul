@@ -40,17 +40,33 @@
            HEADER
            ============================================================ */
 
-        .shell-header {
-            width: 100%;
-            height: 56px;
-            min-height: 56px;
-            background: #18243A;
-            display: flex;
-            align-items: center;
-            padding: 0 24px;
-            box-sizing: border-box;
-            flex-shrink: 0;
-            z-index: 100;
+        .shell-header,
+        .shell-header.z-hlayout {
+            width: 100% !important;
+            height: 56px !important;
+            min-height: 56px !important;
+            background: #18243A !important;
+            display: flex !important;
+            align-items: center !important;
+            padding: 0 24px !important;
+            box-sizing: border-box !important;
+            flex-shrink: 0 !important;
+            z-index: 100 !important;
+        }
+
+        .header-right,
+        .header-right.z-hlayout {
+            display: flex !important;
+            align-items: center !important;
+            gap: 20px !important;
+            margin-left: auto !important;
+        }
+
+        .header-meta-group,
+        .header-meta-group.z-hlayout {
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
         }
 
         .header-menu-icon {
@@ -68,19 +84,6 @@
             font-weight: 700 !important;
             letter-spacing: 0.5px !important;
             flex: 1 !important;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-left: auto;
-        }
-
-        .header-meta-group {
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .header-meta-icon {
@@ -131,27 +134,28 @@
            BODY ROW  (sidebar + content side by side)
            ============================================================ */
 
-        .shell-body {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-            width: 100%;
+        .shell-body,
+        .shell-body.z-hlayout {
+            display: flex !important;
+            flex: 1 !important;
+            overflow: hidden !important;
+            width: 100% !important;
         }
-
 
         /* ============================================================
            SIDEBAR
            ============================================================ */
 
-        .shell-sidebar {
-            width: 200px;
-            min-width: 200px;
-            background: #1E2D45;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            flex-shrink: 0;
+        .shell-sidebar,
+        .shell-sidebar.z-vlayout {
+            width: 200px !important;
+            min-width: 200px !important;
+            background: #1E2D45 !important;
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            overflow-y: auto !important;
+            flex-shrink: 0 !important;
         }
 
         /* Nav item wrapper — target the z-div ZK generates */
@@ -243,26 +247,29 @@
 
         <!-- ========================================================
              HEADER
+             hlayout keeps items in a single horizontal row
              ======================================================== -->
 
-        <div sclass="shell-header">
+        <hlayout sclass="shell-header"
+                 spacing="0">
 
             <label sclass="header-menu-icon" value="|||"/>
             <label sclass="header-brand" value="CTS BANKING / DASHBOARD"/>
 
-            <div sclass="header-right">
+            <!-- Right side meta — hlayout for inline items -->
+            <hlayout sclass="header-right" spacing="0">
 
-                <div sclass="header-meta-group">
+                <hlayout sclass="header-meta-group" spacing="4px">
                     <label sclass="header-meta-icon" value="📅"/>
                     <label id="headerDate" sclass="header-meta-text" value=""/>
-                </div>
+                </hlayout>
 
                 <div sclass="header-divider"/>
 
-                <div sclass="header-meta-group">
+                <hlayout sclass="header-meta-group" spacing="4px">
                     <label sclass="header-meta-icon" value="🕐"/>
                     <label id="headerLastLogin" sclass="header-meta-text" value="Last Login : --"/>
-                </div>
+                </hlayout>
 
                 <div sclass="header-divider"/>
 
@@ -274,23 +281,24 @@
                     <label sclass="header-avatar-icon" value="👤"/>
                 </div>
 
-            </div>
+            </hlayout>
 
-        </div>
+        </hlayout>
 
 
         <!-- ========================================================
              BODY ROW
-             sidebar + content area side by side via CSS flex
+             hlayout places sidebar and content side by side
              ======================================================== -->
 
-        <div sclass="shell-body">
+        <hlayout sclass="shell-body" spacing="0">
 
             <!-- ====================================================
                  SIDEBAR
+                 vlayout stacks nav items vertically
                  ==================================================== -->
 
-            <div sclass="shell-sidebar">
+            <vlayout sclass="shell-sidebar" spacing="0">
 
                 <!-- Dashboard -->
                 <div id="navDashboard" sclass="nav-item">
@@ -328,7 +336,7 @@
                     <label sclass="nav-label" value="Audit Logs"/>
                 </div>
 
-            </div>
+            </vlayout>
 
 
             <!-- ====================================================
@@ -343,7 +351,7 @@
 
             </div>
 
-        </div>
+        </hlayout>
 
     </div>
 
