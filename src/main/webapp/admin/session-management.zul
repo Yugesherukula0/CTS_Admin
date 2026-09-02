@@ -2,7 +2,7 @@
 
 <zk>
 
-<?link rel="stylesheet" type="text/css" href="/css/placeholder.css"?>
+<?link rel="stylesheet" type="text/css" href="~./css/placeholder.css"?>
 
     <div sclass="placeholder-page">
         <vlayout sclass="placeholder-card" spacing="0">

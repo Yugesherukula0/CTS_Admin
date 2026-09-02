@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?page title="CTS Banking"?>
-<?link rel="stylesheet" type="text/css" href="/css/shell.css"?>
+<?link rel="stylesheet" type="text/css" href="~./css/shell.css"?>
 
 <zk>
 
