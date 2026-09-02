@@ -7,14 +7,44 @@
     <style>
 
         /* ============================================================
-           RESET
+           GLOBAL BORDER RESET
+           Strip all default borders ZK adds on layout components
+           and include wrappers across the entire shell
            ============================================================ */
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
+        .z-hlayout,
+        .z-vlayout,
+        .z-hlayout-inner,
+        .z-vlayout-inner,
+        .z-include,
+        .z-div {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ZK renders hlayout/vlayout as HTML tables —
+           strip borders from the table cells too */
+        .z-hlayout td,
+        .z-vlayout td,
+        .z-hlayout tr,
+        .z-vlayout tr,
+        .z-hlayout table,
+        .z-vlayout table {
+            border: none !important;
+            border-collapse: collapse !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Also strip from the shell-root div itself */
+        .shell-root,
+        .shell-body,
+        .shell-sidebar,
+        .shell-content {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
         }
 
         html, body {
