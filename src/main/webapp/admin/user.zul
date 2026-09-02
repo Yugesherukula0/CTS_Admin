@@ -674,6 +674,7 @@
     <vlayout
         id="userManagementPage"
         width="100%"
+         apply="com.cts.admin.controller.UserController"
         spacing="0"
         sclass="user-management-page">
 
@@ -849,7 +850,7 @@
 
                 <listhead
                     id="userListHead"
-                    sizable="true"
+                    sizable="false"
                     menupopup="none">
 
 

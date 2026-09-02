@@ -285,7 +285,7 @@
         width="100%"
         spacing="0"
         sclass="role-management-page"
-         apply="com.cts.admin.controller.RoleManagementController">
+         apply="com.cts.admin.controller.RoleController">
 
 
         <!-- ========================================================
@@ -386,7 +386,7 @@
 
                 <listhead
                     id="roleListHead"
-                    sizable="true"
+                    sizable="false"
                     menupopup="none">
 
 

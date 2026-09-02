@@ -15,7 +15,7 @@ import com.cts.admin.model.Role;
 import com.cts.admin.service.RoleService;
 import com.cts.admin.service.RoleServiceImpl;
 
-public class RoleManagementController extends GenericForwardComposer<Component> {
+public class RoleController extends GenericForwardComposer<Component> {
 
     private static final long serialVersionUID = 1L;
 
