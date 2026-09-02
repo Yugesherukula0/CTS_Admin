@@ -1,0 +1,437 @@
+/* ============================================================
+   USER MANAGEMENT — user.zul
+   ============================================================ */
+
+.user-management-page {
+    width: 100%;
+    padding: 34px 60px 40px 60px;
+    box-sizing: border-box;
+    background: #F5F7FC;
+}
+
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+
+.user-page-header {
+    width: 100%;
+    margin-bottom: 28px;
+    box-sizing: border-box;
+}
+
+.user-page-header-left {
+    width: 100%;
+}
+
+.user-page-title {
+    color: #18243A;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+    white-space: nowrap;
+}
+
+.user-page-subtitle {
+    color: #60738F;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    margin-top: 3px;
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   CREATE USER BUTTON
+   ============================================================ */
+
+.create-user-button {
+    height: 42px;
+    width: 174px;
+    min-width: 174px;
+    background: #2454D6;
+    border: 1px solid #2454D6;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0 16px;
+    box-sizing: border-box;
+    box-shadow: none;
+}
+
+.create-user-button:hover {
+    background: #1D4ED8;
+    border-color: #1D4ED8;
+}
+
+
+/* ============================================================
+   SEARCH / FILTER CARD
+   ============================================================ */
+
+.user-filter-card {
+    width: 100%;
+    height: 87px;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED !important;
+    border-radius: 9px;
+    padding: 20px 25px;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    box-shadow: none !important;
+    overflow: hidden;
+}
+
+.user-search-container {
+    height: 45px;
+    background: #FFFFFF;
+    border: 1px solid #D9E1EB;
+    border-radius: 7px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.user-search-icon {
+    color: #8EA2BE;
+    font-size: 18px;
+    margin-left: 14px;
+    margin-right: 9px;
+}
+
+.user-search-textbox {
+    height: 43px;
+    width: 100%;
+    border: none !important;
+    background: transparent !important;
+    color: #344054;
+    font-size: 15px;
+    padding: 0;
+    box-shadow: none !important;
+    outline: none !important;
+    box-sizing: border-box;
+}
+
+.user-search-textbox:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.user-filter-label {
+    color: #60738F;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 19px;
+    margin-right: 9px;
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   FILTER COMBOBOX
+   ============================================================ */
+
+.user-filter-combobox {
+    height: 45px;
+    background: #FFFFFF;
+    border: none !important;
+    color: #344054;
+    font-size: 14px;
+    padding: 0;
+    box-sizing: border-box;
+    box-shadow: none !important;
+}
+
+.user-filter-combobox.z-combobox {
+    height: 45px;
+    background: #FFFFFF;
+    border: 1px solid #D9E1EB !important;
+    border-radius: 7px !important;
+    box-shadow: none !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.user-filter-combobox .z-combobox-input {
+    height: 43px;
+    background: #FFFFFF !important;
+    border: none !important;
+    border-right: none !important;
+    color: #344054;
+    font-size: 14px;
+    padding: 0 12px;
+    box-shadow: none !important;
+    outline: none !important;
+    box-sizing: border-box;
+}
+
+.user-filter-combobox .z-combobox-input:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.user-filter-combobox .z-combobox-button {
+    width: 44px;
+    height: 43px;
+    background: #FFFFFF !important;
+    border: none !important;
+    border-left: 1px solid #D9E1EB !important;
+    box-shadow: none !important;
+    box-sizing: border-box;
+}
+
+.user-filter-combobox .z-combobox-button:hover {
+    background: #F8FAFC !important;
+    border-left: 1px solid #D9E1EB !important;
+}
+
+.user-filter-combobox .z-combobox-button .z-icon {
+    color: #18243A;
+    font-size: 14px;
+}
+
+.role-filter-combobox {
+    width: 205px;
+    min-width: 205px;
+}
+
+.status-filter-combobox {
+    width: 158px;
+    min-width: 158px;
+}
+
+
+/* ============================================================
+   SYSTEM USERS CARD
+   ============================================================ */
+
+.system-users-card {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED !important;
+    border-radius: 9px;
+    box-sizing: border-box;
+    box-shadow: none !important;
+    overflow: hidden;
+}
+
+.system-users-header {
+    width: 100%;
+    height: 73px;
+    padding: 0 30px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border-bottom: 1px solid #DDE4ED !important;
+}
+
+.system-users-title {
+    color: #18243A;
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+
+/* ============================================================
+   USER LISTBOX
+   ============================================================ */
+
+.user-listbox {
+    width: calc(100% - 60px);
+    margin: 0 30px 22px 30px;
+    background: #FFFFFF;
+    border: 1px solid #D9E1EB !important;
+    border-radius: 8px;
+    box-sizing: border-box;
+    box-shadow: none !important;
+    overflow: hidden;
+}
+
+.user-listbox .z-listhead {
+    background: #F8FAFC;
+    border: none !important;
+}
+
+.user-listbox .z-listheader {
+    height: 62px;
+    background: #F8FAFC;
+    border-top: none !important;
+    border-left: none !important;
+    border-bottom: 1px solid #D9E1EB !important;
+    border-right: 1px solid #D9E1EB !important;
+    padding: 0 20px;
+    box-sizing: border-box;
+    box-shadow: none !important;
+}
+
+.user-listbox .z-listheader:last-child {
+    border-right: none !important;
+}
+
+.user-listbox .z-listheader-content {
+    color: #18243A;
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.user-listbox .z-listitem {
+    min-height: 80px;
+    background: #FFFFFF;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #E3E8EF !important;
+    box-shadow: none !important;
+}
+
+.user-listbox .z-listitem:last-child {
+    border-bottom: none !important;
+}
+
+.user-listbox .z-listitem:hover {
+    background: #FBFCFE;
+}
+
+.user-listbox .z-listcell {
+    background: transparent;
+    border: none !important;
+    padding: 0 20px;
+    box-sizing: border-box;
+    box-shadow: none !important;
+}
+
+.user-listbox .z-listcell-content {
+    color: #344054;
+    font-size: 15px;
+}
+
+.user-listbox .z-listbox-emptybody {
+    height: 80px;
+    color: #98A2B3;
+    font-size: 14px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   CELL LABELS
+   ============================================================ */
+
+.user-id-label {
+    color: #18243A;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.username-label {
+    color: #2454D6;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.full-name-label {
+    color: #344054;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.assigned-role-container {
+    background: #EFF6FF;
+    border-radius: 5px;
+    padding: 6px 12px;
+    box-sizing: border-box;
+}
+
+.assigned-role-label {
+    color: #2454D6;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-container {
+    width: 100%;
+}
+
+.status-badge {
+    background: #DCFCE7;
+    border: 1px solid #B7EFCA;
+    border-radius: 18px;
+    padding: 6px 13px;
+    box-sizing: border-box;
+}
+
+.status-icon {
+    color: #15803D;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 6px;
+}
+
+.status-label {
+    color: #166534;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.last-login-container {
+    width: 100%;
+}
+
+.last-login-label {
+    color: #60738F;
+    font-size: 14px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   ACTION BUTTONS
+   ============================================================ */
+
+.actions-container {
+    width: 100%;
+}
+
+.action-button {
+    width: 36px;
+    height: 40px;
+    min-width: 36px;
+    background: #FFFFFF;
+    border: 1px solid #D9E1EB;
+    border-radius: 6px;
+    padding: 0;
+    box-sizing: border-box;
+    margin-right: 7px;
+    box-shadow: none;
+}
+
+.action-button:last-child {
+    margin-right: 0;
+}
+
+.edit-button {
+    color: #475467;
+}
+
+.power-button {
+    color: #F04438;
+    background: #FFF8F8;
+    border-color: #FECACA;
+}
+
+.delete-button {
+    color: #F04438;
+    background: #FFF8F8;
+    border-color: #FECACA;
+}

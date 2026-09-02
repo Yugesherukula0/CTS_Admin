@@ -1,0 +1,162 @@
+/* ============================================================
+   ROLE MANAGEMENT — roles.zul
+   ============================================================ */
+
+.role-management-page {
+    padding: 30px 55px 40px 55px;
+    box-sizing: border-box;
+}
+
+.role-page-header {
+    margin-bottom: 26px;
+}
+
+.role-page-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #18243A;
+}
+
+.role-page-subtitle {
+    font-size: 15px;
+    color: #667085;
+    margin-top: 5px;
+}
+
+
+/* ============================================================
+   INFORMATION BANNER
+   ============================================================ */
+
+.role-info-box {
+    width: 100%;
+    background: #F0F7FF;
+    border: 1px solid #C7DDF7;
+    border-radius: 9px;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    margin-bottom: 28px;
+}
+
+.role-info-icon {
+    color: #175CD3;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 12px;
+}
+
+.role-info-text {
+    color: #173B73;
+    font-size: 15px;
+}
+
+
+/* ============================================================
+   SYSTEM ROLES CARD
+   ============================================================ */
+
+.system-roles-card {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 9px;
+    box-sizing: border-box;
+}
+
+.system-roles-header {
+    padding: 19px 28px;
+    border-bottom: 1px solid #DDE4ED;
+    box-sizing: border-box;
+}
+
+.system-roles-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #18243A;
+}
+
+
+/* ============================================================
+   ROLE LISTBOX
+   ============================================================ */
+
+.role-listbox {
+    margin: 0 28px 22px 28px;
+    border: 1px solid #D9E1EB;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+}
+
+.role-listbox .z-listhead {
+    background: #F8FAFC;
+}
+
+.role-listbox .z-listheader {
+    background: #F8FAFC;
+    border-bottom: 1px solid #D9E1EB;
+    border-right: none;
+    padding: 16px 18px;
+    box-sizing: border-box;
+}
+
+.role-listbox .z-listheader-content {
+    color: #18243A;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.role-listbox .z-listitem {
+    background: #FFFFFF;
+    border-bottom: 1px solid #E3E8EF;
+}
+
+.role-listbox .z-listitem:last-child {
+    border-bottom: none;
+}
+
+.role-listbox .z-listitem:hover {
+    background: #FAFCFF;
+}
+
+.role-listbox .z-listcell {
+    border-right: none;
+    padding: 18px;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.role-listbox .z-listcell-content {
+    font-size: 15px;
+    color: #344054;
+}
+
+.role-name {
+    color: #182230;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.role-description {
+    color: #475467;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+.role-status {
+    color: #166534;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.role-created-date {
+    color: #667085;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.role-empty-message {
+    color: #667085;
+    font-size: 14px;
+    padding: 25px;
+}
