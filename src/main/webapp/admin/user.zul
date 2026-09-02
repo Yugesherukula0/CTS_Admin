@@ -775,8 +775,24 @@
                 sclass="user-filter-combobox role-filter-combobox">
 
                 <comboitem
-                    id="allRolesItem"
-                    label="All Roles"/>
+                    id="roleInwardChecker"
+                    label="INWARD_CHECKER"/>
+                <comboitem
+                    id="roleInwardMaker"
+                    label="INWARD_MAKER"/>
+                    
+                 <comboitem
+                    id="roleOutwardMaker"
+                    label="OUTWARD_MAKER"/>
+                 <comboitem
+                    id="roleOutwardChecker"
+                    label="OUTWARD_CHECKER"/>
+                 <comboitem
+                    id="roleCaptureOperator"
+                    label="CAPTURE_OPERATOR"/>
+                 <comboitem
+                    id="roleAdmin"
+                    label="ADMIN"/>
 
             </combobox>
 
@@ -797,8 +813,11 @@
                 sclass="user-filter-combobox status-filter-combobox">
 
                 <comboitem
-                    id="allStatusesItem"
-                    label="All Statuses"/>
+                    id="userActive"
+                    label="ACTIVE"/>
+                <comboitem
+                    id="userInActive"
+                    label="INACTIVE"/>
 
             </combobox>
 
