@@ -53,48 +53,51 @@
             z-index: 100;
         }
 
-        /* Hamburger icon */
         .header-menu-icon {
-            color: #FFFFFF;
-            font-size: 20px;
-            font-weight: 700;
-            margin-right: 14px;
-            cursor: pointer;
-            letter-spacing: 2px;
+            color: #FFFFFF !important;
+            font-size: 20px !important;
+            font-weight: 700 !important;
+            margin-right: 14px !important;
+            cursor: pointer !important;
+            letter-spacing: 2px !important;
         }
 
-        /* Brand title */
         .header-brand {
-            color: #FFFFFF;
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            flex: 1;
+            color: #FFFFFF !important;
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.5px !important;
+            flex: 1 !important;
         }
 
-        /* Right side meta info */
         .header-right {
             display: flex;
             align-items: center;
             gap: 20px;
+            margin-left: auto;
         }
 
-        .header-meta {
+        .header-meta-group {
             display: flex;
             align-items: center;
             gap: 6px;
-            color: #B0BBCC;
-            font-size: 13px;
         }
 
         .header-meta-icon {
-            font-size: 14px;
+            font-size: 14px !important;
+            color: #B0BBCC !important;
+        }
+
+        .header-meta-text {
+            color: #B0BBCC !important;
+            font-size: 13px !important;
         }
 
         .header-divider {
             width: 1px;
             height: 22px;
             background: #2E3D56;
+            display: inline-block;
         }
 
         .header-notif {
@@ -103,24 +106,8 @@
         }
 
         .header-notif-icon {
-            color: #B0BBCC;
-            font-size: 18px;
-        }
-
-        .header-notif-badge {
-            position: absolute;
-            top: -4px;
-            right: -6px;
-            background: #EF4444;
-            color: #FFFFFF;
-            font-size: 10px;
-            font-weight: 700;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: #B0BBCC !important;
+            font-size: 18px !important;
         }
 
         .header-avatar {
@@ -135,8 +122,8 @@
         }
 
         .header-avatar-icon {
-            color: #B0BBCC;
-            font-size: 18px;
+            color: #B0BBCC !important;
+            font-size: 18px !important;
         }
 
 
@@ -167,27 +154,30 @@
             flex-shrink: 0;
         }
 
-        /* Nav item wrapper */
-        .nav-item {
-            width: 100%;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            cursor: pointer;
-            box-sizing: border-box;
-            border-left: 3px solid transparent;
-            transition: background 0.15s;
+        /* Nav item wrapper — target the z-div ZK generates */
+        .nav-item,
+        .nav-item > .z-div {
+            width: 100% !important;
+            height: 48px !important;
+            display: flex !important;
+            align-items: center !important;
+            padding: 0 20px !important;
+            cursor: pointer !important;
+            box-sizing: border-box !important;
+            border-left: 3px solid transparent !important;
+            transition: background 0.15s !important;
         }
 
-        .nav-item:hover {
-            background: #26384F;
+        .nav-item:hover,
+        .nav-item:hover > .z-div {
+            background: #26384F !important;
         }
 
         /* Active state */
-        .nav-item-active {
+        .nav-item-active,
+        .nav-item-active > .z-div {
             background: #2454D6 !important;
-            border-left: 3px solid #FFFFFF;
+            border-left: 3px solid #FFFFFF !important;
         }
 
         .nav-item-active .nav-label {
@@ -199,21 +189,25 @@
             color: #FFFFFF !important;
         }
 
-        /* Icon */
-        .nav-icon {
-            color: #8CA4BE;
-            font-size: 16px;
-            width: 22px;
-            margin-right: 10px;
-            flex-shrink: 0;
+        /* Icon — ZK wraps label in span.z-label */
+        .nav-icon,
+        .nav-icon.z-label {
+            color: #8CA4BE !important;
+            font-size: 16px !important;
+            width: 22px !important;
+            margin-right: 10px !important;
+            flex-shrink: 0 !important;
+            display: inline-block !important;
         }
 
         /* Label */
-        .nav-label {
-            color: #B0BBCC;
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
+        .nav-label,
+        .nav-label.z-label {
+            color: #B0BBCC !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            white-space: nowrap !important;
+            display: inline-block !important;
         }
 
 
@@ -251,49 +245,38 @@
              HEADER
              ======================================================== -->
 
-        <hbox sclass="shell-header"
-              width="100%"
-              align="center"
-              spacing="0">
+        <div sclass="shell-header">
 
-            <!-- Brand -->
             <label sclass="header-menu-icon" value="|||"/>
             <label sclass="header-brand" value="CTS BANKING / DASHBOARD"/>
 
-            <!-- Right side -->
-            <hbox sclass="header-right"
-                  align="center"
-                  spacing="0">
+            <div sclass="header-right">
 
-                <!-- Date -->
-                <hbox sclass="header-meta" align="center" spacing="0">
+                <div sclass="header-meta-group">
                     <label sclass="header-meta-icon" value="📅"/>
-                    <label id="headerDate" sclass="header-meta" value=""/>
-                </hbox>
+                    <label id="headerDate" sclass="header-meta-text" value=""/>
+                </div>
 
                 <div sclass="header-divider"/>
 
-                <!-- Last Login -->
-                <hbox sclass="header-meta" align="center" spacing="0">
+                <div sclass="header-meta-group">
                     <label sclass="header-meta-icon" value="🕐"/>
-                    <label id="headerLastLogin" sclass="header-meta" value="Last Login : --"/>
-                </hbox>
+                    <label id="headerLastLogin" sclass="header-meta-text" value="Last Login : --"/>
+                </div>
 
                 <div sclass="header-divider"/>
 
-                <!-- Notification bell -->
                 <div sclass="header-notif">
                     <label sclass="header-notif-icon" value="🔔"/>
                 </div>
 
-                <!-- Avatar -->
                 <div sclass="header-avatar">
                     <label sclass="header-avatar-icon" value="👤"/>
                 </div>
 
-            </hbox>
+            </div>
 
-        </hbox>
+        </div>
 
 
         <!-- ========================================================
