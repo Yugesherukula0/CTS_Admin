@@ -757,6 +757,17 @@
                     sclass="user-search-textbox"/>
 
             </hbox>
+            <button
+			    id="searchUserButton"
+			    label="Search"
+			    iconSclass="z-icon-search"
+			    sclass="user-filter-action-button"/>
+
+			<!-- CLEAR FILTER BUTTON -->
+			<button
+			    id="clearUserFilterButton"
+			    label="Clear"
+			    sclass="user-clear-filter-button"/>
 
 
             <!-- ROLE LABEL -->
@@ -876,25 +887,25 @@
                     <listheader
                         id="userIdHeader"
                         label="S.No"
-                        width="10%"/>
+                        width="9%"/>
 
 
                     <listheader
                         id="usernameHeader"
                         label="Username"
-                        width="15%"/>
+                        width="14%"/>
 
 
                     <listheader
                         id="fullNameHeader"
                         label="Full Name"
-                        width="15%"/>
+                        width="14%"/>
 
 
                     <listheader
                         id="assignedRoleHeader"
                         label="Assigned Role"
-                        width="18%"/>
+                        width="17%"/>
 
 
                     <listheader
@@ -907,7 +918,7 @@
                     <listheader
                         id="lastLoginHeader"
                         label="Last Login"
-                        width="10%"
+                        width="13%"
                         align="center"/>
 
 
