@@ -1,0 +1,383 @@
+/* ============================================================
+   BATCH MONITORING PAGE
+   ============================================================ */
+
+.batch-page {
+    width: 100%;
+    padding: 34px 40px 40px 40px;
+    box-sizing: border-box;
+    background: #F5F7FC;
+}
+
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+
+.batch-page-title {
+    color: #18243A;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+    display: block;
+    white-space: nowrap;
+}
+
+.batch-page-subtitle {
+    color: #60738F;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    display: block;
+    margin-top: 3px;
+    margin-bottom: 24px;
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   TAB / SEARCH CARD
+   ============================================================ */
+
+.batch-tab-card {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+/* Left group — tab buttons */
+.batch-tab-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Right group — search box + button, pinned to far right */
+.batch-tab-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+
+/* ============================================================
+   TAB BUTTONS
+   ============================================================ */
+
+.batch-tab-btn {
+    height: 38px;
+    padding: 0 20px;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 7px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: none;
+    margin-right: 8px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.batch-tab-btn:hover {
+    background: #F9FAFB;
+    border-color: #9CA3AF;
+}
+
+/* Active tab — filled blue */
+.batch-tab-active {
+    background: #2454D6 !important;
+    border-color: #2454D6 !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+}
+
+.batch-tab-active:hover {
+    background: #1D4ED8 !important;
+    border-color: #1D4ED8 !important;
+}
+
+
+/* ============================================================
+   SEARCH BOX
+   Uses a plain div so the border renders correctly —
+   hlayout renders as a table which swallows the border
+   ============================================================ */
+
+.batch-search-container {
+    height: 38px;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB !important;
+    border-radius: 7px !important;
+    min-width: 260px;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex !important;
+    align-items: center !important;
+    flex-shrink: 0;
+    padding: 0 8px;
+}
+
+.batch-search-icon {
+    color: #9CA3AF;
+    font-size: 16px;
+    margin-left: 12px;
+    margin-right: 6px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.batch-search-textbox {
+    height: 36px;
+    width: 100%;
+    border: none !important;
+    background: transparent !important;
+    color: #344054;
+    font-size: 14px;
+    padding: 0 8px 0 0;
+    box-shadow: none !important;
+    outline: none !important;
+    box-sizing: border-box;
+}
+
+.batch-search-textbox:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+/* ============================================================
+   SEARCH BUTTON
+   ============================================================ */
+
+.batch-search-btn {
+    height: 38px;
+    padding: 0 18px;
+    background: #2454D6;
+    border: 1px solid #2454D6;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: none;
+    margin-left: 8px;
+    white-space: nowrap;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.batch-search-btn:hover {
+    background: #1D4ED8;
+    border-color: #1D4ED8;
+}
+
+
+/* ============================================================
+   RESULTS CARD
+   ============================================================ */
+
+.batch-results-card {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 10px;
+    padding: 24px 28px 28px 28px;
+    box-sizing: border-box;
+}
+
+.batch-results-title {
+    color: #18243A;
+    font-size: 20px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 18px;
+}
+
+
+/* ============================================================
+   LISTBOX
+   ============================================================ */
+
+.batch-listbox {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #D9E1EB !important;
+    border-radius: 8px;
+    box-sizing: border-box;
+    box-shadow: none !important;
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   LISTBOX HEADER ROW
+   ============================================================ */
+
+.batch-listbox .z-listhead {
+    background: #F8FAFC;
+    border: none !important;
+}
+
+.batch-listbox .z-listheader {
+    height: 56px;
+    background: #F8FAFC;
+    border-top: none !important;
+    border-left: none !important;
+    border-bottom: 1px solid #D9E1EB !important;
+    border-right: none !important;
+    padding: 0 22px;
+    box-sizing: border-box;
+    box-shadow: none !important;
+}
+
+.batch-listbox .z-listheader-content {
+    color: #18243A;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   LISTBOX DATA ROWS
+   ============================================================ */
+
+.batch-listbox .z-listitem {
+    min-height: 68px;
+    background: #FFFFFF;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #F3F4F6 !important;
+    box-shadow: none !important;
+}
+
+.batch-listbox .z-listitem:last-child {
+    border-bottom: none !important;
+}
+
+.batch-listbox .z-listitem:hover {
+    background: #FBFCFE;
+}
+
+
+/* ============================================================
+   LISTBOX CELLS
+   ============================================================ */
+
+.batch-listbox .z-listcell {
+    background: transparent;
+    border: none !important;
+    padding: 0 22px;
+    box-sizing: border-box;
+    box-shadow: none !important;
+    vertical-align: middle;
+}
+
+.batch-listbox .z-listcell-content {
+    color: #344054;
+    font-size: 14px;
+}
+
+.batch-listbox .z-listbox-emptybody td {
+    color: #98A2B3;
+    font-size: 14px;
+    text-align: center;
+    padding: 32px 0;
+}
+
+
+/* ============================================================
+   CELL LABEL STYLES
+   ============================================================ */
+
+.batch-id-label {
+    color: #2454D6;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.batch-cheques-label {
+    color: #18243A;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.batch-user-label {
+    color: #344054;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   STATUS BADGE
+   ============================================================ */
+
+.batch-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 5px 14px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.batch-status-label {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Green — PROCESSED / COMPLETED / ACTIVE */
+.batch-status-green {
+    background: #DCFCE7;
+    border: 1px solid #B7EFCA;
+}
+.batch-status-green .batch-status-label {
+    color: #166534;
+}
+
+/* Amber — PENDING / IN_PROGRESS */
+.batch-status-amber {
+    background: #FEF9C3;
+    border: 1px solid #FDE68A;
+}
+.batch-status-amber .batch-status-label {
+    color: #854D0E;
+}
+
+/* Red — FAILED / REJECTED */
+.batch-status-red {
+    background: #FEE2E2;
+    border: 1px solid #FECACA;
+}
+.batch-status-red .batch-status-label {
+    color: #991B1B;
+}
+
+/* Grey — anything else */
+.batch-status-grey {
+    background: #F3F4F6;
+    border: 1px solid #D1D5DB;
+}
+.batch-status-grey .batch-status-label {
+    color: #374151;
+}
