@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk >
+
+    <!-- ============================================================
+         ROLE MANAGEMENT - CENTER CONTENT ONLY
+         
+         This page assumes your existing:
+         - Header
+         - Sidebar
+         - Main layout
+         
+         are already present in your parent ZUL.
+         ============================================================ -->
+
+
+    <style>
+
+        /* ============================================================
+           MAIN ROLE MANAGEMENT CONTENT
+           ============================================================ */
+
+        .role-management-page {
+            padding: 34px 40px 40px 40px;
+            box-sizing: border-box;
+        }
+
+
+        /* ============================================================
+           PAGE HEADER
+           ============================================================ */
+
+        .role-page-header {
+            margin-bottom: 24px;
+        }
+
+        .role-page-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #18243A;
+        }
+
+        .role-page-subtitle {
+            font-size: 15px;
+            color: #667085;
+            margin-top: 5px;
+        }
+
+
+        /* ============================================================
+           INFORMATION BANNER
+           ============================================================ */
+
+
+        /* ============================================================
+           SYSTEM ROLES CARD
+           ============================================================ */
+
+        .system-roles-card {
+            width: 100%;
+            background: #FFFFFF;
+            border: 1px solid #DDE4ED;
+            border-radius: 9px;
+            box-sizing: border-box;
+        }
+
+
+        /* ============================================================
+           CARD HEADER
+           ============================================================ */
+
+        .system-roles-header {
+            padding: 22px 28px;
+            border-bottom: 1px solid #DDE4ED;
+            box-sizing: border-box;
+        }
+
+        .system-roles-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #18243A;
+        }
+
+
+        /* ============================================================
+           ROLE LISTBOX
+           ============================================================ */
+
+        .role-listbox {
+            margin: 22px 28px 28px 28px;
+            border: 1px solid #D9E1EB;
+            border-radius: 8px;
+            box-sizing: border-box;
+            background: #FFFFFF;
+        }
+
+
+        /* ============================================================
+           LISTBOX HEADER
+           ============================================================ */
+
+        .role-listbox .z-listhead {
+            background: #F8FAFC;
+        }
+
+        .role-listbox .z-listheader {
+            background: #F8FAFC;
+            border-bottom: 1px solid #D9E1EB;
+            border-right: none;
+            padding: 16px 18px;
+            box-sizing: border-box;
+        }
+
+        .role-listbox .z-listheader-content {
+            color: #18243A;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+
+        /* ============================================================
+           LISTBOX ROW
+           ============================================================ */
+
+        .role-listbox .z-listitem {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E3E8EF;
+        }
+
+        .role-listbox .z-listitem:last-child {
+            border-bottom: none;
+        }
+
+        .role-listbox .z-listitem:hover {
+            background: #FAFCFF;
+        }
+
+
+        /* ============================================================
+           LIST CELLS
+           ============================================================ */
+
+        .role-listbox .z-listcell {
+            border-right: none;
+            padding: 18px;
+            box-sizing: border-box;
+            vertical-align: middle;
+        }
+
+        .role-listbox .z-listcell-content {
+            font-size: 15px;
+            color: #344054;
+        }
+
+
+        /* ============================================================
+           ROLE NAME
+           ============================================================ */
+
+        .role-name-layout {
+            display: flex;
+            align-items: center;
+        }
+
+        .role-icon-container {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            background: #EFF6FF;
+            border-radius: 7px;
+            margin-right: 11px;
+            box-sizing: border-box;
+        }
+
+        .role-icon {
+            color: #155EEF;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .role-name-label {
+            color: #182230;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+
+        /* ============================================================
+           DESCRIPTION
+           ============================================================ */
+
+        .role-description-label {
+            color: #475467;
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+
+        /* ============================================================
+           STATUS
+           ============================================================ */
+
+        .role-status-layout {
+            width: 100%;
+        }
+
+        .role-status-badge {
+            background: #DCFCE7;
+            border: 1px solid #B7EFCA;
+            border-radius: 18px;
+            padding: 6px 13px;
+            box-sizing: border-box;
+        }
+
+        .role-status-icon {
+            color: #15803D;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 5px;
+        }
+
+        .role-status-label {
+            color: #166534;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+
+        /* ============================================================
+           CREATED DATE
+           ============================================================ */
+
+        .role-created-date-layout {
+            width: 100%;
+        }
+
+        .role-created-date-label {
+            color: #667085;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+
+        /* ============================================================
+           EMPTY TABLE
+           ============================================================ */
+
+        .role-empty-message {
+            color: #667085;
+            font-size: 14px;
+            padding: 25px;
+        }
+
+    </style>
+
+
+    <!-- ============================================================
+         CENTER PAGE
+         ============================================================ -->
+
+    <vlayout
+        id="roleManagementPage"
+        width="100%"
+        spacing="0"
+        sclass="role-management-page"
+         apply="com.cts.admin.controller.RoleController">
+
+
+        <!-- ========================================================
+             PAGE HEADER
+             ======================================================== -->
+
+        <vlayout
+            id="rolePageHeader"
+            spacing="0"
+            sclass="role-page-header">
+
+            <label
+                id="roleManagementTitle"
+                value="Role Management"
+                sclass="role-page-title"/>
+
+            <label
+                id="roleManagementSubtitle"
+                value="Configured operational roles and their respective module permissions in the CTS application"
+                sclass="role-page-subtitle"/>
+
+        </vlayout>
+
+
+        <!-- ========================================================
+             INFORMATION MESSAGE
+             ======================================================== -->
+
+        <!-- ========================================================
+             SYSTEM ROLES CARD
+             ======================================================== -->
+
+        <div
+            id="systemRolesCard"
+            width="100%"
+            sclass="system-roles-card">
+
+
+            <!-- ====================================================
+                 CARD TITLE
+                 ==================================================== -->
+
+            <hbox
+                id="systemRolesHeader"
+                width="100%"
+                sclass="system-roles-header"
+                spacing="0">
+
+                <label
+                    id="systemRolesTitle"
+                    value="System Roles"
+                    sclass="system-roles-title"/>
+
+            </hbox>
+
+
+            <!-- ====================================================
+                 ROLE LISTBOX
+                 
+                 IMPORTANT:
+                 The listbox itself and the headings are STATIC.
+                 
+                 No role records are hardcoded here.
+                 
+                 Controller/Model will populate the rows.
+                 ==================================================== -->
+
+            <listbox
+                id="roleListbox"
+                sclass="role-listbox"
+                emptyMessage="No roles available">
+
+
+                <!-- =================================================
+                     STATIC COLUMN HEADINGS
+                     ================================================= -->
+
+                <listhead
+                    id="roleListHead"
+                    sizable="false"
+                    menupopup="none">
+
+
+                    <!-- =============================================
+                         ROLE NAME COLUMN
+                         ============================================= -->
+
+                    <listheader
+                        id="roleNameHeader"
+                        label="Role Name"
+                        width="18%"/>
+
+
+                    <!-- =============================================
+                         DESCRIPTION COLUMN
+                         ============================================= -->
+
+                    <listheader
+                        id="roleDescriptionHeader"
+                        label="Description"
+                        width="40%"/>
+
+
+                    <!-- =============================================
+                         STATUS COLUMN
+                         ============================================= -->
+
+                    <listheader
+                        id="roleStatusHeader"
+                        label="Status"
+                        width="12%"
+                        align="center"/>
+
+
+                    <!-- =============================================
+                         CREATED DATE COLUMN
+                         ============================================= -->
+
+                    <listheader
+                        id="roleCreatedDateHeader"
+                        label="Created Date"
+                        width="13%"
+                        align="center"/>
+
+                </listhead>
+
+
+                <!-- =================================================
+                     NO HARDCODED ROWS
+                     
+                     Controller will populate roleListbox.
+                     
+                     Example flow:
+                     
+                     List<Role> roles = service.getRoles();
+                     
+                     for (Role role : roles) {
+                         Listitem item = new Listitem();
+                         ...
+                         roleListbox.appendChild(item);
+                     }
+                     ================================================= -->
+
+            </listbox>
+
+        </div>
+
+    </vlayout>
+
+</zk>
