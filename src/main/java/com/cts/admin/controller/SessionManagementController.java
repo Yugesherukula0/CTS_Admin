@@ -1,6 +1,7 @@
 package com.cts.admin.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.zkoss.zk.ui.Component;
@@ -26,67 +27,156 @@ public class SessionManagementController
 
     private static final long serialVersionUID = 1L;
 
+    // =========================================================
+    // PAGE COMPONENTS
+    // =========================================================
+
+    private Vlayout currentSessionCard;
+
     private Label sessionStatusBadge;
 
     private Vlayout closedSessionContent;
+
     private Vlayout activeSessionContent;
 
     private Label activeSessionName;
+
     private Label activeSessionId;
+
     private Label activeSessionStartedAt;
+
     private Label activeSessionStartedBy;
 
     private Button beginSessionButton;
+
     private Button endSessionButton;
 
     private Listbox sessionHistoryListbox;
 
+    // =========================================================
+    // END SESSION MODAL
+    // =========================================================
+
     private Window endSessionModal;
 
     private Button modalCloseButton;
+
     private Button modalCancelButton;
+
     private Button modalConfirmButton;
 
-    private Label modalQuestion;
+    // =========================================================
+    // SERVICE
+    // =========================================================
 
-    private final SessionService sessionService;
+    private SessionService sessionService;
 
-    /*
-     * Login is not implemented.
-     * Temporary admin ID for testing.
-     */
+    // Temporary admin ID for testing
     private Long currentUserId = 1L;
 
-    private Session activeSession;
-
-
-    public SessionManagementController() {
-
-        sessionService = new SessionServiceImpl();
-    }
-
+    // =========================================================
+    // COMPOSE
+    // =========================================================
 
     @Override
-    public void doAfterCompose(Component comp)
-            throws Exception {
+    public void doAfterCompose(Component comp) throws Exception {
 
         super.doAfterCompose(comp);
 
+        System.out.println("================================");
+        System.out.println("SESSION CONTROLLER LOADED");
+        System.out.println("================================");
+
+        sessionService = new SessionServiceImpl();
+
+        // =====================================================
+        // PAGE COMPONENTS
+        // =====================================================
+
+        currentSessionCard =
+                (Vlayout) comp.getFellow("currentSessionCard");
+
+        sessionStatusBadge =
+                (Label) comp.getFellow("sessionStatusBadge");
+
+        closedSessionContent =
+                (Vlayout) comp.getFellow("closedSessionContent");
+
+        activeSessionContent =
+                (Vlayout) comp.getFellow("activeSessionContent");
+
+        activeSessionName =
+                (Label) comp.getFellow("activeSessionName");
+
+        activeSessionId =
+                (Label) comp.getFellow("activeSessionId");
+
+        activeSessionStartedAt =
+                (Label) comp.getFellow("activeSessionStartedAt");
+
+        activeSessionStartedBy =
+                (Label) comp.getFellow("activeSessionStartedBy");
+
+        beginSessionButton =
+                (Button) comp.getFellow("beginSessionButton");
+
+        endSessionButton =
+                (Button) comp.getFellow("endSessionButton");
+
+        sessionHistoryListbox =
+                (Listbox) comp.getFellow("sessionHistoryListbox");
+
+        // =====================================================
+        // END SESSION MODAL
+        // =====================================================
+
+        endSessionModal =
+                (Window) comp.getFellow("endSessionModal");
+
+        modalCloseButton =
+                (Button) endSessionModal
+                        .getFellow("modalCloseButton");
+
+        modalCancelButton =
+                (Button) endSessionModal
+                        .getFellow("modalCancelButton");
+
+        modalConfirmButton =
+                (Button) endSessionModal
+                        .getFellow("modalConfirmButton");
+
         System.out.println(
-                "SessionManagementController loaded."
+                "SUCCESS: endSessionModal found."
         );
 
-        /*
-         * Explicit event wiring.
-         *
-         * This avoids depending on
-         * onClick$componentId naming.
-         */
+        // =====================================================
+        // REGISTER EVENTS
+        // =====================================================
+
+        registerEvents();
+
+        // =====================================================
+        // LOAD SESSION
+        // =====================================================
+
+        loadSessionState();
+
+        loadSessionHistory();
+    }
+
+    // =========================================================
+    // REGISTER EVENTS
+    // =========================================================
+
+    private void registerEvents() {
+
+        // =====================================================
+        // BEGIN SESSION
+        // =====================================================
 
         beginSessionButton.addEventListener(
                 Events.ON_CLICK,
                 new EventListener<Event>() {
-                	
 
                     @Override
                     public void onEvent(Event event)
@@ -94,9 +184,11 @@ public class SessionManagementController
 
                         startSession();
                     }
-                }
-        );
+                });
 
+        // =====================================================
+        // END SESSION
+        // =====================================================
 
         endSessionButton.addEventListener(
                 Events.ON_CLICK,
@@ -106,11 +198,13 @@ public class SessionManagementController
                     public void onEvent(Event event)
                             throws Exception {
 
-                        showEndSessionConfirmation();
+                        openEndSessionModal();
                     }
-                }
-        );
+                });
 
+        // =====================================================
+        // MODAL CLOSE
+        // =====================================================
 
         modalCloseButton.addEventListener(
                 Events.ON_CLICK,
@@ -122,9 +216,11 @@ public class SessionManagementController
 
                         closeEndSessionModal();
                     }
-                }
-        );
+                });
 
+        // =====================================================
+        // MODAL CANCEL
+        // =====================================================
 
         modalCancelButton.addEventListener(
                 Events.ON_CLICK,
@@ -136,9 +232,11 @@ public class SessionManagementController
 
                         closeEndSessionModal();
                     }
-                }
-        );
+                });
 
+        // =====================================================
+        // MODAL CONFIRM
+        // =====================================================
 
         modalConfirmButton.addEventListener(
                 Events.ON_CLICK,
@@ -150,194 +248,47 @@ public class SessionManagementController
 
                         endSession();
                     }
-                }
-        );
-
-
-        /*
-         * Load current GLOBAL session from DB.
-         */
-        loadSessionState();
-
-
-        /*
-         * Load session history.
-         */
-        loadSessionHistory();
+                });
     }
 
-
-    /*
-     * ============================================================
-     * LOAD SESSION STATE
-     * ============================================================
-     */
-
-    private void loadSessionState() {
-
-        activeSession =
-                sessionService.getActiveSession();
-
-
-        if (activeSession == null) {
-
-            showClosedState();
-
-        } else {
-
-            showActiveState();
-        }
-    }
-
-
-    /*
-     * ============================================================
-     * CLOSED STATE
-     * ============================================================
-     */
-
-    private void showClosedState() {
-
-        sessionStatusBadge.setValue(
-                "NO ACTIVE SESSION"
-        );
-
-        sessionStatusBadge.setSclass(
-                "status-badge status-inactive"
-        );
-
-        closedSessionContent.setVisible(true);
-
-        activeSessionContent.setVisible(false);
-    }
-
-
-    /*
-     * ============================================================
-     * ACTIVE STATE
-     * ============================================================
-     */
-
-    private void showActiveState() {
-
-        sessionStatusBadge.setValue(
-                "ACTIVE"
-        );
-
-        sessionStatusBadge.setSclass(
-                "status-badge status-active"
-        );
-
-        closedSessionContent.setVisible(false);
-
-        activeSessionContent.setVisible(true);
-
-
-        activeSessionName.setValue(
-                "Clearing Session Active"
-        );
-
-        activeSessionId.setValue(
-                "Session ID: "
-                + activeSession.getSessionId()
-        );
-
-        activeSessionStartedAt.setValue(
-                "Started At: "
-                + formatTimestamp(
-                        activeSession.getStartedAt()
-                )
-        );
-
-        activeSessionStartedBy.setValue(
-                "Started By: Admin "
-                + activeSession.getStartedBy()
-        );
-    }
-
-
-    /*
-     * ============================================================
-     * START SESSION
-     * ============================================================
-     */
+    // =========================================================
+    // START SESSION
+    // =========================================================
 
     private void startSession() {
 
-        System.out.println(
-                "Begin Session button clicked."
-        );
-
         try {
 
-            /*
-             * Always check the database.
-             *
-             * The session is GLOBAL.
-             */
+            sessionService.startSession(currentUserId);
 
-            Session existingSession =
-                    sessionService.getActiveSession();
+            Messagebox.show(
+                    "Internal processing session started successfully.",
+                    "Session Started",
+                    Messagebox.OK,
+                    Messagebox.INFORMATION
+            );
 
+            loadSessionState();
 
-            if (existingSession != null) {
-
-                Messagebox.show(
-                        "An internal processing session is already active.",
-                        "Session Already Active",
-                        Messagebox.OK,
-                        Messagebox.EXCLAMATION
-                );
-
-                loadSessionState();
-
-                return;
-            }
-
-
-            /*
-             * Create GLOBAL ACTIVE session.
-             */
-
-            boolean started =
-                    sessionService.startSession(
-                            currentUserId
-                    );
-
-
-            if (started) {
-
-                Messagebox.show(
-                        "Internal processing session started successfully.",
-                        "Session Started",
-                        Messagebox.OK,
-                        Messagebox.INFORMATION
-                );
-
-                loadSessionState();
-
-                loadSessionHistory();
-            }
-
+            loadSessionHistory();
 
         } catch (IllegalStateException e) {
 
             Messagebox.show(
                     e.getMessage(),
-                    "Session",
+                    "Session Already Active",
                     Messagebox.OK,
                     Messagebox.EXCLAMATION
             );
 
             loadSessionState();
 
-
         } catch (Exception e) {
 
             e.printStackTrace();
 
             Messagebox.show(
-                    "Unable to start internal processing session.",
+                    "Unable to start the internal processing session.",
                     "Error",
                     Messagebox.OK,
                     Messagebox.ERROR
@@ -345,120 +296,122 @@ public class SessionManagementController
         }
     }
 
+    // =========================================================
+    // OPEN END SESSION MODAL
+    // =========================================================
 
-    /*
-     * ============================================================
-     * SHOW END SESSION CONFIRMATION
-     * ============================================================
-     */
+    private void openEndSessionModal() {
 
-    private void showEndSessionConfirmation() {
-
-        System.out.println(
-                "End Session button clicked."
-        );
-
-
-        /*
-         * Always get the latest active session.
-         */
-
-        activeSession =
+        Session activeSession =
                 sessionService.getActiveSession();
-
 
         if (activeSession == null) {
 
-            loadSessionState();
-
             Messagebox.show(
-                    "No active internal processing session exists.",
-                    "Session",
+                    "There is no active internal processing session.",
+                    "No Active Session",
                     Messagebox.OK,
                     Messagebox.EXCLAMATION
             );
 
+            loadSessionState();
+
             return;
         }
 
-
-        modalQuestion.setValue(
-                "Are you sure you want to end Session "
-                + activeSession.getSessionId()
-                + "?"
+        System.out.println(
+                "Opening End Session Modal"
         );
 
+        System.out.println(
+                "Active Session ID: "
+                + activeSession.getSessionId()
+        );
 
         endSessionModal.setVisible(true);
+
+        endSessionModal.doModal();
     }
 
-
-    /*
-     * ============================================================
-     * CLOSE MODAL
-     * ============================================================
-     */
+    // =========================================================
+    // CLOSE END SESSION MODAL
+    // =========================================================
 
     private void closeEndSessionModal() {
 
-        endSessionModal.setVisible(false);
+        if (endSessionModal != null) {
+
+            endSessionModal.setVisible(false);
+        }
     }
 
-
-    /*
-     * ============================================================
-     * END SESSION
-     * ============================================================
-     */
+    // =========================================================
+    // END SESSION
+    // =========================================================
 
     private void endSession() {
 
-        System.out.println(
-                "Confirm End Session button clicked."
-        );
-
-
-        /*
-         * Get the current GLOBAL active session again.
-         */
-
-        activeSession =
-                sessionService.getActiveSession();
-
-
-        if (activeSession == null) {
-
-            endSessionModal.setVisible(false);
-
-            loadSessionState();
-
-            Messagebox.show(
-                    "No active internal processing session exists.",
-                    "Session",
-                    Messagebox.OK,
-                    Messagebox.EXCLAMATION
-            );
-
-            return;
-        }
-
+        System.out.println("================================");
+        System.out.println("CONFIRM END SESSION CLICKED");
+        System.out.println("================================");
 
         try {
 
-            Long sessionId =
-                    activeSession.getSessionId();
+            // =================================================
+            // GET GLOBAL ACTIVE SESSION
+            // =================================================
 
+            Session activeSession =
+                    sessionService.getActiveSession();
+
+            if (activeSession == null) {
+
+                closeEndSessionModal();
+
+                Messagebox.show(
+                        "There is no active internal processing session.",
+                        "No Active Session",
+                        Messagebox.OK,
+                        Messagebox.EXCLAMATION
+                );
+
+                loadSessionState();
+
+                loadSessionHistory();
+
+                return;
+            }
+
+            System.out.println(
+                    "Active Session ID: "
+                    + activeSession.getSessionId()
+            );
+
+            // =================================================
+            // END SESSION
+            // =================================================
 
             boolean ended =
                     sessionService.endSession(
-                            sessionId,
+                            activeSession.getSessionId(),
                             currentUserId
                     );
 
+            // =================================================
+            // CLOSE MODAL
+            // =================================================
+
+            closeEndSessionModal();
+
+            // =================================================
+            // RESULT
+            // =================================================
 
             if (ended) {
 
-                endSessionModal.setVisible(false);
+                System.out.println(
+                        "SESSION ENDED SUCCESSFULLY"
+                );
 
                 Messagebox.show(
                         "Internal processing session ended successfully.",
@@ -467,41 +420,38 @@ public class SessionManagementController
                         Messagebox.INFORMATION
                 );
 
-
-                /*
-                 * Database should now contain:
-                 *
-                 * status = ENDED
-                 */
-
+                // Refresh current state
                 loadSessionState();
 
+                // Refresh history
                 loadSessionHistory();
+
+            } else {
+
+                System.out.println(
+                        "SESSION WAS NOT ENDED"
+                );
+
+                Messagebox.show(
+                        "Unable to end the internal processing session.",
+                        "Error",
+                        Messagebox.OK,
+                        Messagebox.ERROR
+                );
             }
-
-
-        } catch (IllegalStateException e) {
-
-            endSessionModal.setVisible(false);
-
-            Messagebox.show(
-                    e.getMessage(),
-                    "Session",
-                    Messagebox.OK,
-                    Messagebox.EXCLAMATION
-            );
-
-            loadSessionState();
-
 
         } catch (Exception e) {
 
+            System.out.println(
+                    "ERROR WHILE ENDING SESSION"
+            );
+
             e.printStackTrace();
 
-            endSessionModal.setVisible(false);
+            closeEndSessionModal();
 
             Messagebox.show(
-                    "Unable to end internal processing session.",
+                    "Unable to end the internal processing session.",
                     "Error",
                     Messagebox.OK,
                     Messagebox.ERROR
@@ -509,228 +459,244 @@ public class SessionManagementController
         }
     }
 
+    // =========================================================
+    // LOAD CURRENT SESSION
+    // =========================================================
 
-    /*
-     * ============================================================
-     * SESSION HISTORY
-     * ============================================================
-     */
+    private void loadSessionState() {
+
+        Session activeSession =
+                sessionService.getActiveSession();
+
+        // =====================================================
+        // NO ACTIVE SESSION
+        // =====================================================
+
+        if (activeSession == null) {
+
+            closedSessionContent.setVisible(true);
+
+            activeSessionContent.setVisible(false);
+
+            sessionStatusBadge.setValue(
+                    "NO ACTIVE SESSION"
+            );
+
+            sessionStatusBadge.setSclass(
+                    "status-badge status-inactive"
+            );
+
+            return;
+        }
+
+        // =====================================================
+        // ACTIVE SESSION
+        // =====================================================
+
+        closedSessionContent.setVisible(false);
+
+        activeSessionContent.setVisible(true);
+
+        sessionStatusBadge.setValue(
+                "ACTIVE SESSION"
+        );
+
+        sessionStatusBadge.setSclass(
+                "status-badge status-active"
+        );
+
+        activeSessionName.setValue(
+                "Clearing Session"
+        );
+
+        activeSessionId.setValue(
+                "Session ID : "
+                + activeSession.getSessionId()
+        );
+
+        // =====================================================
+        // STARTED AT
+        // =====================================================
+
+        if (activeSession.getStartedAt() != null) {
+
+            activeSessionStartedAt.setValue(
+                    "Started At : "
+                    + formatDateTime(
+                            activeSession.getStartedAt()
+                    )
+            );
+
+        } else {
+
+            activeSessionStartedAt.setValue(
+                    "Started At : -"
+            );
+        }
+
+        // =====================================================
+        // STARTED BY
+        // =====================================================
+
+        if (activeSession.getStartedBy() != null) {
+
+            activeSessionStartedBy.setValue(
+                    "Started By : Admin "
+                    + activeSession.getStartedBy()
+            );
+
+        } else {
+
+            activeSessionStartedBy.setValue(
+                    "Started By : -"
+            );
+        }
+    }
+
+    // =========================================================
+    // LOAD SESSION HISTORY
+    // =========================================================
 
     private void loadSessionHistory() {
 
         sessionHistoryListbox.getItems().clear();
 
-
         List<Session> sessions =
                 sessionService.getAllSessions();
 
+        if (sessions == null
+                || sessions.isEmpty()) {
+
+            return;
+        }
 
         for (Session session : sessions) {
 
             Listitem item =
                     new Listitem();
 
-
-            /*
-             * Session ID
-             */
-
-            Listcell sessionIdCell =
-                    new Listcell();
-
-            sessionIdCell.appendChild(
-                    new Label(
-                            String.valueOf(
-                                    session.getSessionId()
-                            )
+            // Session ID
+            item.appendChild(
+                    createCell(
+                            session.getSessionId() != null
+                                    ? String.valueOf(
+                                            session.getSessionId())
+                                    : "-"
                     )
             );
 
-            item.appendChild(sessionIdCell);
-
-
-            /*
-             * Session Name
-             */
-
-            Listcell sessionNameCell =
-                    new Listcell();
-
-            sessionNameCell.appendChild(
-                    new Label(
-                            "Clearing Session"
+            // Start Date
+            item.appendChild(
+                    createCell(
+                            session.getStartedAt() != null
+                                    ? formatDate(
+                                            session.getStartedAt())
+                                    : "-"
                     )
             );
 
-            item.appendChild(sessionNameCell);
-
-
-            /*
-             * Session Type
-             */
-
-            Listcell sessionTypeCell =
-                    new Listcell();
-
-            sessionTypeCell.appendChild(
-                    new Label(
-                            "Internal Processing"
+            // Start Time
+            item.appendChild(
+                    createCell(
+                            session.getStartedAt() != null
+                                    ? formatTime(
+                                            session.getStartedAt())
+                                    : "-"
                     )
             );
 
-            item.appendChild(sessionTypeCell);
-
-
-            /*
-             * Start Date
-             */
-
-            Listcell startDateCell =
-                    new Listcell();
-
-            startDateCell.appendChild(
-                    new Label(
-                            formatDate(
-                                    session.getStartedAt()
-                            )
+            // End Time
+            item.appendChild(
+                    createCell(
+                            session.getEndedAt() != null
+                                    ? formatTime(
+                                            session.getEndedAt())
+                                    : "-"
                     )
             );
 
-            item.appendChild(startDateCell);
-
-
-            /*
-             * Start Time
-             */
-
-            Listcell startTimeCell =
-                    new Listcell();
-
-            startTimeCell.appendChild(
-                    new Label(
-                            formatTime(
-                                    session.getStartedAt()
-                            )
+            // Status
+            item.appendChild(
+                    createCell(
+                            session.getStatus() != null
+                                    ? session.getStatus()
+                                    : "-"
                     )
             );
 
-            item.appendChild(startTimeCell);
-
-
-            /*
-             * End Time
-             */
-
-            Listcell endTimeCell =
-                    new Listcell();
-
-            endTimeCell.appendChild(
-                    new Label(
-                            session.getEndedAt() == null
-                                    ? "-"
-                                    : formatTime(
-                                            session.getEndedAt()
-                                    )
-                    )
-            );
-
-            item.appendChild(endTimeCell);
-
-
-            /*
-             * Status
-             */
-
-            Listcell statusCell =
-                    new Listcell();
-
-            statusCell.appendChild(
-                    new Label(
-                            session.getStatus()
-                    )
-            );
-
-            item.appendChild(statusCell);
-
-
-            /*
-             * Started By
-             */
-
-            Listcell startedByCell =
-                    new Listcell();
-
-            startedByCell.appendChild(
-                    new Label(
-                            session.getStartedBy() == null
-                                    ? "-"
-                                    : "Admin "
+            // Started By
+            item.appendChild(
+                    createCell(
+                            session.getStartedBy() != null
+                                    ? "Admin "
                                       + session.getStartedBy()
+                                    : "-"
                     )
             );
 
-            item.appendChild(startedByCell);
-
-
-            /*
-             * Ended By
-             */
-
-            Listcell endedByCell =
-                    new Listcell();
-
-            endedByCell.appendChild(
-                    new Label(
-                            session.getEndedBy() == null
-                                    ? "-"
-                                    : "Admin "
+            // Ended By
+            item.appendChild(
+                    createCell(
+                            session.getEndedBy() != null
+                                    ? "Admin "
                                       + session.getEndedBy()
+                                    : "-"
                     )
             );
-
-            item.appendChild(endedByCell);
-
 
             sessionHistoryListbox.appendChild(item);
         }
     }
 
+    // =========================================================
+    // CREATE CELL
+    // =========================================================
 
-    private String formatTimestamp(
-            java.sql.Timestamp timestamp) {
+    private Listcell createCell(String value) {
 
-        if (timestamp == null) {
-            return "-";
-        }
+        Listcell cell =
+                new Listcell();
 
-        return new SimpleDateFormat(
-                "dd MMM yyyy, hh:mm a"
-        ).format(timestamp);
+        Label label =
+                new Label();
+
+        label.setValue(value);
+
+        cell.appendChild(label);
+
+        return cell;
     }
 
+    // =========================================================
+    // DATE FORMAT
+    // =========================================================
 
-    private String formatDate(
-            java.sql.Timestamp timestamp) {
-
-        if (timestamp == null) {
-            return "-";
-        }
+    private String formatDate(Date date) {
 
         return new SimpleDateFormat(
                 "dd MMM yyyy"
-        ).format(timestamp);
+        ).format(date);
     }
 
+    // =========================================================
+    // TIME FORMAT
+    // =========================================================
 
-    private String formatTime(
-            java.sql.Timestamp timestamp) {
-
-        if (timestamp == null) {
-            return "-";
-        }
+    private String formatTime(Date date) {
 
         return new SimpleDateFormat(
                 "hh:mm a"
-        ).format(timestamp);
+        ).format(date);
+    }
+
+    // =========================================================
+    // DATE + TIME FORMAT
+    // =========================================================
+
+    private String formatDateTime(Date date) {
+
+        return new SimpleDateFormat(
+                "dd MMM yyyy hh:mm a"
+        ).format(date);
     }
 }
