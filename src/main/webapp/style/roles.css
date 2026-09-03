@@ -1,0 +1,229 @@
+/* ============================================================
+   ROLE MANAGEMENT PAGE
+   ============================================================ */
+
+.role-management-page {
+    padding: 34px 40px 40px 40px;
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+
+.role-page-header {
+    margin-bottom: 24px;
+}
+
+.role-page-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #18243A;
+}
+
+.role-page-subtitle {
+    font-size: 15px;
+    color: #667085;
+    margin-top: 5px;
+}
+
+
+/* ============================================================
+   SYSTEM ROLES CARD
+   ============================================================ */
+
+.system-roles-card {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 9px;
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   CARD HEADER
+   ============================================================ */
+
+.system-roles-header {
+    padding: 22px 28px;
+    border-bottom: 1px solid #DDE4ED;
+    box-sizing: border-box;
+}
+
+.system-roles-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #18243A;
+}
+
+
+/* ============================================================
+   ROLE LISTBOX
+   ============================================================ */
+
+.role-listbox {
+    margin: 22px 28px 28px 28px;
+    border: 1px solid #D9E1EB;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+}
+
+
+/* ============================================================
+   LISTBOX HEADER
+   ============================================================ */
+
+.role-listbox .z-listhead {
+    background: #F8FAFC;
+}
+
+.role-listbox .z-listheader {
+    background: #F8FAFC;
+    border-bottom: 1px solid #D9E1EB;
+    border-right: none;
+    padding: 16px 18px;
+    box-sizing: border-box;
+}
+
+.role-listbox .z-listheader-content {
+    color: #18243A;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   LISTBOX ROW
+   ============================================================ */
+
+.role-listbox .z-listitem {
+    background: #FFFFFF;
+    border-bottom: 1px solid #E3E8EF;
+}
+
+.role-listbox .z-listitem:last-child {
+    border-bottom: none;
+}
+
+.role-listbox .z-listitem:hover {
+    background: #FAFCFF;
+}
+
+
+/* ============================================================
+   LIST CELLS
+   ============================================================ */
+
+.role-listbox .z-listcell {
+    border-right: none;
+    padding: 18px;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.role-listbox .z-listcell-content {
+    font-size: 15px;
+    color: #344054;
+}
+
+
+/* ============================================================
+   ROLE NAME
+   ============================================================ */
+
+.role-name-layout {
+    display: flex;
+    align-items: center;
+}
+
+.role-icon-container {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    background: #EFF6FF;
+    border-radius: 7px;
+    margin-right: 11px;
+    box-sizing: border-box;
+}
+
+.role-icon {
+    color: #155EEF;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.role-name-label {
+    color: #182230;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   DESCRIPTION
+   ============================================================ */
+
+.role-description-label {
+    color: #475467;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+
+/* ============================================================
+   STATUS
+   ============================================================ */
+
+.role-status-layout {
+    width: 100%;
+}
+
+.role-status-badge {
+    background: #DCFCE7;
+    border: 1px solid #B7EFCA;
+    border-radius: 18px;
+    padding: 6px 13px;
+    box-sizing: border-box;
+}
+
+.role-status-icon {
+    color: #15803D;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+.role-status-label {
+    color: #166534;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   CREATED DATE
+   ============================================================ */
+
+.role-created-date-layout {
+    width: 100%;
+}
+
+.role-created-date-label {
+    color: #667085;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+
+/* ============================================================
+   EMPTY TABLE
+   ============================================================ */
+
+.role-empty-message {
+    color: #667085;
+    font-size: 14px;
+    padding: 25px;
+}
