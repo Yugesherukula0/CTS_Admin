@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<zk apply="com.cts.admin.controller.SessionManagementController">
+<zk>
 
     <style src="/css/sessionManagement.css"/>
 
@@ -12,8 +12,8 @@
         id="sessionManagementPage"
         width="100%"
         spacing="0"
-        sclass="session-page">
-
+        sclass="session-page"
+        apply="com.cts.admin.controller.SessionManagementController">
 
         <!-- ========================================================
              PAGE HEADER
@@ -38,7 +38,6 @@
             id="currentSessionCard"
             sclass="current-session-card"
             spacing="0">
-
 
             <!-- TOP ROW -->
 
@@ -132,7 +131,6 @@
             sclass="history-card"
             spacing="0">
 
-
             <!-- HISTORY TITLE -->
 
             <hlayout
@@ -162,19 +160,12 @@
                 span="true"
                 emptyMessage="No session history available">
 
-                <listhead sclass="history-listhead">
+                <listhead
+                    sclass="history-listhead">
 
                     <listheader
                         label="Session ID"
                         width="14%"/>
-
-                    <listheader
-                        label="Session Name"
-                        width="13%"/>
-
-                    <listheader
-                        label="Session Type"
-                        width="12%"/>
 
                     <listheader
                         label="Start Date"
@@ -202,108 +193,93 @@
 
                 </listhead>
 
-                <!--
-                =====================================================
-                CONTROLLER-POPULATED ROWS
-
-                Example row structure for SessionManagementController:
-
-                <listitem>
-                    <listcell><label sclass="session-id"          value="SES-20260903-04"/></listcell>
-                    <listcell><label sclass="session-name"        value="Morning Session"/></listcell>
-                    <listcell><label sclass="session-type"        value="Regular Clearing"/></listcell>
-                    <listcell><label sclass="session-date"        value="03 Sept 2026"/></listcell>
-                    <listcell><label sclass="start-time"          value="09:56 AM"/></listcell>
-                    <listcell><label sclass="in-progress"         value="In Progress"/></listcell>
-                    <listcell><label sclass="table-status-active" value="&#x2713; ACTIVE"/></listcell>
-                    <listcell><label sclass="session-user"        value="Demo User"/></listcell>
-                    <listcell><label sclass="session-user"        value="-"/></listcell>
-                </listitem>
-                =====================================================
-                -->
-
             </listbox>
 
         </vlayout>
 
-    </vlayout>
+
+        <!-- ========================================================
+             END SESSION CONFIRMATION MODAL
+
+             IMPORTANT:
+             This is now INSIDE sessionManagementPage so that
+             SessionManagementController can access it using
+             comp.getFellow("endSessionModal").
+             ======================================================== -->
+
+        <window
+            id="endSessionModal"
+            sclass="end-session-modal"
+            border="none"
+            closable="false"
+            sizable="false"
+            position="center"
+            mode="modal"
+            visible="false">
+
+            <vlayout spacing="0">
+
+                <!-- MODAL HEADER -->
+
+                <hlayout
+                    sclass="modal-header"
+                    spacing="0"
+                    valign="middle">
+
+                    <label
+                        sclass="modal-title"
+                        hflex="1"
+                        value="Confirm End Session"/>
+
+                    <button
+                        id="modalCloseButton"
+                        sclass="modal-close"
+                        label="&#x00D7;"/>
+
+                </hlayout>
 
 
-    <!-- ============================================================
-         END SESSION CONFIRMATION MODAL
-         ============================================================ -->
+                <!-- MODAL BODY -->
 
-    <window
-        id="endSessionModal"
-        sclass="end-session-modal"
-        border="none"
-        closable="false"
-        sizable="false"
-        position="center"
-        mode="modal"
-        visible="false">
+                <vlayout
+                    sclass="modal-body"
+                    spacing="0">
 
-        <vlayout spacing="0">
+                    <label
+                        id="modalQuestion"
+                        sclass="modal-question"
+                        value="Are you sure you want to end the active session?"/>
 
-            <!-- MODAL HEADER -->
+                    <label
+                        sclass="modal-description"
+                        value="Ending the session will close the clearing window for current intake. Completed batches will remain tracked and logged."/>
 
-            <hlayout
-                sclass="modal-header"
-                spacing="0"
-                valign="middle">
-
-                <label
-                    sclass="modal-title"
-                    hflex="1"
-                    value="Confirm End Session"/>
-
-                <button
-                    id="modalCloseButton"
-                    sclass="modal-close"
-                    label="&#x00D7;"/>
-
-            </hlayout>
+                </vlayout>
 
 
-            <!-- MODAL BODY -->
+                <!-- MODAL FOOTER -->
 
-            <vlayout
-                sclass="modal-body"
-                spacing="0">
+                <hlayout
+                    sclass="modal-footer"
+                    spacing="12px"
+                    valign="middle">
 
-                <label
-                    id="modalQuestion"
-                    sclass="modal-question"
-                    value="Are you sure you want to end the active session?"/>
+                    <button
+                        id="modalCancelButton"
+                        sclass="modal-cancel"
+                        label="Cancel"/>
 
-                <label
-                    sclass="modal-description"
-                    value="Ending the session will close the clearing window for current intake. Completed batches will remain tracked and logged."/>
+                    <button
+                        id="modalConfirmButton"
+                        sclass="modal-confirm"
+                        label="Confirm &amp; End Session"/>
+
+                </hlayout>
 
             </vlayout>
 
+        </window>
 
-            <!-- MODAL FOOTER -->
-
-            <hlayout
-                sclass="modal-footer"
-                spacing="12px"
-                valign="middle">
-
-                <button
-                    id="modalCancelButton"
-                    sclass="modal-cancel"
-                    label="Cancel"/>
-
-                <button
-                    id="modalConfirmButton"
-                    sclass="modal-confirm"
-                    label="Confirm &amp; End Session"/>
-
-            </hlayout>
-
-        </vlayout>
-
-    </window>
+    </vlayout>
 
 </zk>
