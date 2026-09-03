@@ -3,9 +3,7 @@
 <?link rel="stylesheet" type="text/css" href="/style/sessionManagement.css"?>
 
 <window id="win"
-        apply="com.cts.admin.controller.SessionManagementController"
         width="100%"
-        hflex="1"
         vflex="1"
         border="none"
         sclass="session-mgmt-page">
@@ -58,19 +56,19 @@
                 <label value="Session History" sclass="history-title"/>
             </hlayout>
 
-            <listbox id="historyListbox" width="100%" mold="default" sclass="history-listbox"
+            <listbox id="historyListbox" hflex="1" mold="default" sclass="history-listbox"
                      span="true" emptyMessage="No session history available">
 
                 <listhead sizable="true">
-                    <listheader label="Session ID"   hflex="1"/>
-                    <listheader label="Session Name" hflex="1"/>
-                    <listheader label="Session Type" hflex="1"/>
-                    <listheader label="Start Date"   hflex="1"/>
-                    <listheader label="Start Time"   hflex="1"/>
-                    <listheader label="End Time"     hflex="1"/>
-                    <listheader label="Status"       hflex="1"/>
-                    <listheader label="Started By"   hflex="1"/>
-                    <listheader label="Ended By"     hflex="1"/>
+                    <listheader label="Session ID"   width="11%"/>
+                    <listheader label="Session Name" width="12%"/>
+                    <listheader label="Session Type" width="11%"/>
+                    <listheader label="Start Date"   width="11%"/>
+                    <listheader label="Start Time"   width="11%"/>
+                    <listheader label="End Time"     width="11%"/>
+                    <listheader label="Status"       width="11%"/>
+                    <listheader label="Started By"   width="11%"/>
+                    <listheader label="Ended By"     width="11%"/>
                 </listhead>
 
                 <template name="model" var="row">
