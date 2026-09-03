@@ -1,355 +1,468 @@
 /* ============================================================
-   SESSION MANAGEMENT
+   SESSION MANAGEMENT PAGE
    ============================================================ */
 
-.session-mgmt-page {
-    background-color: #F4F6FB;
-    font-family: "Segoe UI", Arial, sans-serif;
+.session-page {
+    width: 100%;
+    padding: 34px 40px 40px 40px;
+    box-sizing: border-box;
+    background: #F5F7FC;
 }
 
-.session-mgmt-page > .z-window-content {
-    background-color: #F4F6FB;
-    padding: 30px 36px 40px 36px;
-}
 
 /* ============================================================
    PAGE HEADER
    ============================================================ */
 
-.page-header {
+.session-page-title {
+    color: #18243A;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+    display: block;
+    white-space: nowrap;
+}
+
+.session-page-subtitle {
+    color: #60738F;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    display: block;
+    margin-top: 3px;
+    margin-bottom: 28px;
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   CURRENT SESSION CARD — BASE
+   ============================================================ */
+
+.current-session-card {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 12px;
+    padding: 24px 28px 28px 28px;
+    box-sizing: border-box;
+    margin-bottom: 24px;
+}
+
+.current-session-card.active {
+    background: #F0FDF4;
+    border-color: #BBF7D0;
+}
+
+
+/* ============================================================
+   CURRENT SESSION — TOP ROW
+   ============================================================ */
+
+.current-session-top {
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.current-session-label {
+    color: #60738F;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-right: 12px;
+}
+
+
+/* ============================================================
+   STATUS BADGE
+   ============================================================ */
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 13px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.status-inactive {
+    background: #E5E7EB;
+    color: #4B5563;
+}
+
+.status-active {
+    background: #16A34A;
+    color: #FFFFFF;
+}
+
+
+/* ============================================================
+   CLOSED SESSION STATE
+   ============================================================ */
+
+.closed-session-content {
+    width: 100%;
+}
+
+.closed-session-title {
+    color: #18243A;
+    font-size: 22px;
+    font-weight: 700;
+    display: block;
     margin-bottom: 6px;
 }
 
-.page-title,
-.page-title.z-label {
-    font-size: 30px !important;
-    font-weight: 700 !important;
-    color: #1A1D29 !important;
-    display: block !important;
+.closed-session-description {
+    color: #60738F;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 20px;
 }
 
-.page-subtitle,
-.page-subtitle.z-label {
-    font-size: 14px !important;
-    color: #6B7280 !important;
-    display: block !important;
+.begin-session-button {
+    height: 42px;
+    min-width: 174px;
+    background: #16A34A;
+    border: 1px solid #16A34A;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0 20px;
+    box-sizing: border-box;
+    box-shadow: none;
 }
+
+.begin-session-button:hover {
+    background: #15803D;
+    border-color: #15803D;
+}
+
 
 /* ============================================================
-   SESSION CARD — shared
+   ACTIVE SESSION STATE
    ============================================================ */
 
-.session-card,
-.session-card.z-vlayout {
-    border-radius: 10px !important;
-    padding: 20px 24px 24px 24px !important;
-    box-sizing: border-box !important;
+.active-session-content {
+    width: 100%;
 }
 
-.session-card-active,
-.session-card-active.z-vlayout {
-    background-color: #EDFBF2 !important;
-    border: 1px solid #BBF7D0 !important;
+.active-session-name {
+    color: #18243A;
+    font-size: 22px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 10px;
 }
 
-.session-card-inactive,
-.session-card-inactive.z-vlayout {
-    background-color: #FFFFFF !important;
-    border: 1px solid #E5E7EB !important;
+.session-detail {
+    color: #475467;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 5px;
 }
 
-/* Top row — CURRENT SESSION label + pill */
-.session-card-toprow {
-    width: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    margin-bottom: 12px !important;
+.end-session-button {
+    height: 42px;
+    min-width: 200px;
+    background: #DC2626;
+    border: 1px solid #DC2626;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0 20px;
+    box-sizing: border-box;
+    box-shadow: none;
+    margin-top: 16px;
 }
 
-.card-caption,
-.card-caption.z-label {
-    font-size: 11px !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.08em !important;
-    color: #6B7280 !important;
-    text-transform: uppercase !important;
+.end-session-button:hover {
+    background: #B91C1C;
+    border-color: #B91C1C;
 }
 
-/* Session name heading */
-.session-name,
-.session-name.z-label {
-    font-size: 24px !important;
-    font-weight: 700 !important;
-    color: #111827 !important;
-    display: block !important;
-    margin-bottom: 8px !important;
-}
-
-/* Inactive state subtitle */
-.session-desc,
-.session-desc.z-label {
-    font-size: 14px !important;
-    color: #6B7280 !important;
-    display: block !important;
-    margin-bottom: 18px !important;
-}
-
-/* Detail rows in active card */
-.session-detail-list {
-    margin-bottom: 18px !important;
-}
-
-.detail-label,
-.detail-label.z-label {
-    font-size: 14px !important;
-    font-weight: 700 !important;
-    color: #111827 !important;
-    margin-right: 5px !important;
-}
-
-.detail-value,
-.detail-value.z-label {
-    font-size: 14px !important;
-    color: #374151 !important;
-}
-
-/* ============================================================
-   PILLS
-   ============================================================ */
-
-.pill,
-.pill.z-label {
-    display: inline-block !important;
-    padding: 5px 14px !important;
-    border-radius: 999px !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.04em !important;
-    white-space: nowrap !important;
-}
-
-.pill-active,
-.pill-active.z-label {
-    background-color: #16A34A !important;
-    color: #FFFFFF !important;
-}
-
-.pill-inactive,
-.pill-inactive.z-label {
-    background-color: #E5E7EB !important;
-    color: #4B5563 !important;
-}
-
-.pill-ended,
-.pill-ended.z-label {
-    background-color: #E5E7EB !important;
-    color: #4B5563 !important;
-}
-
-/* ============================================================
-   BUTTONS
-   ============================================================ */
-
-.btn.z-button {
-    border-radius: 7px !important;
-    font-size: 14px !important;
-    font-weight: 700 !important;
-    padding: 0 20px !important;
-    height: 40px !important;
-    min-width: 160px !important;
-    cursor: pointer !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.btn-danger.z-button {
-    background-color: #DC2626 !important;
-    color: #FFFFFF !important;
-    border-color: #DC2626 !important;
-}
-
-.btn-danger.z-button:hover {
-    background-color: #B91C1C !important;
-}
-
-.btn-success.z-button {
-    background-color: #16A34A !important;
-    color: #FFFFFF !important;
-    border-color: #16A34A !important;
-}
-
-.btn-success.z-button:hover {
-    background-color: #15803D !important;
-}
-
-.btn-secondary.z-button {
-    background-color: #FFFFFF !important;
-    color: #1A1D29 !important;
-    border: 1px solid #D1D5DB !important;
-}
-
-.btn-secondary.z-button:hover {
-    background-color: #F9FAFB !important;
-}
 
 /* ============================================================
    SESSION HISTORY CARD
    ============================================================ */
 
-.history-card,
-.history-card.z-vlayout {
-    background-color: #FFFFFF !important;
-    border-radius: 10px !important;
-    padding: 22px 24px !important;
-    border: 1px solid #E5E7EB !important;
-    box-sizing: border-box !important;
+.history-card {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 12px;
+    padding: 24px 28px 28px 28px;
+    box-sizing: border-box;
 }
+
+
+/* ============================================================
+   HISTORY HEADER
+   ============================================================ */
 
 .history-header {
-    margin-bottom: 14px !important;
-    display: flex !important;
-    align-items: center !important;
+    width: 100%;
+    margin-bottom: 18px;
 }
 
-.history-icon,
-.history-icon.z-label {
-    font-size: 18px !important;
-    margin-right: 8px !important;
-    color: #4F46E5 !important;
+.history-icon {
+    color: #2454D6;
+    font-size: 20px;
+    margin-right: 8px;
 }
 
-.history-title,
-.history-title.z-label {
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    color: #1A1D29 !important;
+.history-title {
+    color: #18243A;
+    font-size: 20px;
+    font-weight: 700;
 }
+
 
 /* ============================================================
    HISTORY LISTBOX
    ============================================================ */
 
 .history-listbox {
-    border: 1px solid #E5E7EB !important;
-    border-radius: 8px !important;
-    overflow: hidden !important;
+    width: 100%;
+    border: 1px solid #D9E1EB;
+    border-radius: 8px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .history-listbox .z-listhead {
-    background-color: #F9FAFB !important;
+    background: #F8FAFC;
 }
 
 .history-listbox .z-listheader {
-    background-color: #F9FAFB !important;
-    color: #111827 !important;
-    font-size: 14px !important;
-    font-weight: 700 !important;
-    padding: 14px 16px !important;
-    border-bottom: 1px solid #E5E7EB !important;
-    border-right: none !important;
-    box-shadow: none !important;
+    background: #F8FAFC;
+    border-bottom: 1px solid #D9E1EB;
+    border-right: 1px solid #D9E1EB;
+    padding: 14px 16px;
+    box-sizing: border-box;
+    box-shadow: none;
+}
+
+.history-listbox .z-listheader:last-child {
+    border-right: none;
 }
 
 .history-listbox .z-listheader-content {
-    color: #111827 !important;
-    font-size: 14px !important;
-    font-weight: 700 !important;
+    color: #18243A;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: visible;
 }
 
 .history-listbox .z-listitem {
-    border-bottom: 1px solid #F3F4F6 !important;
-    background-color: #FFFFFF !important;
+    background: #FFFFFF;
+    border-bottom: 1px solid #F3F4F6;
 }
 
 .history-listbox .z-listitem:last-child {
-    border-bottom: none !important;
+    border-bottom: none;
 }
 
 .history-listbox .z-listitem:hover {
-    background-color: #F9FAFB !important;
+    background: #F9FAFB;
 }
 
 .history-listbox .z-listcell {
-    padding: 14px 16px !important;
-    border-right: none !important;
-    vertical-align: middle !important;
-    font-size: 14px !important;
-    color: #374151 !important;
+    padding: 14px 16px;
+    border-right: none;
+    box-sizing: border-box;
 }
 
 .history-listbox .z-listcell-content {
-    font-size: 14px !important;
-    color: #374151 !important;
+    font-size: 14px;
+    color: #374151;
 }
 
-/* Session ID link */
-.session-id-link,
-.session-id-link.z-a {
-    color: #2563EB !important;
-    font-weight: 700 !important;
-    font-size: 14px !important;
-    text-decoration: none !important;
+.history-listbox .z-listbox-emptybody td {
+    color: #98A2B3;
+    font-size: 14px;
+    text-align: center;
+    padding: 32px 0;
 }
 
-/* Session Name — bold in the row */
-.history-listbox .z-listitem .z-listcell:nth-child(2) .z-listcell-content {
-    font-weight: 700 !important;
-    color: #111827 !important;
-}
-
-/* Start Time — green */
-.cell-time-start .z-listcell-content {
-    color: #16A34A !important;
-    font-weight: 600 !important;
-}
-
-/* End Time — red */
-.cell-time-end .z-listcell-content {
-    color: #DC2626 !important;
-    font-weight: 600 !important;
-}
 
 /* ============================================================
-   CONFIRM MODAL
+   HISTORY CELL LABELS
    ============================================================ */
 
-.confirm-modal .z-window-header {
-    font-size: 16px !important;
-    font-weight: 700 !important;
-    background: #FFFFFF !important;
-    color: #1A1D29 !important;
-    border-bottom: 1px solid #E5E7EB !important;
-    padding: 16px 20px !important;
+.session-id {
+    color: #2454D6;
+    font-size: 14px;
+    font-weight: 700;
 }
 
-.confirm-modal .z-window-content {
-    padding: 20px !important;
+.session-name {
+    color: #18243A;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.confirm-title,
-.confirm-title.z-label {
-    font-size: 15px !important;
-    color: #1A1D29 !important;
+.session-type {
+    color: #374151;
+    font-size: 14px;
 }
 
-.confirm-title-bold,
-.confirm-title-bold.z-label {
-    font-size: 15px !important;
-    font-weight: 700 !important;
-    color: #1A1D29 !important;
+.session-date {
+    color: #374151;
+    font-size: 14px;
 }
 
-.confirm-subtext,
-.confirm-subtext.z-label {
-    font-size: 13px !important;
-    color: #6B7280 !important;
-    line-height: 1.5 !important;
-    display: block !important;
+.start-time {
+    color: #16A34A;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.confirm-actions {
-    margin-top: 8px !important;
-    gap: 10px !important;
-    display: flex !important;
+.end-time {
+    color: #DC2626;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.in-progress {
+    color: #D97706;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.table-status-active {
+    color: #16A34A;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.table-status-ended {
+    color: #6B7280;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.session-user {
+    color: #475467;
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   END SESSION MODAL
+   ============================================================ */
+
+.end-session-modal {
+    width: 480px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    border: 1px solid #DDE4ED;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+.end-session-modal .z-window-content {
+    padding: 0;
+}
+
+.modal-header {
+    width: 100%;
+    padding: 20px 24px 16px 24px;
+    border-bottom: 1px solid #E5E7EB;
+    box-sizing: border-box;
+}
+
+.modal-title {
+    color: #18243A;
+    font-size: 18px;
+    font-weight: 700;
+    flex: 1;
+}
+
+.modal-close {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    background: #F3F4F6;
+    border: none;
+    border-radius: 6px;
+    color: #6B7280;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 0;
+    box-shadow: none;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: #E5E7EB;
+    color: #18243A;
+}
+
+.modal-body {
+    width: 100%;
+    padding: 20px 24px;
+    box-sizing: border-box;
+}
+
+.modal-question {
+    color: #18243A;
+    font-size: 15px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.modal-description {
+    color: #60738F;
+    font-size: 14px;
+    line-height: 1.5;
+    display: block;
+}
+
+.modal-footer {
+    width: 100%;
+    padding: 16px 24px 20px 24px;
+    border-top: 1px solid #E5E7EB;
+    box-sizing: border-box;
+}
+
+.modal-cancel {
+    height: 40px;
+    min-width: 100px;
+    background: #FFFFFF;
+    border: 1px solid #D1D5DB;
+    border-radius: 7px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 18px;
+    box-shadow: none;
+}
+
+.modal-cancel:hover {
+    background: #F9FAFB;
+}
+
+.modal-confirm {
+    height: 40px;
+    min-width: 190px;
+    background: #DC2626;
+    border: 1px solid #DC2626;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 18px;
+    box-shadow: none;
+}
+
+.modal-confirm:hover {
+    background: #B91C1C;
+    border-color: #B91C1C;
 }
