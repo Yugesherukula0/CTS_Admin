@@ -2,19 +2,108 @@
 
 <zk>
 
-    <style src="/css/placeholder.css"/>
+    <style src="/css/batchMonitoring.css"/>
 
-    <div sclass="placeholder-page">
+    <!-- ============================================================
+         BATCH MONITORING PAGE
+         ============================================================ -->
 
-        <vlayout sclass="placeholder-card" spacing="0">
-            <label sclass="placeholder-icon"     value="📊"/>
-            <label sclass="placeholder-title"    value="Batch Monitoring"/>
-            <label sclass="placeholder-subtitle"
-                   value="This module is currently under development and has not been implemented yet. Check back in a future release."
-                   multiline="true"/>
-            <label sclass="placeholder-badge"    value="🚧  Under Development"/>
-        </vlayout>
+    <vlayout
+        id="batchMonitoringPage"
+        apply="com.cts.admin.controller.BatchMonitoringController"
+        width="100%"
+        spacing="0"
+        sclass="batch-page">
 
-    </div>
+
+        <!-- ========================================================
+             PAGE HEADER
+             ======================================================== -->
+
+        <label
+            sclass="batch-page-title"
+            value="Batch Monitoring"/>
+
+        <label
+            sclass="batch-page-subtitle"
+            value="Real-time tracking of clearing batches across Batch Capture, Inward, and Outward cycles"/>
+
+
+        <!-- ========================================================
+             TAB / SEARCH BAR CARD
+             ======================================================== -->
+
+        <div style="width:100%; background:#FFFFFF; border:1px solid #DDE4ED; border-radius:10px; padding:16px 20px; box-sizing:border-box; margin-bottom:20px; display:flex; flex-direction:row; align-items:center; justify-content:space-between;">
+
+            <!-- Left: tab buttons -->
+            <div style="display:flex; flex-direction:row; align-items:center; gap:8px;">
+                <button
+                    id="tabBatchCapture"
+                    sclass="batch-tab-btn batch-tab-active"
+                    label="Batch Capture"/>
+                <button
+                    id="tabInward"
+                    sclass="batch-tab-btn"
+                    label="Inward Batches"/>
+                <button
+                    id="tabOutward"
+                    sclass="batch-tab-btn"
+                    label="Outward"/>
+            </div>
+
+            <!-- Right: search input + button pinned to far right -->
+            <div style="display:flex; flex-direction:row; align-items:center; gap:8px; margin-left:auto;">
+                <div style="display:flex; flex-direction:row; align-items:center; height:38px; background:#FFFFFF; border:1px solid #D1D5DB; border-radius:7px; min-width:260px; box-sizing:border-box; overflow:hidden; padding: 0 8px;">
+                    <label
+                        sclass="batch-search-icon"
+                        value="&#x2315;"/>
+                    <textbox
+                        id="batchSearchTextbox"
+                        hflex="1"
+                        height="36px"
+                        placeholder="Search by Batch ID, User..."
+                        sclass="batch-search-textbox"
+                        style="border:none !important; box-shadow:none !important; outline:none !important; background:transparent !important;"/>
+                </div>
+                <button
+                    id="batchSearchButton"
+                    sclass="batch-search-btn"
+                    label="Search"/>
+            </div>
+
+        </div>
+
+
+        <!-- ========================================================
+             RESULTS CARD
+             ======================================================== -->
+
+        <div sclass="batch-results-card">
+
+            <!-- Dynamic section title e.g. "Batch Capture Batches (8)" -->
+            <label
+                id="batchSectionTitle"
+                sclass="batch-results-title"
+                value="Batch Capture Batches"/>
+
+
+            <!-- ====================================================
+                 SINGLE LISTBOX — columns swapped by controller
+                 ==================================================== -->
+
+            <listbox
+                id="batchListbox"
+                sclass="batch-listbox"
+                sizedByContent="false"
+                span="true"
+                emptyMessage="No records available">
+
+                <!-- Listhead injected dynamically by controller -->
+
+            </listbox>
+
+        </div>
+
+    </vlayout>
 
 </zk>
