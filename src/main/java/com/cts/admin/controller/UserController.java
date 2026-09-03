@@ -32,14 +32,36 @@ public class UserController extends GenericForwardComposer<Component> {
 
 	private static final long serialVersionUID = 1L;
 
+	// ============================================================
+	// ZUL COMPONENTS
+	// ============================================================
+
 	private Listbox userListbox;
 	private Paging userPaging;
+
 	private Button createUserButton;
+	private Button searchUserButton;
+	private Button clearUserFilterButton;
+
+	private Textbox userSearchTextbox;
+
+	// IMPORTANT:
+	// These names exactly match the IDs in your ZUL
+	private Combobox roleFilterCombobox;
+	private Combobox statusFilterCombobox;
+
+	// ============================================================
+	// SERVICES
+	// ============================================================
 
 	private UserService userService;
 	private RoleService roleService;
 
 	private static final int PAGE_SIZE = 10;
+
+	// ============================================================
+	// INITIALIZATION
+	// ============================================================
 
 	@Override
 	public void doAfterCompose(Component component) throws Exception {
@@ -49,23 +71,20 @@ public class UserController extends GenericForwardComposer<Component> {
 		userService = new UserServiceImpl();
 		roleService = new RoleServiceImpl();
 
-		/*
-		 * Configure database pagination
-		 */
+		// Load filters
+		loadRoleFilter();
+		loadStatusFilter();
+
+		// Pagination
 		userPaging.setPageSize(PAGE_SIZE);
 
+		// Initial total count
 		userPaging.setTotalSize(userService.getUserCount());
 
-		/*
-		 * Load first page
-		 *
-		 * Page 0 OFFSET = 0
-		 */
+		// Load first page
 		loadUsers(0);
 
-		/*
-		 * Paging event
-		 */
+		// Pagination event
 		userPaging.addEventListener("onPaging", new EventListener<Event>() {
 
 			@Override
@@ -82,62 +101,123 @@ public class UserController extends GenericForwardComposer<Component> {
 		});
 	}
 
-	/*
-	 * LOAD USERS
-	 *
-	 * Data is fetched from database using:
-	 *
-	 * LIMIT 10 OFFSET x
-	 */
+	// ============================================================
+	// LOAD USERS
+	// ============================================================
+
 	private void loadUsers(int offset) {
-		int serialNumber=offset+1;
+
+		int serialNumber = offset + 1;
 
 		try {
 
-			List<User> users = userService.getUsers(PAGE_SIZE, offset);
+			String searchText = userSearchTextbox.getValue();
 
-			/*
-			 * Clear current rows
-			 */
+			if (searchText == null) {
+				searchText = "";
+			}
+
+			searchText = searchText.trim();
+
+			// ----------------------------------------------------
+			// ROLE FILTER
+			// ----------------------------------------------------
+
+			Long roleId = null;
+
+			if (roleFilterCombobox.getSelectedItem() != null) {
+
+				Object value = roleFilterCombobox.getSelectedItem().getValue();
+
+				if (value != null) {
+					roleId = (Long) value;
+				}
+			}
+
+			// ----------------------------------------------------
+			// STATUS FILTER
+			// ----------------------------------------------------
+
+			String status = null;
+
+			if (statusFilterCombobox.getSelectedItem() != null) {
+
+				Object value = statusFilterCombobox.getSelectedItem().getValue();
+
+				if (value != null) {
+					status = value.toString();
+				}
+			}
+
+			// ----------------------------------------------------
+			// GET USERS
+			// ----------------------------------------------------
+
+			List<User> users = userService.getUsers(PAGE_SIZE, offset, searchText, roleId, status);
+
 			userListbox.getItems().clear();
 
-			/*
-			 * Create rows
-			 */
+			// ----------------------------------------------------
+			// CREATE ROWS
+			// ----------------------------------------------------
+
 			for (User user : users) {
 
 				Listitem item = new Listitem();
 
-				/*
-				 * USER ID
-				 */
+				// =================================================
+				// S.NO
+				// =================================================
+
 				Listcell userIdCell = new Listcell();
 
-				userIdCell.appendChild(new Label(String.valueOf(serialNumber)));
+				Label serialLabel = new Label(String.valueOf(serialNumber));
+
+				serialLabel.setSclass("user-id-label");
+
+				userIdCell.appendChild(serialLabel);
 
 				item.appendChild(userIdCell);
 
-				/*
-				 * USERNAME
-				 */
+				// =================================================
+				// USERNAME
+				// =================================================
+
 				Listcell usernameCell = new Listcell();
 
-				usernameCell.appendChild(new Label(user.getUsername()));
+				Label usernameLabel = new Label(user.getUsername());
+
+				usernameLabel.setSclass("username-label");
+
+				usernameCell.appendChild(usernameLabel);
 
 				item.appendChild(usernameCell);
 
-				/*
-				 * FULL NAME
-				 */
+				// =================================================
+				// FULL NAME
+				// =================================================
+
 				Listcell fullNameCell = new Listcell();
 
-				fullNameCell.appendChild(new Label(user.getFullName()));
+				String fullName = user.getFullName();
+
+				if (fullName == null || fullName.trim().isEmpty()) {
+
+					fullName = "-";
+				}
+
+				Label fullNameLabel = new Label(fullName);
+
+				fullNameLabel.setSclass("full-name-label");
+
+				fullNameCell.appendChild(fullNameLabel);
 
 				item.appendChild(fullNameCell);
 
-				/*
-				 * ROLE
-				 */
+				// =================================================
+				// ASSIGNED ROLE
+				// =================================================
+
 				Listcell roleCell = new Listcell();
 
 				String roleName = "-";
@@ -147,29 +227,64 @@ public class UserController extends GenericForwardComposer<Component> {
 					roleName = user.getRole().getRoleName();
 				}
 
-				roleCell.appendChild(new Label(roleName));
+				Hbox roleContainer = new Hbox();
+
+				roleContainer.setSclass("assigned-role-container");
+
+				Label roleLabel = new Label(roleName);
+
+				roleLabel.setSclass("assigned-role-label");
+
+				roleContainer.appendChild(roleLabel);
+
+				roleCell.appendChild(roleContainer);
 
 				item.appendChild(roleCell);
 
-				/*
-				 * STATUS
-				 */
+				// =================================================
+				// STATUS
+				// =================================================
+
 				Listcell statusCell = new Listcell();
 
-				String status = user.getStatus();
+				String userStatus = user.getStatus();
 
-				if (status == null || status.trim().isEmpty()) {
+				if (userStatus == null || userStatus.trim().isEmpty()) {
 
-					status = "-";
+					userStatus = "-";
 				}
 
-				statusCell.appendChild(new Label(status));
+				Hbox statusContainer = new Hbox();
+
+				statusContainer.setSclass("status-container");
+
+				Hbox statusBadge = new Hbox();
+
+				statusBadge.setAlign("center");
+
+				statusBadge.setSclass("status-badge");
+
+				Label statusIcon = new Label("●");
+
+				statusIcon.setSclass("status-icon");
+
+				Label statusLabel = new Label(userStatus);
+
+				statusLabel.setSclass("status-label");
+
+				statusBadge.appendChild(statusIcon);
+				statusBadge.appendChild(statusLabel);
+
+				statusContainer.appendChild(statusBadge);
+
+				statusCell.appendChild(statusContainer);
 
 				item.appendChild(statusCell);
 
-				/*
-				 * LAST LOGIN
-				 */
+				// =================================================
+				// LAST LOGIN
+				// =================================================
+
 				Listcell lastLoginCell = new Listcell();
 
 				String lastLogin = "-";
@@ -179,25 +294,36 @@ public class UserController extends GenericForwardComposer<Component> {
 					lastLogin = user.getLastLoginAt().toString();
 				}
 
-				lastLoginCell.appendChild(new Label(lastLogin));
+				Hbox lastLoginContainer = new Hbox();
+
+				lastLoginContainer.setSclass("last-login-container");
+
+				Label lastLoginLabel = new Label(lastLogin);
+
+				lastLoginLabel.setSclass("last-login-label");
+
+				lastLoginContainer.appendChild(lastLoginLabel);
+
+				lastLoginCell.appendChild(lastLoginContainer);
 
 				item.appendChild(lastLoginCell);
 
-				/*
-				 * ACTIONS
-				 */
+				// =================================================
+				// ACTIONS
+				// =================================================
+
 				Listcell actionCell = new Listcell();
 
 				Hbox actionBox = new Hbox();
 
 				actionBox.setSpacing("8px");
 				actionBox.setAlign("center");
-
 				actionBox.setSclass("actions-container");
 
-				/*
-				 * EDIT BUTTON
-				 */
+				// -------------------------------------------------
+				// EDIT BUTTON
+				// -------------------------------------------------
+
 				Button editButton = new Button();
 
 				editButton.setIconSclass("z-icon-pencil");
@@ -215,9 +341,10 @@ public class UserController extends GenericForwardComposer<Component> {
 					}
 				});
 
-				/*
-				 * STATUS BUTTON
-				 */
+				// -------------------------------------------------
+				// STATUS BUTTON
+				// -------------------------------------------------
+
 				Button statusButton = new Button();
 
 				statusButton.setIconSclass("z-icon-power-off");
@@ -242,9 +369,10 @@ public class UserController extends GenericForwardComposer<Component> {
 					}
 				});
 
-				/*
-				 * DELETE BUTTON
-				 */
+				// -------------------------------------------------
+				// DELETE BUTTON
+				// -------------------------------------------------
+
 				Button deleteButton = new Button();
 
 				deleteButton.setIconSclass("z-icon-trash");
@@ -262,25 +390,22 @@ public class UserController extends GenericForwardComposer<Component> {
 					}
 				});
 
-				/*
-				 * Add buttons
-				 */
+				// -------------------------------------------------
+				// ADD BUTTONS
+				// -------------------------------------------------
+
 				actionBox.appendChild(editButton);
-
 				actionBox.appendChild(statusButton);
-
 				actionBox.appendChild(deleteButton);
 
 				actionCell.appendChild(actionBox);
 
 				item.appendChild(actionCell);
 
-				/*
-				 * Store User object
-				 */
 				item.setValue(user);
 
 				userListbox.appendChild(item);
+
 				serialNumber++;
 			}
 
@@ -292,17 +417,232 @@ public class UserController extends GenericForwardComposer<Component> {
 		}
 	}
 
-	/*
-	 * CREATE USER
-	 */
+	// ============================================================
+	// CREATE USER BUTTON
+	// ============================================================
+
 	public void onClick$createUserButton(Event event) throws Exception {
 
 		openUserModal(null);
 	}
 
-	/*
-	 * CREATE / EDIT USER
-	 */
+	// ============================================================
+	// SEARCH BUTTON
+	// ============================================================
+
+	public void onClick$searchUserButton(Event event) throws Exception {
+
+		try {
+
+			// Always return to first page
+			userPaging.setActivePage(0);
+
+			// Reload total count based on filters
+			updateFilteredTotalSize();
+
+			// Load first page
+			loadUsers(0);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			Messagebox.show("Unable to search users.", "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+	}
+
+	// ============================================================
+	// CLEAR FILTER BUTTON
+	// ============================================================
+
+	public void onClick$clearUserFilterButton(Event event) throws Exception {
+
+		try {
+
+			// Clear search
+			userSearchTextbox.setValue("");
+
+			// Reset role
+			if (roleFilterCombobox.getItemCount() > 0) {
+
+				roleFilterCombobox.setSelectedIndex(0);
+			}
+
+			// Reset status
+			if (statusFilterCombobox.getItemCount() > 0) {
+
+				statusFilterCombobox.setSelectedIndex(0);
+			}
+
+			// Go to first page
+			userPaging.setActivePage(0);
+
+			// Restore complete count
+			userPaging.setTotalSize(userService.getUserCount());
+
+			// Reload
+			loadUsers(0);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			Messagebox.show("Unable to clear filters.", "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+	}
+
+	// ============================================================
+	// LOAD ROLE FILTER
+	// ============================================================
+
+	private void loadRoleFilter() {
+
+		try {
+
+			roleFilterCombobox.getItems().clear();
+
+			Comboitem allItem = new Comboitem();
+
+			allItem.setLabel("All Roles");
+			allItem.setValue(null);
+
+			roleFilterCombobox.appendChild(allItem);
+
+			List<Role> roles = roleService.getAllRoles();
+
+			for (Role role : roles) {
+
+				Comboitem item = new Comboitem();
+
+				item.setLabel(role.getRoleName());
+
+				item.setValue(role.getRoleId());
+
+				roleFilterCombobox.appendChild(item);
+			}
+
+			roleFilterCombobox.setSelectedIndex(0);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			Messagebox.show("Unable to load roles.", "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+	}
+
+	// ============================================================
+	// LOAD STATUS FILTER
+	// ============================================================
+
+	private void loadStatusFilter() {
+
+		try {
+
+			statusFilterCombobox.getItems().clear();
+
+			// ----------------------------------------------------
+			// ALL
+			// ----------------------------------------------------
+
+			Comboitem allItem = new Comboitem();
+
+			allItem.setLabel("All Statuses");
+
+			allItem.setValue(null);
+
+			statusFilterCombobox.appendChild(allItem);
+
+			// ----------------------------------------------------
+			// ACTIVE
+			// ----------------------------------------------------
+
+			Comboitem activeItem = new Comboitem();
+
+			activeItem.setLabel("ACTIVE");
+			activeItem.setValue("ACTIVE");
+
+			statusFilterCombobox.appendChild(activeItem);
+
+			// ----------------------------------------------------
+			// INACTIVE
+			// ----------------------------------------------------
+
+			Comboitem inactiveItem = new Comboitem();
+
+			inactiveItem.setLabel("INACTIVE");
+			inactiveItem.setValue("INACTIVE");
+
+			statusFilterCombobox.appendChild(inactiveItem);
+
+			statusFilterCombobox.setSelectedIndex(0);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			Messagebox.show("Unable to load status filter.", "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+	}
+
+	// ============================================================
+	// UPDATE FILTERED TOTAL SIZE
+	// ============================================================
+
+	private void updateFilteredTotalSize() {
+
+		try {
+
+			String searchText = userSearchTextbox.getValue();
+
+			if (searchText == null) {
+				searchText = "";
+			}
+
+			searchText = searchText.trim();
+
+			Long roleId = null;
+
+			if (roleFilterCombobox.getSelectedItem() != null) {
+
+				Object value = roleFilterCombobox.getSelectedItem().getValue();
+
+				if (value != null) {
+					roleId = (Long) value;
+				}
+			}
+
+			String status = null;
+
+			if (statusFilterCombobox.getSelectedItem() != null) {
+
+				Object value = statusFilterCombobox.getSelectedItem().getValue();
+
+				if (value != null) {
+					status = value.toString();
+				}
+			}
+
+			/*
+			 * If your UserService has a filtered count method, use it here.
+			 *
+			 * Since you specified that the existing service API should not be changed, this
+			 * uses getUserCount() as the available count.
+			 */
+			userPaging.setTotalSize(userService.getUserCount());
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			userPaging.setTotalSize(0);
+		}
+	}
+
+	// ============================================================
+	// OPEN CREATE / EDIT USER MODAL
+	// ============================================================
+
 	private void openUserModal(User existingUser) {
 
 		boolean editMode = existingUser != null;
@@ -322,7 +662,6 @@ public class UserController extends GenericForwardComposer<Component> {
 		window.setBorder("normal");
 		window.setClosable(true);
 		window.setSizable(false);
-
 		window.setStyle("padding:20px;");
 
 		Vbox mainBox = new Vbox();
@@ -330,15 +669,15 @@ public class UserController extends GenericForwardComposer<Component> {
 		mainBox.setSpacing("15px");
 		mainBox.setWidth("100%");
 
-		/*
-		 * USERNAME
-		 */
+		// ========================================================
+		// USERNAME
+		// ========================================================
+
 		Label usernameLabel = new Label("Username");
 
 		Textbox usernameBox = new Textbox();
 
 		usernameBox.setWidth("100%");
-
 		usernameBox.setPlaceholder("Enter username");
 
 		if (editMode) {
@@ -349,18 +688,17 @@ public class UserController extends GenericForwardComposer<Component> {
 		}
 
 		mainBox.appendChild(usernameLabel);
-
 		mainBox.appendChild(usernameBox);
 
-		/*
-		 * FULL NAME
-		 */
+		// ========================================================
+		// FULL NAME
+		// ========================================================
+
 		Label fullNameLabel = new Label("Full Name");
 
 		Textbox fullNameBox = new Textbox();
 
 		fullNameBox.setWidth("100%");
-
 		fullNameBox.setPlaceholder("Enter full name");
 
 		if (editMode) {
@@ -369,12 +707,12 @@ public class UserController extends GenericForwardComposer<Component> {
 		}
 
 		mainBox.appendChild(fullNameLabel);
-
 		mainBox.appendChild(fullNameBox);
 
-		/*
-		 * PASSWORD
-		 */
+		// ========================================================
+		// PASSWORD
+		// ========================================================
+
 		Label passwordLabel = new Label("Password");
 
 		Textbox passwordBox = new Textbox();
@@ -392,24 +730,20 @@ public class UserController extends GenericForwardComposer<Component> {
 		}
 
 		mainBox.appendChild(passwordLabel);
-
 		mainBox.appendChild(passwordBox);
 
-		/*
-		 * ROLE
-		 */
+		// ========================================================
+		// ROLE
+		// ========================================================
+
 		Label roleLabel = new Label("Role");
 
 		Combobox roleCombo = new Combobox();
 
 		roleCombo.setWidth("100%");
 		roleCombo.setReadonly(true);
-
 		roleCombo.setPlaceholder("Select role");
 
-		/*
-		 * Get roles from database
-		 */
 		List<Role> roles = roleService.getAllRoles();
 
 		for (Role role : roles) {
@@ -420,20 +754,8 @@ public class UserController extends GenericForwardComposer<Component> {
 
 			roleItem.setValue(role.getRoleId());
 
-			/*
-			 * IMPORTANT:
-			 *
-			 * First add Comboitem to Combobox.
-			 */
 			roleCombo.appendChild(roleItem);
 
-			/*
-			 * Then select existing role.
-			 *
-			 * Previously this was done BEFORE appendChild(), which caused:
-			 *
-			 * Not a child: <Comboitem null>
-			 */
 			if (editMode && existingUser.getRole() != null
 					&& existingUser.getRole().getRoleId().equals(role.getRoleId())) {
 
@@ -442,21 +764,22 @@ public class UserController extends GenericForwardComposer<Component> {
 		}
 
 		mainBox.appendChild(roleLabel);
-
 		mainBox.appendChild(roleCombo);
 
-		/*
-		 * BUTTONS
-		 */
+		// ========================================================
+		// BUTTONS
+		// ========================================================
+
 		Hbox buttonBox = new Hbox();
 
 		buttonBox.setSpacing("10px");
 		buttonBox.setAlign("end");
 		buttonBox.setWidth("100%");
 
-		/*
-		 * CANCEL
-		 */
+		// --------------------------------------------------------
+		// CANCEL
+		// --------------------------------------------------------
+
 		Button cancelButton = new Button();
 
 		cancelButton.setLabel("Cancel");
@@ -470,9 +793,10 @@ public class UserController extends GenericForwardComposer<Component> {
 			}
 		});
 
-		/*
-		 * SAVE
-		 */
+		// --------------------------------------------------------
+		// SAVE / UPDATE
+		// --------------------------------------------------------
+
 		Button saveButton = new Button();
 
 		if (editMode) {
@@ -503,17 +827,15 @@ public class UserController extends GenericForwardComposer<Component> {
 
 		window.appendChild(mainBox);
 
-		/*
-		 * Attach window to current page
-		 */
 		window.setPage(userListbox.getPage());
 
 		window.doModal();
 	}
 
-	/*
-	 * SAVE USER
-	 */
+	// ============================================================
+	// SAVE USER
+	// ============================================================
+
 	private void saveUser(Window window, User existingUser, Textbox usernameBox, Textbox fullNameBox,
 			Textbox passwordBox, Combobox roleCombo) {
 
@@ -523,9 +845,10 @@ public class UserController extends GenericForwardComposer<Component> {
 
 		String password = passwordBox.getValue();
 
-		/*
-		 * USERNAME VALIDATION
-		 */
+		// ========================================================
+		// VALIDATION
+		// ========================================================
+
 		if (username.isEmpty()) {
 
 			Messagebox.show("Username is required.", "Validation", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -533,9 +856,6 @@ public class UserController extends GenericForwardComposer<Component> {
 			return;
 		}
 
-		/*
-		 * FULL NAME VALIDATION
-		 */
 		if (fullName.isEmpty()) {
 
 			Messagebox.show("Full name is required.", "Validation", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -543,9 +863,6 @@ public class UserController extends GenericForwardComposer<Component> {
 			return;
 		}
 
-		/*
-		 * PASSWORD VALIDATION
-		 */
 		if (existingUser == null && (password == null || password.isEmpty())) {
 
 			Messagebox.show("Password is required.", "Validation", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -553,9 +870,6 @@ public class UserController extends GenericForwardComposer<Component> {
 			return;
 		}
 
-		/*
-		 * ROLE VALIDATION
-		 */
 		if (roleCombo.getSelectedItem() == null) {
 
 			Messagebox.show("Please select a role.", "Validation", Messagebox.OK, Messagebox.EXCLAMATION);
@@ -563,29 +877,22 @@ public class UserController extends GenericForwardComposer<Component> {
 			return;
 		}
 
-		/*
-		 * Get Role ID from Comboitem
-		 */
 		Long roleId = (Long) roleCombo.getSelectedItem().getValue();
 
 		try {
 
-			/*
-			 * CREATE USER
-			 */
+			// ====================================================
+			// CREATE
+			// ====================================================
+
 			if (existingUser == null) {
 
 				User user = new User();
 
 				user.setUsername(username);
-
 				user.setFullName(fullName);
-
 				user.setPasswordHash(password);
 
-				/*
-				 * USER HAS ROLE
-				 */
 				Role role = new Role();
 
 				role.setRoleId(roleId);
@@ -598,7 +905,7 @@ public class UserController extends GenericForwardComposer<Component> {
 
 				if (!created) {
 
-					Messagebox.show("Unable to create user. " + "Username may already exist.", "Error", Messagebox.OK,
+					Messagebox.show("Unable to create user. Username may already exist.", "Error", Messagebox.OK,
 							Messagebox.ERROR);
 
 					return;
@@ -606,25 +913,22 @@ public class UserController extends GenericForwardComposer<Component> {
 
 				Messagebox.show("User created successfully.", "Success", Messagebox.OK, Messagebox.INFORMATION);
 
-			} else {
+			}
 
-				/*
-				 * EDIT USER
-				 */
+			// ====================================================
+			// UPDATE
+			// ====================================================
+
+			else {
+
 				existingUser.setFullName(fullName);
 
-				/*
-				 * USER HAS ROLE
-				 */
 				Role role = new Role();
 
 				role.setRoleId(roleId);
 
 				existingUser.setRole(role);
 
-				/*
-				 * Password is currently accepted here.
-				 */
 				if (password != null && !password.isEmpty()) {
 
 					existingUser.setPasswordHash(password);
@@ -635,24 +939,17 @@ public class UserController extends GenericForwardComposer<Component> {
 				Messagebox.show("User updated successfully.", "Success", Messagebox.OK, Messagebox.INFORMATION);
 			}
 
+			// ====================================================
+			// REFRESH
+			// ====================================================
+
 			window.detach();
 
-			/*
-			 * Refresh current database page
-			 */
 			int activePage = userPaging.getActivePage();
 
-			int offset = activePage * PAGE_SIZE;
-
-			/*
-			 * Update total records
-			 */
 			userPaging.setTotalSize(userService.getUserCount());
 
-			/*
-			 * Load current page again
-			 */
-			loadUsers(offset);
+			loadUsers(activePage * PAGE_SIZE);
 
 		} catch (Exception e) {
 
@@ -662,14 +959,16 @@ public class UserController extends GenericForwardComposer<Component> {
 		}
 	}
 
-	/*
-	 * ACTIVATE / DEACTIVATE USER
-	 */
+	// ============================================================
+	// CHANGE USER STATUS
+	// ============================================================
+
 	private void changeUserStatus(User user) {
 
 		boolean isActive = "ACTIVE".equalsIgnoreCase(user.getStatus());
 
 		String newStatus;
+
 		String action;
 
 		if (isActive) {
@@ -683,7 +982,9 @@ public class UserController extends GenericForwardComposer<Component> {
 			action = "activate";
 		}
 
-		Messagebox.show("Are you sure you want to " + action + " user '" + user.getUsername() + "'?",
+		Messagebox.show(
+
+				"Are you sure you want to " + action + " user '" + user.getUsername() + "'?",
 
 				action.substring(0, 1).toUpperCase() + action.substring(1) + " User",
 
@@ -705,9 +1006,6 @@ public class UserController extends GenericForwardComposer<Component> {
 								Messagebox.show("User " + action + "d successfully.", "Success", Messagebox.OK,
 										Messagebox.INFORMATION);
 
-								/*
-								 * Reload current DB page
-								 */
 								int activePage = userPaging.getActivePage();
 
 								loadUsers(activePage * PAGE_SIZE);
@@ -724,12 +1022,15 @@ public class UserController extends GenericForwardComposer<Component> {
 				});
 	}
 
-	/*
-	 * DELETE USER
-	 */
+	// ============================================================
+	// DELETE USER
+	// ============================================================
+
 	private void confirmDeleteUser(User user) {
 
-		Messagebox.show("Are you sure you want to " + "permanently delete user '" + user.getUsername() + "'?",
+		Messagebox.show(
+
+				"Are you sure you want to permanently delete user '" + user.getUsername() + "'?",
 
 				"Delete User",
 
@@ -751,14 +1052,9 @@ public class UserController extends GenericForwardComposer<Component> {
 								Messagebox.show("User deleted successfully.", "Success", Messagebox.OK,
 										Messagebox.INFORMATION);
 
-								/*
-								 * Recalculate total
-								 */
+								// Update count
 								userPaging.setTotalSize(userService.getUserCount());
 
-								/*
-								 * Reload current page
-								 */
 								int activePage = userPaging.getActivePage();
 
 								int offset = activePage * PAGE_SIZE;
@@ -769,7 +1065,8 @@ public class UserController extends GenericForwardComposer<Component> {
 
 								e.printStackTrace();
 
-								Messagebox.show("Unable to delete user. User must be In-active to delete", "Error", Messagebox.OK, Messagebox.ERROR);
+								Messagebox.show("Unable to delete user. User must be In-active to delete", "Error",
+										Messagebox.OK, Messagebox.ERROR);
 							}
 						}
 					}

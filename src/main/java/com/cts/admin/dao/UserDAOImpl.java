@@ -13,476 +13,360 @@ import com.cts.admin.util.ConnectionPool;
 
 public class UserDAOImpl implements UserDAO {
 
-    @Override
-    public List<User> getUsers(int limit, int offset) {
-
-        List<User> users = new ArrayList<>();
-
-        String sql =
-                "SELECT u.user_id, " +
-                "       u.username, " +
-                "       u.full_name, " +
-                "       u.role_id, " +
-                "       r.role_name, " +
-                "       r.description AS role_description, " +
-                "       r.status AS role_status, " +
-                "       u.status, " +
-                "       u.last_login_at " +
-                "FROM users u " +
-                "LEFT JOIN roles r ON u.role_id = r.role_id " +
-                "ORDER BY u.user_id " +
-                "LIMIT ? OFFSET ?";
+	@Override
+	public List<User> getUsers(int limit, int offset, String searchText, Long roleId, String status) {
 
-        try (
-                Connection connection =
-                        ConnectionPool.getDataSource().getConnection();
+		List<User> users = new ArrayList<>();
 
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
-        ) {
+		StringBuilder sql = new StringBuilder();
 
-            statement.setInt(1, limit);
-            statement.setInt(2, offset);
+		sql.append("SELECT u.user_id, " + "       u.username, " + "       u.full_name, " + "       u.role_id, "
+				+ "       r.role_name, " + "       r.description AS role_description, "
+				+ "       r.status AS role_status, " + "       u.status, " + "       u.last_login_at " + "FROM users u "
+				+ "LEFT JOIN roles r ON u.role_id = r.role_id " + "WHERE 1=1 ");
 
-            try (ResultSet resultSet = statement.executeQuery()) {
+		List<Object> parameters = new ArrayList<>();
 
-                while (resultSet.next()) {
+		/*
+		 * SEARCH FILTER
+		 *
+		 * Searches by: 1. Username 2. Full name 3. User ID
+		 */
+		if (searchText != null && !searchText.trim().isEmpty()) {
 
-                    User user = mapUser(resultSet);
+			sql.append("AND (" + "LOWER(u.username) LIKE ? " + "OR LOWER(u.full_name) LIKE ? "
+					+ "OR CAST(u.user_id AS TEXT) LIKE ?" + ") ");
 
-                    users.add(user);
-                }
-            }
+			String searchValue = "%" + searchText.trim().toLowerCase() + "%";
 
-        } catch (SQLException e) {
+			parameters.add(searchValue);
+			parameters.add(searchValue);
+			parameters.add(searchValue);
+		}
 
-            throw new RuntimeException(
-                    "Unable to fetch users.", e);
-        }
+		/*
+		 * ROLE FILTER
+		 */
+		if (roleId != null) {
 
-        return users;
-    }
+			sql.append("AND u.role_id = ? ");
 
-    @Override
-    public int getUserCount() {
+			parameters.add(roleId);
+		}
 
-        String sql = "SELECT COUNT(*) FROM users";
+		/*
+		 * STATUS FILTER
+		 */
+		if (status != null && !status.trim().isEmpty()) {
 
-        try (
-                Connection connection =
-                        ConnectionPool.getDataSource().getConnection();
+			sql.append("AND u.status = ? ");
 
-                PreparedStatement statement =
-                        connection.prepareStatement(sql);
+			parameters.add(status);
+		}
 
-                ResultSet resultSet =
-                        statement.executeQuery()
-        ) {
+		/*
+		 * PAGINATION
+		 */
+		sql.append("ORDER BY u.user_id " + "LIMIT ? OFFSET ?");
 
-            if (resultSet.next()) {
+		parameters.add(limit);
+		parameters.add(offset);
 
-                return resultSet.getInt(1);
-            }
+		try (Connection connection = ConnectionPool.getDataSource().getConnection();
 
-        } catch (SQLException e) {
+				PreparedStatement statement = connection.prepareStatement(sql.toString())) {
 
-            throw new RuntimeException(
-                    "Unable to count users.", e);
-        }
+			/*
+			 * Set all filter parameters followed by LIMIT and OFFSET.
+			 */
+			for (int i = 0; i < parameters.size(); i++) {
 
-        return 0;
-    }
+				statement.setObject(i + 1, parameters.get(i));
+			}
 
-    @Override
-    public User getUserById(Long userId) {
+			try (ResultSet resultSet = statement.executeQuery()) {
 
-        String sql =
-                "SELECT u.user_id, " +
-                "       u.username, " +
-                "       u.full_name, " +
-                "       u.password_hash, " +
-                "       u.role_id, " +
-                "       r.role_name, " +
-                "       r.description AS role_description, " +
-                "       r.status AS role_status, " +
-                "       r.created_at AS role_created_at, " +
-                "       r.updated_at AS role_updated_at, " +
-                "       u.status, " +
-                "       u.created_at, " +
-                "       u.updated_at, " +
-                "       u.last_login_at " +
-                "FROM users u " +
-                "LEFT JOIN roles r ON u.role_id = r.role_id " +
-                "WHERE u.user_id = ?";
+				while (resultSet.next()) {
 
-        try (
-                Connection connection =
-                        ConnectionPool.getDataSource().getConnection();
+					User user = mapUser(resultSet);
 
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
-        ) {
+					users.add(user);
+				}
+			}
 
-            statement.setLong(1, userId);
+		} catch (SQLException e) {
 
-            try (ResultSet resultSet =
-                         statement.executeQuery()) {
+			throw new RuntimeException("Unable to fetch users.", e);
+		}
 
-                if (resultSet.next()) {
+		return users;
+	}
 
-                    return mapUser(resultSet);
-                }
-            }
+	@Override
+	public int getUserCount() {
 
-        } catch (SQLException e) {
+		String sql = "SELECT COUNT(*) FROM users";
 
-            throw new RuntimeException(
-                    "Unable to fetch user.", e);
-        }
+		try (Connection connection = ConnectionPool.getDataSource().getConnection();
 
-        return null;
-    }
+				PreparedStatement statement = connection.prepareStatement(sql);
 
-    @Override
-    public boolean usernameExists(String username) {
+				ResultSet resultSet = statement.executeQuery()) {
 
-        String sql =
-                "SELECT COUNT(*) " +
-                "FROM users " +
-                "WHERE username = ?";
+			if (resultSet.next()) {
 
-        try (
-                Connection connection =
-                        ConnectionPool.getDataSource().getConnection();
+				return resultSet.getInt(1);
+			}
 
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
-        ) {
+		} catch (SQLException e) {
 
-            statement.setString(1, username);
+			throw new RuntimeException("Unable to count users.", e);
+		}
 
-            try (ResultSet resultSet =
-                         statement.executeQuery()) {
+		return 0;
+	}
 
-                if (resultSet.next()) {
+	@Override
+	public User getUserById(Long userId) {
 
-                    return resultSet.getInt(1) > 0;
-                }
-            }
+		String sql = "SELECT u.user_id, " + "       u.username, " + "       u.full_name, " + "       u.password_hash, "
+				+ "       u.role_id, " + "       r.role_name, " + "       r.description AS role_description, "
+				+ "       r.status AS role_status, " + "       r.created_at AS role_created_at, "
+				+ "       r.updated_at AS role_updated_at, " + "       u.status, " + "       u.created_at, "
+				+ "       u.updated_at, " + "       u.last_login_at " + "FROM users u "
+				+ "LEFT JOIN roles r ON u.role_id = r.role_id " + "WHERE u.user_id = ?";
 
-        } catch (SQLException e) {
+		try (Connection connection = ConnectionPool.getDataSource().getConnection();
 
-            throw new RuntimeException(
-                    "Unable to check username.", e);
-        }
+				PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        return false;
-    }
+			statement.setLong(1, userId);
 
-    @Override
-    public boolean createUser(User user) {
+			try (ResultSet resultSet = statement.executeQuery()) {
 
-        String sql =
-                "INSERT INTO users " +
-                "(username, full_name, password_hash, role_id, status) " +
-                "VALUES (?, ?, ?, ?, ?)";
+				if (resultSet.next()) {
 
-        try (
-                Connection connection =
-                        ConnectionPool.getDataSource().getConnection();
+					return mapUser(resultSet);
+				}
+			}
 
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
-        ) {
+		} catch (SQLException e) {
 
-            statement.setString(
-                    1,
-                    user.getUsername()
-            );
+			throw new RuntimeException("Unable to fetch user.", e);
+		}
 
-            statement.setString(
-                    2,
-                    user.getFullName()
-            );
+		return null;
+	}
 
-            statement.setString(
-                    3,
-                    user.getPasswordHash()
-            );
+	@Override
+	public boolean usernameExists(String username) {
 
-            statement.setLong(
-                    4,
-                    user.getRole().getRoleId()
-            );
+		String sql = "SELECT COUNT(*) " + "FROM users " + "WHERE username = ?";
 
-            statement.setString(
-                    5,
-                    user.getStatus()
-            );
+		try (Connection connection = ConnectionPool.getDataSource().getConnection();
 
-            return statement.executeUpdate() > 0;
+				PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        } catch (SQLException e) {
+			statement.setString(1, username);
 
-            throw new RuntimeException(
-                    "Unable to create user.", e);
-        }
-    }
+			try (ResultSet resultSet = statement.executeQuery()) {
 
-    @Override
-    public boolean updateUser(User user) {
+				if (resultSet.next()) {
 
-        String sql =
-                "UPDATE users " +
-                "SET username = ?, " +
-                "    full_name = ?, " +
-                "    role_id = ?, " +
-                "    updated_at = CURRENT_TIMESTAMP " +
-                "WHERE user_id = ?";
+					return resultSet.getInt(1) > 0;
+				}
+			}
 
-        try (
-                Connection connection =
-                        ConnectionPool.getDataSource().getConnection();
+		} catch (SQLException e) {
 
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
-        ) {
+			throw new RuntimeException("Unable to check username.", e);
+		}
 
-            statement.setString(
-                    1,
-                    user.getUsername()
-            );
+		return false;
+	}
 
-            statement.setString(
-                    2,
-                    user.getFullName()
-            );
+	@Override
+	public boolean createUser(User user) {
 
-            statement.setLong(
-                    3,
-                    user.getRole().getRoleId()
-            );
+		String sql = "INSERT INTO users " + "(username, full_name, password_hash, role_id, status) "
+				+ "VALUES (?, ?, ?, ?, ?)";
 
-            statement.setLong(
-                    4,
-                    user.getUserId()
-            );
+		try (Connection connection = ConnectionPool.getDataSource().getConnection();
 
-            return statement.executeUpdate() > 0;
+				PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        } catch (SQLException e) {
+			statement.setString(1, user.getUsername());
 
-            throw new RuntimeException(
-                    "Unable to update user.", e);
-        }
-    }
+			statement.setString(2, user.getFullName());
 
-    @Override
-    public boolean updateUserStatus(
-            Long userId,
-            String status) {
+			statement.setString(3, user.getPasswordHash());
 
-        String sql =
-                "UPDATE users " +
-                "SET status = ?, " +
-                "    updated_at = CURRENT_TIMESTAMP " +
-                "WHERE user_id = ?";
+			statement.setLong(4, user.getRole().getRoleId());
 
-        try (
-                Connection connection =
-                        ConnectionPool.getDataSource().getConnection();
+			statement.setString(5, user.getStatus());
 
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
-        ) {
+			return statement.executeUpdate() > 0;
 
-            statement.setString(
-                    1,
-                    status
-            );
+		} catch (SQLException e) {
 
-            statement.setLong(
-                    2,
-                    userId
-            );
+			throw new RuntimeException("Unable to create user.", e);
+		}
+	}
 
-            return statement.executeUpdate() > 0;
+	@Override
+	public boolean updateUser(User user) {
 
-        } catch (SQLException e) {
+		String sql = "UPDATE users " + "SET username = ?, " + "    full_name = ?, " + "    role_id = ?, "
+				+ "    updated_at = CURRENT_TIMESTAMP " + "WHERE user_id = ?";
 
-            throw new RuntimeException(
-                    "Unable to update user status.", e);
-        }
-    }
+		try (Connection connection = ConnectionPool.getDataSource().getConnection();
 
-    @Override
-    public void deleteUser(Long userId) {
+				PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        String sql =
-                "DELETE FROM users " +
-                "WHERE user_id = ?";
+			statement.setString(1, user.getUsername());
 
-        try (
-                Connection connection =
-                        ConnectionPool.getDataSource().getConnection();
+			statement.setString(2, user.getFullName());
 
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
-        ) {
+			statement.setLong(3, user.getRole().getRoleId());
 
-            statement.setLong(
-                    1,
-                    userId
-            );
+			statement.setLong(4, user.getUserId());
 
-            statement.executeUpdate();
+			return statement.executeUpdate() > 0;
 
-        } catch (SQLException e) {
+		} catch (SQLException e) {
 
-            throw new RuntimeException(
-                    "Unable to delete user.", e);
-        }
-    }
+			throw new RuntimeException("Unable to update user.", e);
+		}
+	}
 
-    private User mapUser(ResultSet resultSet)
-            throws SQLException {
+	@Override
+	public boolean updateUserStatus(Long userId, String status) {
 
-        User user = new User();
+		String sql = "UPDATE users " + "SET status = ?, " + "    updated_at = CURRENT_TIMESTAMP " + "WHERE user_id = ?";
 
-        user.setUserId(
-                resultSet.getLong("user_id")
-        );
+		try (Connection connection = ConnectionPool.getDataSource().getConnection();
 
-        user.setUsername(
-                resultSet.getString("username")
-        );
+				PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        user.setFullName(
-                resultSet.getString("full_name")
-        );
+			statement.setString(1, status);
 
-        /*
-         * password_hash is not present in getUsers().
-         * It is present in getUserById().
-         */
-        if (hasColumn(resultSet, "password_hash")) {
+			statement.setLong(2, userId);
 
-            user.setPasswordHash(
-                    resultSet.getString("password_hash")
-            );
-        }
+			return statement.executeUpdate() > 0;
 
-        /*
-         * Build Role object
-         */
-        long roleIdValue =
-                resultSet.getLong("role_id");
+		} catch (SQLException e) {
 
-        Long roleId = null;
+			throw new RuntimeException("Unable to update user status.", e);
+		}
+	}
 
-        if (!resultSet.wasNull()) {
-            roleId = roleIdValue;
-        }
+	@Override
+	public void deleteUser(Long userId) {
 
-        if (roleId != null) {
+		String sql = "DELETE FROM users " + "WHERE user_id = ?";
 
-            Role role = new Role();
+		try (Connection connection = ConnectionPool.getDataSource().getConnection();
 
-            role.setRoleId(roleId);
+				PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            role.setRoleName(
-                    resultSet.getString("role_name")
-            );
+			statement.setLong(1, userId);
 
-            role.setDescription(
-                    resultSet.getString("role_description")
-            );
+			statement.executeUpdate();
 
-            role.setStatus(
-                    resultSet.getString("role_status")
-            );
+		} catch (SQLException e) {
 
-            if (hasColumn(
-                    resultSet,
-                    "role_created_at")) {
+			throw new RuntimeException("Unable to delete user.", e);
+		}
+	}
 
-                role.setCreatedAt(
-                        resultSet.getTimestamp(
-                                "role_created_at"
-                        )
-                );
-            }
+	private User mapUser(ResultSet resultSet) throws SQLException {
 
-            if (hasColumn(
-                    resultSet,
-                    "role_updated_at")) {
+		User user = new User();
 
-                role.setUpdatedAt(
-                        resultSet.getTimestamp(
-                                "role_updated_at"
-                        )
-                );
-            }
+		user.setUserId(resultSet.getLong("user_id"));
 
-            user.setRole(role);
-        }
+		user.setUsername(resultSet.getString("username"));
 
-        user.setStatus(
-                resultSet.getString("status")
-        );
+		user.setFullName(resultSet.getString("full_name"));
 
-        if (hasColumn(
-                resultSet,
-                "created_at")) {
+		/*
+		 * password_hash is not present in getUsers(). It is present in getUserById().
+		 */
+		if (hasColumn(resultSet, "password_hash")) {
 
-            if (resultSet.getTimestamp(
-                    "created_at") != null) {
+			user.setPasswordHash(resultSet.getString("password_hash"));
+		}
 
-                user.setCreatedAt(
-                        resultSet
-                                .getTimestamp("created_at")
-                                .toLocalDateTime()
-                                .toLocalDate()
-                );
-            }
-        }
+		/*
+		 * Build Role object
+		 */
+		long roleIdValue = resultSet.getLong("role_id");
 
-        if (hasColumn(
-                resultSet,
-                "updated_at")) {
+		Long roleId = null;
 
-            if (resultSet.getTimestamp(
-                    "updated_at") != null) {
+		if (!resultSet.wasNull()) {
+			roleId = roleIdValue;
+		}
 
-                user.setUpdatedAt(
-                        resultSet
-                                .getTimestamp("updated_at")
-                                .toLocalDateTime()
-                                .toLocalDate()
-                );
-            }
-        }
+		if (roleId != null) {
 
-        user.setLastLoginAt(
-                resultSet.getTimestamp("last_login_at")
-        );
+			Role role = new Role();
 
-        return user;
-    }
+			role.setRoleId(roleId);
 
-    private boolean hasColumn(
-            ResultSet resultSet,
-            String columnName) {
+			role.setRoleName(resultSet.getString("role_name"));
 
-        try {
+			role.setDescription(resultSet.getString("role_description"));
 
-            resultSet.findColumn(columnName);
+			role.setStatus(resultSet.getString("role_status"));
 
-            return true;
+			if (hasColumn(resultSet, "role_created_at")) {
 
-        } catch (SQLException e) {
+				role.setCreatedAt(resultSet.getTimestamp("role_created_at"));
+			}
 
-            return false;
-        }
-    }
+			if (hasColumn(resultSet, "role_updated_at")) {
+
+				role.setUpdatedAt(resultSet.getTimestamp("role_updated_at"));
+			}
+
+			user.setRole(role);
+		}
+
+		user.setStatus(resultSet.getString("status"));
+
+		if (hasColumn(resultSet, "created_at")) {
+
+			if (resultSet.getTimestamp("created_at") != null) {
+
+				user.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime().toLocalDate());
+			}
+		}
+
+		if (hasColumn(resultSet, "updated_at")) {
+
+			if (resultSet.getTimestamp("updated_at") != null) {
+
+				user.setUpdatedAt(resultSet.getTimestamp("updated_at").toLocalDateTime().toLocalDate());
+			}
+		}
+
+		user.setLastLoginAt(resultSet.getTimestamp("last_login_at"));
+
+		return user;
+	}
+
+	private boolean hasColumn(ResultSet resultSet, String columnName) {
+
+		try {
+
+			resultSet.findColumn(columnName);
+
+			return true;
+
+		} catch (SQLException e) {
+
+			return false;
+		}
+	}
 }

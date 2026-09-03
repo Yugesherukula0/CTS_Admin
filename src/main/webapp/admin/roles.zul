@@ -364,7 +364,7 @@
                     <listheader
                         id="roleDescriptionHeader"
                         label="Description"
-                        width="57%"/>
+                        width="40%"/>
 
 
                     <!-- =============================================

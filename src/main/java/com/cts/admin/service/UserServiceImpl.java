@@ -8,153 +8,127 @@ import com.cts.admin.model.User;
 
 public class UserServiceImpl implements UserService {
 
-    private final UserDAO userDAO;
+	private final UserDAO userDAO;
 
-    public UserServiceImpl() {
-        userDAO = new UserDAOImpl();
-    }
+	public UserServiceImpl() {
+		userDAO = new UserDAOImpl();
+	}
 
-    @Override
-    public List<User> getUsers(int limit, int offset) {
-        return userDAO.getUsers(limit, offset);
-    }
+	@Override
+	public List<User> getUsers(int limit, int offset, String searchText, Long roleId, String status) {
 
-    @Override
-    public int getUserCount() {
-        return userDAO.getUserCount();
-    }
+		return userDAO.getUsers(limit, offset, searchText, roleId, status);
+	}
 
-    @Override
-    public User getUserById(Long userId) {
-        return userDAO.getUserById(userId);
-    }
+	@Override
+	public int getUserCount() {
+		return userDAO.getUserCount();
+	}
 
-    @Override
-    public boolean usernameExists(String username) {
-        return userDAO.usernameExists(username);
-    }
+	@Override
+	public User getUserById(Long userId) {
+		return userDAO.getUserById(userId);
+	}
 
-    @Override
-    public boolean createUser(User user) {
+	@Override
+	public boolean usernameExists(String username) {
+		return userDAO.usernameExists(username);
+	}
 
-        if (user == null) {
-            return false;
-        }
+	@Override
+	public boolean createUser(User user) {
 
-        if (user.getUsername() == null
-                || user.getUsername().trim().isEmpty()) {
+		if (user == null) {
+			return false;
+		}
 
-            return false;
-        }
+		if (user.getUsername() == null || user.getUsername().trim().isEmpty()) {
 
-        if (user.getFullName() == null
-                || user.getFullName().trim().isEmpty()) {
+			return false;
+		}
 
-            return false;
-        }
+		if (user.getFullName() == null || user.getFullName().trim().isEmpty()) {
 
-        if (user.getRole() == null
-                || user.getRole().getRoleId() == null) {
+			return false;
+		}
 
-            return false;
-        }
+		if (user.getRole() == null || user.getRole().getRoleId() == null) {
 
-        if (usernameExists(user.getUsername().trim())) {
-            return false;
-        }
+			return false;
+		}
 
-        user.setUsername(
-                user.getUsername().trim()
-        );
+		if (usernameExists(user.getUsername().trim())) {
+			return false;
+		}
 
-        user.setFullName(
-                user.getFullName().trim()
-        );
+		user.setUsername(user.getUsername().trim());
 
-        if (user.getStatus() == null
-                || user.getStatus().trim().isEmpty()) {
+		user.setFullName(user.getFullName().trim());
 
-            user.setStatus("ACTIVE");
-        }
+		if (user.getStatus() == null || user.getStatus().trim().isEmpty()) {
 
-        return userDAO.createUser(user);
-    }
+			user.setStatus("ACTIVE");
+		}
 
-    @Override
-    public boolean updateUser(User user) {
+		return userDAO.createUser(user);
+	}
 
-        if (user == null
-                || user.getUserId() == null) {
-            return false;
-        }
+	@Override
+	public boolean updateUser(User user) {
 
-        if (user.getUsername() == null
-                || user.getUsername().trim().isEmpty()) {
-            return false;
-        }
+		if (user == null || user.getUserId() == null) {
+			return false;
+		}
 
-        if (user.getFullName() == null
-                || user.getFullName().trim().isEmpty()) {
-            return false;
-        }
+		if (user.getUsername() == null || user.getUsername().trim().isEmpty()) {
+			return false;
+		}
 
-        if (user.getRole() == null
-                || user.getRole().getRoleId() == null) {
-            return false;
-        }
+		if (user.getFullName() == null || user.getFullName().trim().isEmpty()) {
+			return false;
+		}
 
-        user.setUsername(user.getUsername().trim());
-        user.setFullName(user.getFullName().trim());
+		if (user.getRole() == null || user.getRole().getRoleId() == null) {
+			return false;
+		}
 
-        return userDAO.updateUser(user);
-    }
+		user.setUsername(user.getUsername().trim());
+		user.setFullName(user.getFullName().trim());
 
-    @Override
-    public boolean updateUserStatus(
-            Long userId,
-            String status) {
+		return userDAO.updateUser(user);
+	}
 
-        if (userId == null
-                || status == null
-                || status.trim().isEmpty()) {
+	@Override
+	public boolean updateUserStatus(Long userId, String status) {
 
-            return false;
-        }
+		if (userId == null || status == null || status.trim().isEmpty()) {
 
-        return userDAO.updateUserStatus(
-                userId,
-                status
-        );
-    }
+			return false;
+		}
 
-    @Override
-    public void deleteUser(Long userId) {
+		return userDAO.updateUserStatus(userId, status);
+	}
 
-        if (userId == null) {
+	@Override
+	public void deleteUser(Long userId) {
 
-            throw new IllegalArgumentException(
-                    "User ID cannot be null."
-            );
-        }
+		if (userId == null) {
 
-        User user = userDAO.getUserById(userId);
+			throw new IllegalArgumentException("User ID cannot be null.");
+		}
 
-        if (user == null) {
+		User user = userDAO.getUserById(userId);
 
-            throw new IllegalArgumentException(
-                    "User not found."
-            );
-        }
+		if (user == null) {
 
-        if ("ACTIVE".equalsIgnoreCase(
-                user.getStatus())) {
+			throw new IllegalArgumentException("User not found.");
+		}
 
-            throw new IllegalStateException(
-                    "Active user cannot be deleted. "
-                    + "Deactivate the user first."
-            );
-        }
+		if ("ACTIVE".equalsIgnoreCase(user.getStatus())) {
 
-        userDAO.deleteUser(userId);
-    }
+			throw new IllegalStateException("Active user cannot be deleted. " + "Deactivate the user first.");
+		}
+
+		userDAO.deleteUser(userId);
+	}
 }

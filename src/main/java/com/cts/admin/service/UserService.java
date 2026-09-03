@@ -6,19 +6,19 @@ import com.cts.admin.model.User;
 
 public interface UserService {
 
-    List<User> getUsers(int limit, int offset);
+	public List<User> getUsers(int limit, int offset, String searchText, Long roleId, String status);
 
-    User getUserById(Long userId);
+	public User getUserById(Long userId);
 
-    boolean usernameExists(String username);
+	boolean usernameExists(String username);
 
-    boolean createUser(User user);
+	boolean createUser(User user);
 
-    boolean updateUser(User user);
+	boolean updateUser(User user);
 
-    boolean updateUserStatus(Long userId, String status);
+	boolean updateUserStatus(Long userId, String status);
 
-    void deleteUser(Long userId);
+	public void deleteUser(Long userId);
 
-    int getUserCount();
+	public int getUserCount();
 }
