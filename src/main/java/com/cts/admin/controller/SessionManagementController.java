@@ -4,6 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Label;
@@ -11,6 +14,7 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.Window;
 
 import com.cts.admin.model.Session;
@@ -24,8 +28,8 @@ public class SessionManagementController
 
     private Label sessionStatusBadge;
 
-    private Component closedSessionContent;
-    private Component activeSessionContent;
+    private Vlayout closedSessionContent;
+    private Vlayout activeSessionContent;
 
     private Label activeSessionName;
     private Label activeSessionId;
@@ -38,6 +42,7 @@ public class SessionManagementController
     private Listbox sessionHistoryListbox;
 
     private Window endSessionModal;
+
     private Button modalCloseButton;
     private Button modalCancelButton;
     private Button modalConfirmButton;
@@ -47,19 +52,19 @@ public class SessionManagementController
     private final SessionService sessionService;
 
     /*
-     * Current logged-in admin.
-     *
-     * Replace this later with your actual
-     * logged-in user/admin ID source.
+     * Login is not implemented.
+     * Temporary admin ID for testing.
      */
     private Long currentUserId = 1L;
 
     private Session activeSession;
 
+
     public SessionManagementController() {
 
         sessionService = new SessionServiceImpl();
     }
+
 
     @Override
     public void doAfterCompose(Component comp)
@@ -67,19 +72,112 @@ public class SessionManagementController
 
         super.doAfterCompose(comp);
 
+        System.out.println(
+                "SessionManagementController loaded."
+        );
+
+        /*
+         * Explicit event wiring.
+         *
+         * This avoids depending on
+         * onClick$componentId naming.
+         */
+
+        beginSessionButton.addEventListener(
+                Events.ON_CLICK,
+                new EventListener<Event>() {
+                	
+
+                    @Override
+                    public void onEvent(Event event)
+                            throws Exception {
+
+                        startSession();
+                    }
+                }
+        );
+
+
+        endSessionButton.addEventListener(
+                Events.ON_CLICK,
+                new EventListener<Event>() {
+
+                    @Override
+                    public void onEvent(Event event)
+                            throws Exception {
+
+                        showEndSessionConfirmation();
+                    }
+                }
+        );
+
+
+        modalCloseButton.addEventListener(
+                Events.ON_CLICK,
+                new EventListener<Event>() {
+
+                    @Override
+                    public void onEvent(Event event)
+                            throws Exception {
+
+                        closeEndSessionModal();
+                    }
+                }
+        );
+
+
+        modalCancelButton.addEventListener(
+                Events.ON_CLICK,
+                new EventListener<Event>() {
+
+                    @Override
+                    public void onEvent(Event event)
+                            throws Exception {
+
+                        closeEndSessionModal();
+                    }
+                }
+        );
+
+
+        modalConfirmButton.addEventListener(
+                Events.ON_CLICK,
+                new EventListener<Event>() {
+
+                    @Override
+                    public void onEvent(Event event)
+                            throws Exception {
+
+                        endSession();
+                    }
+                }
+        );
+
+
+        /*
+         * Load current GLOBAL session from DB.
+         */
         loadSessionState();
 
+
+        /*
+         * Load session history.
+         */
         loadSessionHistory();
     }
 
-    /**
-     * Loads the current global internal session
-     * from the database.
+
+    /*
+     * ============================================================
+     * LOAD SESSION STATE
+     * ============================================================
      */
+
     private void loadSessionState() {
 
         activeSession =
                 sessionService.getActiveSession();
+
 
         if (activeSession == null) {
 
@@ -91,9 +189,13 @@ public class SessionManagementController
         }
     }
 
-    /**
-     * Shows Start Session state.
+
+    /*
+     * ============================================================
+     * CLOSED STATE
+     * ============================================================
      */
+
     private void showClosedState() {
 
         sessionStatusBadge.setValue(
@@ -109,9 +211,13 @@ public class SessionManagementController
         activeSessionContent.setVisible(false);
     }
 
-    /**
-     * Shows End Session state.
+
+    /*
+     * ============================================================
+     * ACTIVE STATE
+     * ============================================================
      */
+
     private void showActiveState() {
 
         sessionStatusBadge.setValue(
@@ -126,43 +232,53 @@ public class SessionManagementController
 
         activeSessionContent.setVisible(true);
 
+
         activeSessionName.setValue(
                 "Clearing Session Active"
         );
 
         activeSessionId.setValue(
                 "Session ID: "
-                        + activeSession.getSessionId()
+                + activeSession.getSessionId()
         );
 
         activeSessionStartedAt.setValue(
                 "Started At: "
-                        + formatTimestamp(
-                                activeSession.getStartedAt()
-                        )
+                + formatTimestamp(
+                        activeSession.getStartedAt()
+                )
         );
 
         activeSessionStartedBy.setValue(
                 "Started By: Admin "
-                        + activeSession.getStartedBy()
+                + activeSession.getStartedBy()
         );
     }
 
-    /**
-     * Start internal processing session.
+
+    /*
+     * ============================================================
+     * START SESSION
+     * ============================================================
      */
-    public void onClick$beginSessionButton() {
+
+    private void startSession() {
+
+        System.out.println(
+                "Begin Session button clicked."
+        );
 
         try {
 
             /*
-             * Double-check from database.
+             * Always check the database.
              *
-             * This prevents starting another session
-             * if one became active after page load.
+             * The session is GLOBAL.
              */
+
             Session existingSession =
                     sessionService.getActiveSession();
+
 
             if (existingSession != null) {
 
@@ -178,10 +294,16 @@ public class SessionManagementController
                 return;
             }
 
+
+            /*
+             * Create GLOBAL ACTIVE session.
+             */
+
             boolean started =
                     sessionService.startSession(
                             currentUserId
                     );
+
 
             if (started) {
 
@@ -197,6 +319,7 @@ public class SessionManagementController
                 loadSessionHistory();
             }
 
+
         } catch (IllegalStateException e) {
 
             Messagebox.show(
@@ -208,7 +331,10 @@ public class SessionManagementController
 
             loadSessionState();
 
+
         } catch (Exception e) {
+
+            e.printStackTrace();
 
             Messagebox.show(
                     "Unable to start internal processing session.",
@@ -219,47 +345,86 @@ public class SessionManagementController
         }
     }
 
-    /**
-     * Open End Session confirmation modal.
+
+    /*
+     * ============================================================
+     * SHOW END SESSION CONFIRMATION
+     * ============================================================
      */
-    public void onClick$endSessionButton() {
+
+    private void showEndSessionConfirmation() {
+
+        System.out.println(
+                "End Session button clicked."
+        );
+
+
+        /*
+         * Always get the latest active session.
+         */
+
+        activeSession =
+                sessionService.getActiveSession();
+
 
         if (activeSession == null) {
 
             loadSessionState();
 
+            Messagebox.show(
+                    "No active internal processing session exists.",
+                    "Session",
+                    Messagebox.OK,
+                    Messagebox.EXCLAMATION
+            );
+
             return;
         }
 
+
         modalQuestion.setValue(
                 "Are you sure you want to end Session "
-                        + activeSession.getSessionId()
-                        + "?"
+                + activeSession.getSessionId()
+                + "?"
         );
+
 
         endSessionModal.setVisible(true);
     }
 
-    /**
-     * Close confirmation modal.
+
+    /*
+     * ============================================================
+     * CLOSE MODAL
+     * ============================================================
      */
-    public void onClick$modalCloseButton() {
+
+    private void closeEndSessionModal() {
 
         endSessionModal.setVisible(false);
     }
 
-    /**
-     * Cancel ending session.
-     */
-    public void onClick$modalCancelButton() {
 
-        endSessionModal.setVisible(false);
-    }
-
-    /**
-     * Confirm and end current internal session.
+    /*
+     * ============================================================
+     * END SESSION
+     * ============================================================
      */
-    public void onClick$modalConfirmButton() {
+
+    private void endSession() {
+
+        System.out.println(
+                "Confirm End Session button clicked."
+        );
+
+
+        /*
+         * Get the current GLOBAL active session again.
+         */
+
+        activeSession =
+                sessionService.getActiveSession();
+
 
         if (activeSession == null) {
 
@@ -267,16 +432,29 @@ public class SessionManagementController
 
             loadSessionState();
 
+            Messagebox.show(
+                    "No active internal processing session exists.",
+                    "Session",
+                    Messagebox.OK,
+                    Messagebox.EXCLAMATION
+            );
+
             return;
         }
 
+
         try {
+
+            Long sessionId =
+                    activeSession.getSessionId();
+
 
             boolean ended =
                     sessionService.endSession(
-                            activeSession.getSessionId(),
+                            sessionId,
                             currentUserId
                     );
+
 
             if (ended) {
 
@@ -289,13 +467,18 @@ public class SessionManagementController
                         Messagebox.INFORMATION
                 );
 
+
                 /*
-                 * Reload from DB.
+                 * Database should now contain:
+                 *
+                 * status = ENDED
                  */
+
                 loadSessionState();
 
                 loadSessionHistory();
             }
+
 
         } catch (IllegalStateException e) {
 
@@ -310,7 +493,10 @@ public class SessionManagementController
 
             loadSessionState();
 
+
         } catch (Exception e) {
+
+            e.printStackTrace();
 
             endSessionModal.setVisible(false);
 
@@ -323,24 +509,32 @@ public class SessionManagementController
         }
     }
 
-    /**
-     * Loads complete session history.
+
+    /*
+     * ============================================================
+     * SESSION HISTORY
+     * ============================================================
      */
+
     private void loadSessionHistory() {
 
         sessionHistoryListbox.getItems().clear();
 
+
         List<Session> sessions =
                 sessionService.getAllSessions();
+
 
         for (Session session : sessions) {
 
             Listitem item =
                     new Listitem();
 
+
             /*
              * Session ID
              */
+
             Listcell sessionIdCell =
                     new Listcell();
 
@@ -354,9 +548,11 @@ public class SessionManagementController
 
             item.appendChild(sessionIdCell);
 
+
             /*
              * Session Name
              */
+
             Listcell sessionNameCell =
                     new Listcell();
 
@@ -368,9 +564,11 @@ public class SessionManagementController
 
             item.appendChild(sessionNameCell);
 
+
             /*
              * Session Type
              */
+
             Listcell sessionTypeCell =
                     new Listcell();
 
@@ -382,9 +580,11 @@ public class SessionManagementController
 
             item.appendChild(sessionTypeCell);
 
+
             /*
              * Start Date
              */
+
             Listcell startDateCell =
                     new Listcell();
 
@@ -398,9 +598,11 @@ public class SessionManagementController
 
             item.appendChild(startDateCell);
 
+
             /*
              * Start Time
              */
+
             Listcell startTimeCell =
                     new Listcell();
 
@@ -414,9 +616,11 @@ public class SessionManagementController
 
             item.appendChild(startTimeCell);
 
+
             /*
              * End Time
              */
+
             Listcell endTimeCell =
                     new Listcell();
 
@@ -432,24 +636,27 @@ public class SessionManagementController
 
             item.appendChild(endTimeCell);
 
+
             /*
              * Status
              */
+
             Listcell statusCell =
                     new Listcell();
 
-            Label statusLabel =
+            statusCell.appendChild(
                     new Label(
                             session.getStatus()
-                    );
-
-            statusCell.appendChild(statusLabel);
+                    )
+            );
 
             item.appendChild(statusCell);
+
 
             /*
              * Started By
              */
+
             Listcell startedByCell =
                     new Listcell();
 
@@ -458,15 +665,17 @@ public class SessionManagementController
                             session.getStartedBy() == null
                                     ? "-"
                                     : "Admin "
-                                    + session.getStartedBy()
+                                      + session.getStartedBy()
                     )
             );
 
             item.appendChild(startedByCell);
 
+
             /*
              * Ended By
              */
+
             Listcell endedByCell =
                     new Listcell();
 
@@ -475,15 +684,17 @@ public class SessionManagementController
                             session.getEndedBy() == null
                                     ? "-"
                                     : "Admin "
-                                    + session.getEndedBy()
+                                      + session.getEndedBy()
                     )
             );
 
             item.appendChild(endedByCell);
 
+
             sessionHistoryListbox.appendChild(item);
         }
     }
+
 
     private String formatTimestamp(
             java.sql.Timestamp timestamp) {
@@ -497,6 +708,7 @@ public class SessionManagementController
         ).format(timestamp);
     }
 
+
     private String formatDate(
             java.sql.Timestamp timestamp) {
 
@@ -508,6 +720,7 @@ public class SessionManagementController
                 "dd MMM yyyy"
         ).format(timestamp);
     }
+
 
     private String formatTime(
             java.sql.Timestamp timestamp) {
