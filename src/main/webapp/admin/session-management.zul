@@ -1,83 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<zk>
+<?link rel="stylesheet" type="text/css" href="/style/sessionManagement.css"?>
 
-    <style>
+<window id="win"
+        apply="com.cts.admin.controller.SessionManagementController"
+        width="100%"
+        hflex="1"
+        vflex="1"
+        border="none"
+        sclass="session-mgmt-page">
 
-        .placeholder-page {
-            width: 100%;
-            min-height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #F5F7FC;
-            padding: 60px;
-            box-sizing: border-box;
-        }
+    <vlayout width="100%" spacing="20px">
 
-        .placeholder-card {
-            background: #FFFFFF;
-            border: 1px solid #DDE4ED;
-            border-radius: 12px;
-            padding: 60px 80px;
-            text-align: center;
-            max-width: 560px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .placeholder-card.z-vlayout {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .placeholder-icon {
-            font-size: 52px !important;
-            margin-bottom: 20px !important;
-            display: block !important;
-        }
-
-        .placeholder-title {
-            font-size: 24px !important;
-            font-weight: 700 !important;
-            color: #18243A !important;
-            display: block !important;
-            margin-bottom: 12px !important;
-        }
-
-        .placeholder-subtitle {
-            font-size: 15px !important;
-            color: #667085 !important;
-            line-height: 1.6 !important;
-            display: block !important;
-            margin-bottom: 28px !important;
-        }
-
-        .placeholder-badge {
-            display: inline-block;
-            background: #FEF3C7;
-            border: 1px solid #FDE68A;
-            border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 13px !important;
-            font-weight: 600 !important;
-            color: #92400E !important;
-        }
-
-    </style>
-
-    <div sclass="placeholder-page">
-
-        <vlayout sclass="placeholder-card" spacing="0">
-            <label sclass="placeholder-icon"     value="🔒"/>
-            <label sclass="placeholder-title"    value="Session Management"/>
-            <label sclass="placeholder-subtitle"
-                   value="This module is currently under development and has not been implemented yet. Check back in a future release."
-                   multiline="true"/>
-            <label sclass="placeholder-badge"    value="🚧  Under Development"/>
+        <vlayout sclass="page-header" spacing="4px">
+            <label value="Session Management" sclass="page-title"/>
+            <label value="Open and close clearing operational windows, control batch intake sessions, and review clearing cycle history"
+                   sclass="page-subtitle"/>
         </vlayout>
 
-    </div>
+        <vlayout id="activeSessionBox" width="100%" visible="false" sclass="session-card session-card-active">
+            <hbox width="100%" valign="center" sclass="session-card-toprow">
+                <label value="CURRENT SESSION" sclass="card-caption" hflex="1"/>
+                <label id="lblActivePill" value="ACTIVE" sclass="pill pill-active"/>
+            </hbox>
+            <label id="lblSessionName" value="Morning Session" sclass="session-name"/>
+            <vlayout sclass="session-detail-list" spacing="2px">
+                <hlayout>
+                    <label value="Session ID:" sclass="detail-label"/>
+                    <label id="lblSessionId" value="SES-20260903-04" sclass="detail-value"/>
+                </hlayout>
+                <hlayout>
+                    <label value="Started At:" sclass="detail-label"/>
+                    <label id="lblStartedAt" value="09:56 AM on 03 Sept 2026" sclass="detail-value"/>
+                </hlayout>
+                <hlayout>
+                    <label value="Started By:" sclass="detail-label"/>
+                    <label id="lblStartedBy" value="Demo User" sclass="detail-value"/>
+                </hlayout>
+            </vlayout>
+            <button id="btnEndSession" label="&#x25A0;  End Current Session" sclass="btn btn-danger"/>
+        </vlayout>
 
-</zk>
+        <vlayout id="inactiveSessionBox" width="100%" visible="true" sclass="session-card session-card-inactive">
+            <hbox width="100%" valign="center" sclass="session-card-toprow">
+                <label value="CURRENT SESSION" sclass="card-caption" hflex="1"/>
+                <label value="NO ACTIVE SESSION" sclass="pill pill-inactive"/>
+            </hbox>
+            <label value="Clearing Window Closed" sclass="session-name"/>
+            <label value="Start a new clearing session to allow batch capture and inward intake."
+                   sclass="session-desc"/>
+            <button id="btnBeginSession" label="&#x25B6;  Begin session" sclass="btn btn-success"/>
+        </vlayout>
+
+        <vlayout width="100%" sclass="history-card">
+            <hlayout valign="center" sclass="history-header">
+                <label value="&#x23F0;" sclass="history-icon"/>
+                <label value="Session History" sclass="history-title"/>
+            </hlayout>
+
+            <listbox id="historyListbox" width="100%" mold="default" sclass="history-listbox"
+                     span="true" emptyMessage="No session history available">
+
+                <listhead sizable="true">
+                    <listheader label="Session ID"   hflex="1"/>
+                    <listheader label="Session Name" hflex="1"/>
+                    <listheader label="Session Type" hflex="1"/>
+                    <listheader label="Start Date"   hflex="1"/>
+                    <listheader label="Start Time"   hflex="1"/>
+                    <listheader label="End Time"     hflex="1"/>
+                    <listheader label="Status"       hflex="1"/>
+                    <listheader label="Started By"   hflex="1"/>
+                    <listheader label="Ended By"     hflex="1"/>
+                </listhead>
+
+                <template name="model" var="row">
+                    <listitem>
+                        <listcell sclass="cell-session-id">
+                            <a label="${row.sessionId}" sclass="session-id-link"/>
+                        </listcell>
+                        <listcell label="${row.sessionName}"/>
+                        <listcell label="${row.sessionType}"/>
+                        <listcell label="${row.startDate}"/>
+                        <listcell sclass="cell-time-start" label="${row.startTime}"/>
+                        <listcell sclass="cell-time-end"   label="${row.endTime}"/>
+                        <listcell>
+                            <label value="${row.status}"
+                                   sclass="pill ${row.status eq 'ACTIVE' ? 'pill-active' : 'pill-ended'}"/>
+                        </listcell>
+                        <listcell label="${row.startedBy}"/>
+                        <listcell label="${row.endedBy}"/>
+                    </listitem>
+                </template>
+
+            </listbox>
+        </vlayout>
+
+    </vlayout>
+
+    <window id="confirmEndSessionWin"
+            title="Confirm End Session"
+            border="normal"
+            mode="modal"
+            visible="false"
+            closable="true"
+            width="480px"
+            sclass="confirm-modal">
+
+        <vlayout spacing="14px" width="100%">
+            <hlayout>
+                <label value="Are you sure you want to end the active session (" sclass="confirm-title"/>
+                <label id="lblConfirmSessionName" value="Morning Session" sclass="confirm-title-bold"/>
+                <label value=")?" sclass="confirm-title"/>
+            </hlayout>
+            <label value="Ending the session will close the clearing window for current intake. Completed batches will remain tracked and logged."
+                   sclass="confirm-subtext" multiline="true"/>
+            <hlayout sclass="confirm-actions">
+                <button id="btnCancel"     label="Cancel"                    sclass="btn btn-secondary"/>
+                <button id="btnConfirmEnd" label="Confirm &amp; End Session" sclass="btn btn-danger"/>
+            </hlayout>
+        </vlayout>
+
+    </window>
+
+</window>
