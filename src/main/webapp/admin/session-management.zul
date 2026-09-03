@@ -8,7 +8,7 @@
         border="none"
         sclass="session-mgmt-page">
 
-    <vlayout width="100%" spacing="20px">
+    <vlayout width="100%" spacing="24px">
 
         <vlayout sclass="page-header" spacing="4px">
             <label value="Session Management" sclass="page-title"/>
@@ -17,30 +17,30 @@
         </vlayout>
 
         <vlayout id="activeSessionBox" width="100%" visible="false" sclass="session-card session-card-active">
-            <hbox width="100%" align="center" sclass="session-card-toprow">
+            <hbox width="100%" align="center" spacing="0" sclass="session-card-toprow">
                 <label value="CURRENT SESSION" sclass="card-caption" hflex="1"/>
                 <label id="lblActivePill" value="ACTIVE" sclass="pill pill-active"/>
             </hbox>
             <label id="lblSessionName" value="Morning Session" sclass="session-name"/>
-            <vlayout sclass="session-detail-list" spacing="2px">
-                <hlayout>
+            <vlayout sclass="session-detail-list" spacing="4px">
+                <hlayout spacing="0">
                     <label value="Session ID:" sclass="detail-label"/>
-                    <label id="lblSessionId" value="SES-20260903-04" sclass="detail-value"/>
+                    <label id="lblSessionId" value="" sclass="detail-value"/>
                 </hlayout>
-                <hlayout>
+                <hlayout spacing="0">
                     <label value="Started At:" sclass="detail-label"/>
-                    <label id="lblStartedAt" value="09:56 AM on 03 Sept 2026" sclass="detail-value"/>
+                    <label id="lblStartedAt" value="" sclass="detail-value"/>
                 </hlayout>
-                <hlayout>
+                <hlayout spacing="0">
                     <label value="Started By:" sclass="detail-label"/>
-                    <label id="lblStartedBy" value="Demo User" sclass="detail-value"/>
+                    <label id="lblStartedBy" value="" sclass="detail-value"/>
                 </hlayout>
             </vlayout>
             <button id="btnEndSession" label="&#x25A0;  End Current Session" sclass="btn btn-danger"/>
         </vlayout>
 
         <vlayout id="inactiveSessionBox" width="100%" visible="true" sclass="session-card session-card-inactive">
-            <hbox width="100%" align="center" sclass="session-card-toprow">
+            <hbox width="100%" align="center" spacing="0" sclass="session-card-toprow">
                 <label value="CURRENT SESSION" sclass="card-caption" hflex="1"/>
                 <label value="NO ACTIVE SESSION" sclass="pill pill-inactive"/>
             </hbox>
@@ -50,8 +50,8 @@
             <button id="btnBeginSession" label="&#x25B6;  Begin session" sclass="btn btn-success"/>
         </vlayout>
 
-        <vlayout width="100%" sclass="history-card">
-            <hlayout sclass="history-header">
+        <vlayout width="100%" sclass="history-card" spacing="0">
+            <hlayout sclass="history-header" spacing="8px">
                 <label value="&#x23F0;" sclass="history-icon"/>
                 <label value="Session History" sclass="history-title"/>
             </hlayout>
@@ -59,21 +59,21 @@
             <listbox id="historyListbox" width="100%" mold="default" sclass="history-listbox"
                      emptyMessage="No session history available">
 
-                <listhead sizable="true">
-                    <listheader label="Session ID"   width="11%"/>
-                    <listheader label="Session Name" width="12%"/>
-                    <listheader label="Session Type" width="11%"/>
+                <listhead sizable="false">
+                    <listheader label="Session ID"   width="13%"/>
+                    <listheader label="Session Name" width="14%"/>
+                    <listheader label="Session Type" width="13%"/>
                     <listheader label="Start Date"   width="11%"/>
-                    <listheader label="Start Time"   width="11%"/>
-                    <listheader label="End Time"     width="11%"/>
-                    <listheader label="Status"       width="11%"/>
-                    <listheader label="Started By"   width="11%"/>
-                    <listheader label="Ended By"     width="11%"/>
+                    <listheader label="Start Time"   width="10%"/>
+                    <listheader label="End Time"     width="10%"/>
+                    <listheader label="Status"       width="9%"/>
+                    <listheader label="Started By"   width="10%"/>
+                    <listheader label="Ended By"     width="10%"/>
                 </listhead>
 
                 <template name="model" var="row">
                     <listitem>
-                        <listcell sclass="cell-session-id">
+                        <listcell>
                             <a label="${row.sessionId}" sclass="session-id-link"/>
                         </listcell>
                         <listcell label="${row.sessionName}"/>
@@ -105,14 +105,14 @@
             sclass="confirm-modal">
 
         <vlayout spacing="14px" width="100%">
-            <hlayout>
+            <hlayout spacing="0">
                 <label value="Are you sure you want to end the active session (" sclass="confirm-title"/>
-                <label id="lblConfirmSessionName" value="Morning Session" sclass="confirm-title-bold"/>
+                <label id="lblConfirmSessionName" value="" sclass="confirm-title-bold"/>
                 <label value=")?" sclass="confirm-title"/>
             </hlayout>
             <label value="Ending the session will close the clearing window for current intake. Completed batches will remain tracked and logged."
                    sclass="confirm-subtext" multiline="true"/>
-            <hlayout sclass="confirm-actions">
+            <hlayout sclass="confirm-actions" spacing="10px">
                 <button id="btnCancel"     label="Cancel"                    sclass="btn btn-secondary"/>
                 <button id="btnConfirmEnd" label="Confirm &amp; End Session" sclass="btn btn-danger"/>
             </hlayout>

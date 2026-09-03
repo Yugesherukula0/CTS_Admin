@@ -1,194 +1,355 @@
+/* ============================================================
+   SESSION MANAGEMENT
+   ============================================================ */
+
 .session-mgmt-page {
     background-color: #F4F6FB;
-    padding: 24px;
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
-.page-title {
-    font-size: 28px;
-    font-weight: 700;
-    color: #1A1D29;
+.session-mgmt-page > .z-window-content {
+    background-color: #F4F6FB;
+    padding: 30px 36px 40px 36px;
 }
 
-.page-subtitle {
-    font-size: 14px;
-    color: #6B7280;
-}
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
 
-.session-card {
-    border-radius: 10px;
-    padding: 20px 24px;
-}
-
-.session-card-active {
-    background-color: #E9F9EE;
-}
-
-.session-card-inactive {
-    background-color: #FFFFFF;
-    border: 1px solid #E5E7EB;
-}
-
-.session-card-toprow {
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.card-caption {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: #6B7280;
-}
-
-.session-name {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1A1D29;
+.page-header {
     margin-bottom: 6px;
-    display: block;
 }
 
-.session-desc {
-    font-size: 14px;
-    color: #6B7280;
-    margin-bottom: 16px;
-    display: block;
+.page-title,
+.page-title.z-label {
+    font-size: 30px !important;
+    font-weight: 700 !important;
+    color: #1A1D29 !important;
+    display: block !important;
 }
 
+.page-subtitle,
+.page-subtitle.z-label {
+    font-size: 14px !important;
+    color: #6B7280 !important;
+    display: block !important;
+}
+
+/* ============================================================
+   SESSION CARD — shared
+   ============================================================ */
+
+.session-card,
+.session-card.z-vlayout {
+    border-radius: 10px !important;
+    padding: 20px 24px 24px 24px !important;
+    box-sizing: border-box !important;
+}
+
+.session-card-active,
+.session-card-active.z-vlayout {
+    background-color: #EDFBF2 !important;
+    border: 1px solid #BBF7D0 !important;
+}
+
+.session-card-inactive,
+.session-card-inactive.z-vlayout {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E5E7EB !important;
+}
+
+/* Top row — CURRENT SESSION label + pill */
+.session-card-toprow {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 12px !important;
+}
+
+.card-caption,
+.card-caption.z-label {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    color: #6B7280 !important;
+    text-transform: uppercase !important;
+}
+
+/* Session name heading */
+.session-name,
+.session-name.z-label {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    display: block !important;
+    margin-bottom: 8px !important;
+}
+
+/* Inactive state subtitle */
+.session-desc,
+.session-desc.z-label {
+    font-size: 14px !important;
+    color: #6B7280 !important;
+    display: block !important;
+    margin-bottom: 18px !important;
+}
+
+/* Detail rows in active card */
 .session-detail-list {
-    margin-bottom: 16px;
+    margin-bottom: 18px !important;
 }
 
-.detail-label {
-    font-weight: 700;
-    color: #1A1D29;
-    margin-right: 4px;
+.detail-label,
+.detail-label.z-label {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    margin-right: 5px !important;
 }
 
-.detail-value {
-    color: #374151;
+.detail-value,
+.detail-value.z-label {
+    font-size: 14px !important;
+    color: #374151 !important;
 }
 
-.pill {
-    display: inline-block;
-    padding: 4px 14px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.03em;
+/* ============================================================
+   PILLS
+   ============================================================ */
+
+.pill,
+.pill.z-label {
+    display: inline-block !important;
+    padding: 5px 14px !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
+    white-space: nowrap !important;
 }
 
-.pill-active {
-    background-color: #16A34A;
-    color: #FFFFFF;
+.pill-active,
+.pill-active.z-label {
+    background-color: #16A34A !important;
+    color: #FFFFFF !important;
 }
 
-.pill-inactive {
-    background-color: #E5E7EB;
-    color: #4B5563;
+.pill-inactive,
+.pill-inactive.z-label {
+    background-color: #E5E7EB !important;
+    color: #4B5563 !important;
 }
 
-.pill-ended {
-    background-color: #E5E7EB;
-    color: #4B5563;
+.pill-ended,
+.pill-ended.z-label {
+    background-color: #E5E7EB !important;
+    color: #4B5563 !important;
 }
 
-.btn {
-    border-radius: 8px;
-    font-weight: 700;
-    padding: 10px 18px;
-    border: none;
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn.z-button {
+    border-radius: 7px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    padding: 0 20px !important;
+    height: 40px !important;
+    min-width: 160px !important;
+    cursor: pointer !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
-.btn-danger {
-    background-color: #DC2626;
-    color: #FFFFFF;
+.btn-danger.z-button {
+    background-color: #DC2626 !important;
+    color: #FFFFFF !important;
+    border-color: #DC2626 !important;
 }
 
-.btn-success {
-    background-color: #16A34A;
-    color: #FFFFFF;
+.btn-danger.z-button:hover {
+    background-color: #B91C1C !important;
 }
 
-.btn-secondary {
-    background-color: #FFFFFF;
-    color: #1A1D29;
-    border: 1px solid #D1D5DB;
+.btn-success.z-button {
+    background-color: #16A34A !important;
+    color: #FFFFFF !important;
+    border-color: #16A34A !important;
 }
 
-.history-card {
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    padding: 20px 24px;
-    border: 1px solid #E5E7EB;
+.btn-success.z-button:hover {
+    background-color: #15803D !important;
+}
+
+.btn-secondary.z-button {
+    background-color: #FFFFFF !important;
+    color: #1A1D29 !important;
+    border: 1px solid #D1D5DB !important;
+}
+
+.btn-secondary.z-button:hover {
+    background-color: #F9FAFB !important;
+}
+
+/* ============================================================
+   SESSION HISTORY CARD
+   ============================================================ */
+
+.history-card,
+.history-card.z-vlayout {
+    background-color: #FFFFFF !important;
+    border-radius: 10px !important;
+    padding: 22px 24px !important;
+    border: 1px solid #E5E7EB !important;
+    box-sizing: border-box !important;
 }
 
 .history-header {
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
+    margin-bottom: 14px !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
-.history-icon {
-    margin-right: 8px;
-    color: #4F46E5;
+.history-icon,
+.history-icon.z-label {
+    font-size: 18px !important;
+    margin-right: 8px !important;
+    color: #4F46E5 !important;
 }
 
-.history-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1A1D29;
+.history-title,
+.history-title.z-label {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #1A1D29 !important;
 }
 
-.history-listbox .z-listbox-header {
-    background-color: #FFFFFF;
-    font-weight: 700;
-    color: #1A1D29;
+/* ============================================================
+   HISTORY LISTBOX
+   ============================================================ */
+
+.history-listbox {
+    border: 1px solid #E5E7EB !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
 }
 
-.session-id-link {
-    color: #2563EB;
-    font-weight: 700;
+.history-listbox .z-listhead {
+    background-color: #F9FAFB !important;
 }
 
-.cell-time-start {
-    color: #16A34A;
-    font-weight: 600;
+.history-listbox .z-listheader {
+    background-color: #F9FAFB !important;
+    color: #111827 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    padding: 14px 16px !important;
+    border-bottom: 1px solid #E5E7EB !important;
+    border-right: none !important;
+    box-shadow: none !important;
 }
 
-.cell-time-end {
-    color: #DC2626;
-    font-weight: 600;
+.history-listbox .z-listheader-content {
+    color: #111827 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
 }
+
+.history-listbox .z-listitem {
+    border-bottom: 1px solid #F3F4F6 !important;
+    background-color: #FFFFFF !important;
+}
+
+.history-listbox .z-listitem:last-child {
+    border-bottom: none !important;
+}
+
+.history-listbox .z-listitem:hover {
+    background-color: #F9FAFB !important;
+}
+
+.history-listbox .z-listcell {
+    padding: 14px 16px !important;
+    border-right: none !important;
+    vertical-align: middle !important;
+    font-size: 14px !important;
+    color: #374151 !important;
+}
+
+.history-listbox .z-listcell-content {
+    font-size: 14px !important;
+    color: #374151 !important;
+}
+
+/* Session ID link */
+.session-id-link,
+.session-id-link.z-a {
+    color: #2563EB !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+}
+
+/* Session Name — bold in the row */
+.history-listbox .z-listitem .z-listcell:nth-child(2) .z-listcell-content {
+    font-weight: 700 !important;
+    color: #111827 !important;
+}
+
+/* Start Time — green */
+.cell-time-start .z-listcell-content {
+    color: #16A34A !important;
+    font-weight: 600 !important;
+}
+
+/* End Time — red */
+.cell-time-end .z-listcell-content {
+    color: #DC2626 !important;
+    font-weight: 600 !important;
+}
+
+/* ============================================================
+   CONFIRM MODAL
+   ============================================================ */
 
 .confirm-modal .z-window-header {
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    background: #FFFFFF !important;
+    color: #1A1D29 !important;
+    border-bottom: 1px solid #E5E7EB !important;
+    padding: 16px 20px !important;
 }
 
-.confirm-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #1A1D29;
+.confirm-modal .z-window-content {
+    padding: 20px !important;
 }
 
-.confirm-title-bold {
-    font-size: 16px;
-    font-weight: 700;
-    color: #1A1D29;
+.confirm-title,
+.confirm-title.z-label {
+    font-size: 15px !important;
+    color: #1A1D29 !important;
 }
 
-.confirm-subtext {
-    font-size: 13px;
-    color: #6B7280;
+.confirm-title-bold,
+.confirm-title-bold.z-label {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: #1A1D29 !important;
+}
+
+.confirm-subtext,
+.confirm-subtext.z-label {
+    font-size: 13px !important;
+    color: #6B7280 !important;
+    line-height: 1.5 !important;
+    display: block !important;
 }
 
 .confirm-actions {
-    margin-top: 8px;
-}
-
-.confirm-actions .btn {
-    margin-right: 10px;
+    margin-top: 8px !important;
+    gap: 10px !important;
+    display: flex !important;
 }
