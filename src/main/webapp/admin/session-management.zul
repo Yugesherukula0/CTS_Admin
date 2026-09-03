@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<zk>
+<zk apply="com.cts.admin.controller.SessionManagementController">
 
     <style src="/style/sessionManagement.css"/>
 
@@ -74,7 +74,7 @@
 
                 <label
                     sclass="closed-session-description"
-                    value="Start a new clearing session to allow batch capture and inward intake."/>
+                    value="Start an internal processing session to allow outward work to begin."/>
 
                 <button
                     id="beginSessionButton"
