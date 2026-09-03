@@ -2,82 +2,308 @@
 
 <zk>
 
-    <style>
+    <style src="/style/sessionManagement.css"/>
 
-        .placeholder-page {
-            width: 100%;
-            min-height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #F5F7FC;
-            padding: 60px;
-            box-sizing: border-box;
-        }
+    <!-- ============================================================
+         SESSION MANAGEMENT PAGE
+         ============================================================ -->
 
-        .placeholder-card {
-            background: #FFFFFF;
-            border: 1px solid #DDE4ED;
-            border-radius: 12px;
-            padding: 60px 80px;
-            text-align: center;
-            max-width: 560px;
-            width: 100%;
-            box-sizing: border-box;
-        }
+    <vlayout
+        id="sessionManagementPage"
+        width="100%"
+        spacing="0"
+        sclass="session-page">
 
-        .placeholder-card.z-vlayout {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
 
-        .placeholder-icon {
-            font-size: 52px !important;
-            margin-bottom: 20px !important;
-            display: block !important;
-        }
+        <!-- ========================================================
+             PAGE HEADER
+             ======================================================== -->
 
-        .placeholder-title {
-            font-size: 24px !important;
-            font-weight: 700 !important;
-            color: #18243A !important;
-            display: block !important;
-            margin-bottom: 12px !important;
-        }
+        <label
+            id="sessionPageTitle"
+            sclass="session-page-title"
+            value="Session Management"/>
 
-        .placeholder-subtitle {
-            font-size: 15px !important;
-            color: #667085 !important;
-            line-height: 1.6 !important;
-            display: block !important;
-            margin-bottom: 28px !important;
-        }
+        <label
+            id="sessionPageSubtitle"
+            sclass="session-page-subtitle"
+            value="Open and close clearing operational windows, control batch intake sessions, and review clearing cycle history"/>
 
-        .placeholder-badge {
-            display: inline-block;
-            background: #FEF3C7;
-            border: 1px solid #FDE68A;
-            border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 13px !important;
-            font-weight: 600 !important;
-            color: #92400E !important;
-        }
 
-    </style>
+        <!-- ========================================================
+             CURRENT SESSION CARD
+             ======================================================== -->
 
-    <div sclass="placeholder-page">
+        <vlayout
+            id="currentSessionCard"
+            sclass="current-session-card"
+            spacing="0">
 
-        <vlayout sclass="placeholder-card" spacing="0">
-            <label sclass="placeholder-icon"     value="🔒"/>
-            <label sclass="placeholder-title"    value="Session Management"/>
-            <label sclass="placeholder-subtitle"
-                   value="This module is currently under development and has not been implemented yet. Check back in a future release."
-                   multiline="true"/>
-            <label sclass="placeholder-badge"    value="🚧  Under Development"/>
+
+            <!-- TOP ROW -->
+
+            <hlayout
+                sclass="current-session-top"
+                spacing="0"
+                valign="middle">
+
+                <label
+                    sclass="current-session-label"
+                    value="CURRENT SESSION"/>
+
+                <label
+                    id="sessionStatusBadge"
+                    sclass="status-badge status-inactive"
+                    value="NO ACTIVE SESSION"/>
+
+            </hlayout>
+
+
+            <!-- ====================================================
+                 CLOSED STATE
+                 ==================================================== -->
+
+            <vlayout
+                id="closedSessionContent"
+                sclass="closed-session-content"
+                spacing="0">
+
+                <label
+                    sclass="closed-session-title"
+                    value="Clearing Window Closed"/>
+
+                <label
+                    sclass="closed-session-description"
+                    value="Start a new clearing session to allow batch capture and inward intake."/>
+
+                <button
+                    id="beginSessionButton"
+                    sclass="begin-session-button"
+                    label="&#x25B6;   Begin session"/>
+
+            </vlayout>
+
+
+            <!-- ====================================================
+                 ACTIVE STATE
+                 ==================================================== -->
+
+            <vlayout
+                id="activeSessionContent"
+                sclass="active-session-content"
+                spacing="0"
+                visible="false">
+
+                <label
+                    id="activeSessionName"
+                    sclass="active-session-name"
+                    value=""/>
+
+                <label
+                    id="activeSessionId"
+                    sclass="session-detail"
+                    value=""/>
+
+                <label
+                    id="activeSessionStartedAt"
+                    sclass="session-detail"
+                    value=""/>
+
+                <label
+                    id="activeSessionStartedBy"
+                    sclass="session-detail"
+                    value=""/>
+
+                <button
+                    id="endSessionButton"
+                    sclass="end-session-button"
+                    label="&#x25A0;   End Current Session"/>
+
+            </vlayout>
+
         </vlayout>
 
-    </div>
+
+        <!-- ========================================================
+             SESSION HISTORY CARD
+             ======================================================== -->
+
+        <vlayout
+            sclass="history-card"
+            spacing="0">
+
+
+            <!-- HISTORY TITLE -->
+
+            <hlayout
+                sclass="history-header"
+                spacing="0"
+                valign="middle">
+
+                <label
+                    sclass="history-icon"
+                    value="&#x25D7;"/>
+
+                <label
+                    sclass="history-title"
+                    value="Session History"/>
+
+            </hlayout>
+
+
+            <!-- ====================================================
+                 SESSION HISTORY LISTBOX
+                 ==================================================== -->
+
+            <listbox
+                id="sessionHistoryListbox"
+                sclass="history-listbox"
+                sizedByContent="false"
+                span="true"
+                emptyMessage="No session history available">
+
+                <listhead sclass="history-listhead">
+
+                    <listheader
+                        label="Session ID"
+                        width="14%"/>
+
+                    <listheader
+                        label="Session Name"
+                        width="13%"/>
+
+                    <listheader
+                        label="Session Type"
+                        width="12%"/>
+
+                    <listheader
+                        label="Start Date"
+                        width="12%"/>
+
+                    <listheader
+                        label="Start Time"
+                        width="10%"/>
+
+                    <listheader
+                        label="End Time"
+                        width="10%"/>
+
+                    <listheader
+                        label="Status"
+                        width="10%"/>
+
+                    <listheader
+                        label="Started By"
+                        width="10%"/>
+
+                    <listheader
+                        label="Ended By"
+                        width="9%"/>
+
+                </listhead>
+
+                <!--
+                =====================================================
+                CONTROLLER-POPULATED ROWS
+
+                Example row structure for SessionManagementController:
+
+                <listitem>
+                    <listcell><label sclass="session-id"          value="SES-20260903-04"/></listcell>
+                    <listcell><label sclass="session-name"        value="Morning Session"/></listcell>
+                    <listcell><label sclass="session-type"        value="Regular Clearing"/></listcell>
+                    <listcell><label sclass="session-date"        value="03 Sept 2026"/></listcell>
+                    <listcell><label sclass="start-time"          value="09:56 AM"/></listcell>
+                    <listcell><label sclass="in-progress"         value="In Progress"/></listcell>
+                    <listcell><label sclass="table-status-active" value="&#x2713; ACTIVE"/></listcell>
+                    <listcell><label sclass="session-user"        value="Demo User"/></listcell>
+                    <listcell><label sclass="session-user"        value="-"/></listcell>
+                </listitem>
+                =====================================================
+                -->
+
+            </listbox>
+
+        </vlayout>
+
+    </vlayout>
+
+
+    <!-- ============================================================
+         END SESSION CONFIRMATION MODAL
+         ============================================================ -->
+
+    <window
+        id="endSessionModal"
+        sclass="end-session-modal"
+        border="none"
+        closable="false"
+        sizable="false"
+        position="center"
+        mode="modal"
+        visible="false">
+
+        <vlayout spacing="0">
+
+            <!-- MODAL HEADER -->
+
+            <hlayout
+                sclass="modal-header"
+                spacing="0"
+                valign="middle">
+
+                <label
+                    sclass="modal-title"
+                    hflex="1"
+                    value="Confirm End Session"/>
+
+                <button
+                    id="modalCloseButton"
+                    sclass="modal-close"
+                    label="&#x00D7;"/>
+
+            </hlayout>
+
+
+            <!-- MODAL BODY -->
+
+            <vlayout
+                sclass="modal-body"
+                spacing="0">
+
+                <label
+                    id="modalQuestion"
+                    sclass="modal-question"
+                    value="Are you sure you want to end the active session?"/>
+
+                <label
+                    sclass="modal-description"
+                    value="Ending the session will close the clearing window for current intake. Completed batches will remain tracked and logged."/>
+
+            </vlayout>
+
+
+            <!-- MODAL FOOTER -->
+
+            <hlayout
+                sclass="modal-footer"
+                spacing="12px"
+                valign="middle">
+
+                <button
+                    id="modalCancelButton"
+                    sclass="modal-cancel"
+                    label="Cancel"/>
+
+                <button
+                    id="modalConfirmButton"
+                    sclass="modal-confirm"
+                    label="Confirm &amp; End Session"/>
+
+            </hlayout>
+
+        </vlayout>
+
+    </window>
 
 </zk>
