@@ -12,34 +12,34 @@ import com.cts.admin.util.ConnectionPool;
 
 public class SessionDAOImpl implements SessionDAO {
 
-    @Override
-    public boolean startSession(Long userId) {
+	@Override
+	public boolean startSession(Long userId) {
 
-        String sql =
-                "INSERT INTO sessions "
-                + "(status, started_at, started_by) "
-                + "VALUES ('ACTIVE', CURRENT_TIMESTAMP, ?)";
+	    String sql =
+	            "INSERT INTO sessions "
+	            + "(status, started_at, started_by) "
+	            + "VALUES ('ACTIVE', CURRENT_TIMESTAMP, ?)";
 
-        try (
-                Connection connection =
-                        ConnectionPool.getDataSource().getConnection();
+	    try (
+	            Connection connection =
+	                    ConnectionPool.getDataSource().getConnection();
 
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
-        ) {
+	            PreparedStatement statement =
+	                    connection.prepareStatement(sql)
+	    ) {
 
-            statement.setLong(1, userId);
+	        statement.setLong(1, userId);
 
-            return statement.executeUpdate() > 0;
+	        return statement.executeUpdate() > 0;
 
-        } catch (SQLException e) {
+	    } catch (SQLException e) {
 
-            throw new RuntimeException(
-                    "Unable to start internal processing session.",
-                    e
-            );
-        }
-    }
+	        throw new RuntimeException(
+	                "Unable to start internal processing session.",
+	                e
+	        );
+	    }
+	}
 
 
     @Override
