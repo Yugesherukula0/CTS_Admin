@@ -2,7 +2,7 @@
 
 <zk>
 
-    <style src="/style/user.css"/>
+    <style src="/css/user.css"/>
 
     <!-- ============================================================
          USER MANAGEMENT CENTER

@@ -4,7 +4,7 @@
 
 <zk>
 
-    <style src="/style/index.css"/>
+    <style src="/css/index.css"/>
 
 
     <div sclass="shell-root"

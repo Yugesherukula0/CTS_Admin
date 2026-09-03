@@ -2,7 +2,7 @@
 
 <zk>
 
-    <style src="/style/placeholder.css"/>
+    <style src="/css/placeholder.css"/>
 
     <!-- Outer centering wrapper stays div (CSS flex centering) -->
     <div sclass="placeholder-page">
