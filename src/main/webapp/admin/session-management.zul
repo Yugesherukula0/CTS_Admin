@@ -3,8 +3,8 @@
 <?link rel="stylesheet" type="text/css" href="/style/sessionManagement.css"?>
 
 <window id="win"
+        apply="com.cts.admin.controller.SessionManagementController"
         width="100%"
-        vflex="1"
         border="none"
         sclass="session-mgmt-page">
 
@@ -17,7 +17,7 @@
         </vlayout>
 
         <vlayout id="activeSessionBox" width="100%" visible="false" sclass="session-card session-card-active">
-            <hbox width="100%" valign="center" sclass="session-card-toprow">
+            <hbox width="100%" align="center" sclass="session-card-toprow">
                 <label value="CURRENT SESSION" sclass="card-caption" hflex="1"/>
                 <label id="lblActivePill" value="ACTIVE" sclass="pill pill-active"/>
             </hbox>
@@ -40,7 +40,7 @@
         </vlayout>
 
         <vlayout id="inactiveSessionBox" width="100%" visible="true" sclass="session-card session-card-inactive">
-            <hbox width="100%" valign="center" sclass="session-card-toprow">
+            <hbox width="100%" align="center" sclass="session-card-toprow">
                 <label value="CURRENT SESSION" sclass="card-caption" hflex="1"/>
                 <label value="NO ACTIVE SESSION" sclass="pill pill-inactive"/>
             </hbox>
@@ -51,13 +51,13 @@
         </vlayout>
 
         <vlayout width="100%" sclass="history-card">
-            <hlayout valign="center" sclass="history-header">
+            <hlayout sclass="history-header">
                 <label value="&#x23F0;" sclass="history-icon"/>
                 <label value="Session History" sclass="history-title"/>
             </hlayout>
 
-            <listbox id="historyListbox" hflex="1" mold="default" sclass="history-listbox"
-                     span="true" emptyMessage="No session history available">
+            <listbox id="historyListbox" width="100%" mold="default" sclass="history-listbox"
+                     emptyMessage="No session history available">
 
                 <listhead sizable="true">
                     <listheader label="Session ID"   width="11%"/>

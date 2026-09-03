@@ -31,6 +31,8 @@
 
 .session-card-toprow {
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
 }
 
 .card-caption {
@@ -125,6 +127,8 @@
 
 .history-header {
     margin-bottom: 12px;
+    display: flex;
+    align-items: center;
 }
 
 .history-icon {
