@@ -71,7 +71,7 @@
 
                 <div id="navRoles" sclass="nav-item">
                     <label sclass="nav-icon"  value="◈"/>
-                    <label sclass="nav-label" value="Role Management"/>
+                    <label sclass="nav-label" value="Roles"/>
                 </div>
 
                 <div id="navUsers" sclass="nav-item">

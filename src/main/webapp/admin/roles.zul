@@ -4,10 +4,6 @@
 
     <style src="/css/roles.css"/>
 
-    <!-- ============================================================
-         CENTER PAGE
-         ============================================================ -->
-
     <vlayout
         id="roleManagementPage"
         width="100%"
@@ -27,7 +23,7 @@
 
             <label
                 id="roleManagementTitle"
-                value="Role Management"
+                value="Roles"
                 sclass="role-page-title"/>
 
             <label
@@ -42,48 +38,40 @@
              SYSTEM ROLES CARD
              ======================================================== -->
 
-        <div
+        <vlayout
             id="systemRolesCard"
             width="100%"
+            spacing="0"
             sclass="system-roles-card">
 
 
             <!-- ====================================================
-                 CARD TITLE
+                 CARD HEADER
                  ==================================================== -->
 
-            <hbox
+            <vlayout
                 id="systemRolesHeader"
-                width="100%"
-                sclass="system-roles-header"
-                spacing="0">
+                spacing="0"
+                sclass="system-roles-header">
 
                 <label
                     id="systemRolesTitle"
                     value="System Roles"
                     sclass="system-roles-title"/>
 
-            </hbox>
+            </vlayout>
 
 
             <!-- ====================================================
                  ROLE LISTBOX
-
-                 IMPORTANT:
-                 The listbox itself and the headings are STATIC.
-                 No role records are hardcoded here.
-                 Controller/Model will populate the rows.
                  ==================================================== -->
 
             <listbox
                 id="roleListbox"
                 sclass="role-listbox"
+                sizedByContent="false"
+                span="true"
                 emptyMessage="No roles available">
-
-
-                <!-- =================================================
-                     STATIC COLUMN HEADINGS
-                     ================================================= -->
 
                 <listhead
                     id="roleListHead"
@@ -93,45 +81,29 @@
                     <listheader
                         id="roleNameHeader"
                         label="Role Name"
-                        width="18%"/>
+                        width="22%"/>
 
                     <listheader
                         id="roleDescriptionHeader"
                         label="Description"
-                        width="40%"/>
+                        width="50%"/>
 
                     <listheader
                         id="roleStatusHeader"
                         label="Status"
-                        width="12%"
-                        align="center"/>
-
-                    <listheader
-                        id="roleCreatedDateHeader"
-                        label="Created Date"
-                        width="13%"
+                        width="28%"
                         align="center"/>
 
                 </listhead>
 
-
-                <!-- =================================================
-                     NO HARDCODED ROWS
-
-                     Controller will populate roleListbox.
-
-                     Example flow:
-                     List<Role> roles = service.getRoles();
-                     for (Role role : roles) {
-                         Listitem item = new Listitem();
-                         ...
-                         roleListbox.appendChild(item);
-                     }
-                     ================================================= -->
+                <!--
+                    Rows populated by RoleController.
+                    DB → DAO → SERVICE → CONTROLLER → roleListbox
+                -->
 
             </listbox>
 
-        </div>
+        </vlayout>
 
     </vlayout>
 
