@@ -1,10 +1,12 @@
 /* ============================================================
-   ROLE MANAGEMENT PAGE
+   ROLES PAGE
    ============================================================ */
 
 .role-management-page {
+    width: 100%;
     padding: 34px 40px 40px 40px;
     box-sizing: border-box;
+    background: #F5F7FC;
 }
 
 
@@ -13,19 +15,33 @@
    ============================================================ */
 
 .role-page-header {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
+}
+
+/* Strip vlayout chrome */
+.role-page-header.z-vlayout > table,
+.role-page-header.z-vlayout > table > tbody > tr > td {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
 }
 
 .role-page-title {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 700;
     color: #18243A;
+    display: block !important;
+    line-height: 38px;
 }
 
 .role-page-subtitle {
     font-size: 15px;
-    color: #667085;
-    margin-top: 5px;
+    color: #475467;
+    display: block !important;
+    margin-top: 6px;
+    line-height: 1.6;
+    font-weight: 400;
+    white-space: normal;
 }
 
 
@@ -36,9 +52,19 @@
 .system-roles-card {
     width: 100%;
     background: #FFFFFF;
-    border: 1px solid #DDE4ED;
-    border-radius: 9px;
+    border: 1px solid #DDE4ED !important;
+    border-radius: 12px;
     box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Strip vlayout chrome */
+.system-roles-card.z-vlayout > table,
+.system-roles-card.z-vlayout > table > tbody > tr > td {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: 100% !important;
 }
 
 
@@ -47,15 +73,24 @@
    ============================================================ */
 
 .system-roles-header {
-    padding: 22px 28px;
-    border-bottom: 1px solid #DDE4ED;
+    padding: 22px 28px 20px 28px;
+    border-bottom: 1px solid #DDE4ED !important;
     box-sizing: border-box;
 }
 
+/* Strip vlayout chrome */
+.system-roles-header.z-vlayout > table,
+.system-roles-header.z-vlayout > table > tbody > tr > td {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
 .system-roles-title {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
     color: #18243A;
+    display: block !important;
 }
 
 
@@ -64,34 +99,50 @@
    ============================================================ */
 
 .role-listbox {
-    margin: 22px 28px 28px 28px;
-    border: 1px solid #D9E1EB;
+    width: calc(100% - 56px) !important;
+    margin: 20px 28px 28px 28px;
+    border: 1px solid #D9E1EB !important;
     border-radius: 8px;
     box-sizing: border-box;
+    box-shadow: none !important;
+    overflow: hidden;
     background: #FFFFFF;
 }
 
 
 /* ============================================================
-   LISTBOX HEADER
+   LISTBOX HEADER — styled distinctly from row content
    ============================================================ */
 
 .role-listbox .z-listhead {
-    background: #F8FAFC;
+    background: #EEF2F7 !important;
+    border: none !important;
 }
 
 .role-listbox .z-listheader {
-    background: #F8FAFC;
-    border-bottom: 1px solid #D9E1EB;
-    border-right: none;
-    padding: 16px 18px;
+    height: 54px;
+    background: #EEF2F7 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-bottom: 2px solid #D0D9E6 !important;
+    border-right: 1px solid #D9E1EB !important;
+    padding: 0 22px;
     box-sizing: border-box;
+    box-shadow: none !important;
+}
+
+.role-listbox .z-listheader:last-child {
+    border-right: none !important;
 }
 
 .role-listbox .z-listheader-content {
     color: #18243A;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap !important;
+    overflow: visible !important;
 }
 
 
@@ -100,16 +151,21 @@
    ============================================================ */
 
 .role-listbox .z-listitem {
+    min-height: 72px;
     background: #FFFFFF;
-    border-bottom: 1px solid #E3E8EF;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #EEF2F7 !important;
+    box-shadow: none !important;
 }
 
 .role-listbox .z-listitem:last-child {
-    border-bottom: none;
+    border-bottom: none !important;
 }
 
 .role-listbox .z-listitem:hover {
-    background: #FAFCFF;
+    background: #F8FBFF;
 }
 
 
@@ -118,112 +174,110 @@
    ============================================================ */
 
 .role-listbox .z-listcell {
-    border-right: none;
-    padding: 18px;
+    border: none !important;
+    padding: 0 22px;
     box-sizing: border-box;
     vertical-align: middle;
+    box-shadow: none !important;
 }
 
 .role-listbox .z-listcell-content {
-    font-size: 15px;
+    font-size: 14px;
     color: #344054;
+}
+
+.role-listbox .z-listbox-emptybody td {
+    color: #98A2B3;
+    font-size: 14px;
+    text-align: center;
+    padding: 40px 0;
 }
 
 
 /* ============================================================
-   ROLE NAME
+   ROLE NAME CELL
+   Controller builds: icon container + name label
    ============================================================ */
 
 .role-name-layout {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px;
 }
 
 .role-icon-container {
     width: 36px;
     height: 36px;
     min-width: 36px;
-    background: #EFF6FF;
-    border-radius: 7px;
-    margin-right: 11px;
+    background: #EFF6FF !important;
+    border-radius: 8px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .role-icon {
-    color: #155EEF;
-    font-size: 18px;
+    color: #2454D6;
+    font-size: 16px;
     font-weight: 700;
 }
 
 .role-name-label {
-    color: #182230;
-    font-size: 15px;
+    color: #18243A;
+    font-size: 14px;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 
 /* ============================================================
-   DESCRIPTION
+   DESCRIPTION CELL
    ============================================================ */
 
 .role-description-label {
     color: #475467;
-    font-size: 15px;
-    line-height: 1.45;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 
 /* ============================================================
-   STATUS
+   STATUS CELL
+   Controller builds: hbox badge with icon + label
    ============================================================ */
 
-.role-status-layout {
-    width: 100%;
+.role-status-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: #DCFCE7 !important;
+    border: 1px solid #B7EFCA !important;
+    border-radius: 999px;
+    padding: 5px 14px;
+    box-sizing: border-box;
+    white-space: nowrap;
 }
 
-.role-status-badge {
-    background: #DCFCE7;
-    border: 1px solid #B7EFCA;
-    border-radius: 18px;
-    padding: 6px 13px;
-    box-sizing: border-box;
+/* Strip hbox chrome inside badge */
+.role-status-badge.z-hbox,
+.role-status-badge.z-hbox > table,
+.role-status-badge.z-hbox td {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    vertical-align: middle !important;
 }
 
 .role-status-icon {
-    color: #15803D;
-    font-size: 12px;
+    color: #16A34A;
+    font-size: 11px;
     font-weight: 700;
     margin-right: 5px;
 }
 
 .role-status-label {
     color: #166534;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-}
-
-
-/* ============================================================
-   CREATED DATE
-   ============================================================ */
-
-.role-created-date-layout {
-    width: 100%;
-}
-
-.role-created-date-label {
-    color: #667085;
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-
-/* ============================================================
-   EMPTY TABLE
-   ============================================================ */
-
-.role-empty-message {
-    color: #667085;
-    font-size: 14px;
-    padding: 25px;
 }
