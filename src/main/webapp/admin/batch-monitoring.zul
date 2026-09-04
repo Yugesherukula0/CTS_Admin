@@ -24,7 +24,7 @@
             sclass="batch-page-title"
             value="Batch Monitoring"/>
 
-        <label
+        <labelq
             sclass="batch-page-subtitle"
             value="Real-time tracking of clearing batches across Batch Capture, Inward, and Outward cycles"/>
 
