@@ -2,19 +2,199 @@
 
 <zk>
 
-    <style src="/css/placeholder.css"/>
+    <style src="/css/auditLog.css"/>
 
-    <div sclass="placeholder-page">
+    <!-- ============================================================
+         AUDIT LOG PAGE
+         ============================================================ -->
 
-        <vlayout sclass="placeholder-card" spacing="0">
-            <label sclass="placeholder-icon"     value="📋"/>
-            <label sclass="placeholder-title"    value="Audit Logs"/>
-            <label sclass="placeholder-subtitle"
-                   value="This module is currently under development and has not been implemented yet. Check back in a future release."
-                   multiline="true"/>
-            <label sclass="placeholder-badge"    value="🚧  Under Development"/>
+    <vlayout
+        id="auditLogPage"
+        width="100%"
+        spacing="0"
+        sclass="audit-page">
+
+
+        <!-- ========================================================
+             PAGE HEADER
+             Title + subtitle on left, Read-Only badge on right.
+             div used so display:flex + space-between works.
+             ======================================================== -->
+
+        <div sclass="audit-page-header">
+
+            <div sclass="audit-header-left">
+                <label
+                    sclass="audit-page-title"
+                    value="Audit Logs"/>
+                <label
+                    sclass="audit-page-subtitle"
+                    value="Immutable, chronological system audit trail of authentication, batch transitions, and administrative events"/>
+            </div>
+
+            <div sclass="audit-readonly-badge">
+                <label
+                    sclass="audit-readonly-icon"
+                    value="&#x25CE;"/>
+                <label
+                    sclass="audit-readonly-label"
+                    value="Read-Only Compliance Log"/>
+            </div>
+
+        </div>
+
+
+        <!-- ========================================================
+             FILTER CARD
+             Search box stretches left, 3 dropdowns fixed on right.
+             div used so display:flex + gap works correctly.
+             ======================================================== -->
+
+        <div sclass="audit-filter-card">
+
+            <!-- Search — div so border renders and flex:1 works -->
+            <div sclass="audit-search-box">
+                <label
+                    sclass="audit-search-icon"
+                    value="&#x2315;"/>
+                <textbox
+                    id="auditSearchTextbox"
+                    hflex="1"
+                    height="38px"
+                    placeholder="Search description, user, action, batch ID..."
+                    sclass="audit-search-textbox"
+                    style="border:none !important; box-shadow:none !important; outline:none !important; background:transparent !important;"/>
+            </div>
+
+            <!-- All Modules -->
+            <combobox
+                id="auditModuleCombobox"
+                readonly="true"
+                value="All Modules"
+                sclass="audit-filter-combobox audit-modules-combobox">
+                <comboitem label="All Modules"/>
+                <comboitem label="Authentication"/>
+                <comboitem label="Inward"/>
+                <comboitem label="Outward"/>
+                <comboitem label="Batch Capture"/>
+                <comboitem label="Session"/>
+            </combobox>
+
+            <!-- All Roles -->
+            <combobox
+                id="auditRoleCombobox"
+                readonly="true"
+                value="All Roles"
+                sclass="audit-filter-combobox audit-roles-combobox">
+                <comboitem label="All Roles"/>
+                <comboitem label="ADMIN"/>
+                <comboitem label="INWARD_MAKER"/>
+                <comboitem label="INWARD_CHECKER"/>
+                <comboitem label="OUTWARD_MAKER"/>
+                <comboitem label="OUTWARD_CHECKER"/>
+                <comboitem label="CAPTURE_OPERATOR"/>
+            </combobox>
+
+            <!-- All Actions -->
+            <combobox
+                id="auditActionCombobox"
+                readonly="true"
+                value="All Actions"
+                sclass="audit-filter-combobox audit-actions-combobox">
+                <comboitem label="All Actions"/>
+                <comboitem label="USER_LOGIN"/>
+                <comboitem label="USER_LOGOUT"/>
+                <comboitem label="BATCH_LOCKED"/>
+                <comboitem label="CHECKER_STARTED_PROCESSING"/>
+            </combobox>
+
+        </div>
+
+
+        <!-- ========================================================
+             COUNT ROW
+             "Showing X of Y log records" left | Clear Filters right.
+             div used so display:flex + space-between works.
+             ======================================================== -->
+
+        <div sclass="audit-count-row">
+
+            <label
+                id="auditCountLabel"
+                sclass="audit-count-label"
+                value="Showing 0 log records"/>
+
+            <button
+                id="auditClearFilterBtn"
+                sclass="audit-clear-btn"
+                label="&#x21BA;   Clear Filters"/>
+
+        </div>
+
+
+        <!-- ========================================================
+             AUDIT TRAIL CARD
+             ======================================================== -->
+
+        <vlayout
+            spacing="0"
+            sclass="audit-trail-card">
+
+            <label
+                sclass="audit-trail-title"
+                value="Audit Trail Records"/>
+
+            <!-- ====================================================
+                 LISTBOX
+                 Columns: Date/Time | User | Module |
+                          Action | Batch ID | Session ID
+                 Rows populated by AuditLogController
+                 ==================================================== -->
+
+            <listbox
+                id="auditListbox"
+                sclass="audit-listbox"
+                sizedByContent="false"
+                span="true"
+                emptyMessage="No audit log records found">
+
+                <listhead sizable="false" menupopup="none">
+
+                    <listheader
+                        label="Date / Time"
+                        width="13%"/>
+
+                    <listheader
+                        label="User"
+                        width="14%"/>
+
+                    <listheader
+                        label="Module"
+                        width="14%"/>
+
+                    <listheader
+                        label="Action"
+                        width="23%"/>
+
+                    <listheader
+                        label="Batch ID"
+                        width="18%"/>
+
+                    <listheader
+                        label="Session ID"
+                        width="18%"/>
+
+                </listhead>
+
+                <!--
+                    Rows populated by AuditLogController.loadAuditLogs()
+                    DB → DAO → SERVICE → CONTROLLER → auditListbox
+                -->
+
+            </listbox>
+
         </vlayout>
 
-    </div>
+    </vlayout>
 
 </zk>
