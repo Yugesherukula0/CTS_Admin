@@ -33,43 +33,61 @@
              TAB / SEARCH BAR CARD
              ======================================================== -->
 
-        <div style="width:100%; background:#FFFFFF; border:1px solid #DDE4ED; border-radius:10px; padding:16px 20px; box-sizing:border-box; margin-bottom:20px; display:flex; flex-direction:row; align-items:center; justify-content:space-between;">
+        <div sclass="batch-tab-card">
 
-            <!-- Left: tab buttons -->
-            <div style="display:flex; flex-direction:row; align-items:center; gap:8px;">
+            <!-- LEFT: tab buttons -->
+            <hbox
+                align="center"
+                spacing="8px"
+                sclass="batch-tab-left">
+
                 <button
                     id="tabBatchCapture"
                     sclass="batch-tab-btn batch-tab-active"
                     label="Batch Capture"/>
+
                 <button
                     id="tabInward"
                     sclass="batch-tab-btn"
                     label="Inward Batches"/>
+
                 <button
                     id="tabOutward"
                     sclass="batch-tab-btn"
                     label="Outward"/>
-            </div>
 
-            <!-- Right: search input + button pinned to far right -->
-            <div style="display:flex; flex-direction:row; align-items:center; gap:8px; margin-left:auto;">
-                <div style="display:flex; flex-direction:row; align-items:center; height:38px; background:#FFFFFF; border:1px solid #D1D5DB; border-radius:7px; min-width:260px; box-sizing:border-box; overflow:hidden; padding: 0 8px;">
+            </hbox>
+
+            <!-- RIGHT: search box + button -->
+            <hbox
+                align="center"
+                spacing="0"
+                sclass="batch-search-wrapper">
+
+                <hbox
+                    align="center"
+                    spacing="0"
+                    sclass="batch-search-box">
+
                     <label
                         sclass="batch-search-icon"
                         value="&#x2315;"/>
+
                     <textbox
                         id="batchSearchTextbox"
-                        hflex="1"
-                        height="36px"
+                        width="200px"
+                        height="34px"
                         placeholder="Search by Batch ID, User..."
-                        sclass="batch-search-textbox"
-                        style="border:none !important; box-shadow:none !important; outline:none !important; background:transparent !important;"/>
-                </div>
+                        sclass="batch-search-textbox"/>
+
+                </hbox>
+
                 <button
                     id="batchSearchButton"
                     sclass="batch-search-btn"
                     label="Search"/>
-            </div>
+
+            </hbox>
 
         </div>
 
@@ -78,17 +96,18 @@
              RESULTS CARD
              ======================================================== -->
 
-        <div sclass="batch-results-card">
+        <vlayout
+            spacing="0"
+            sclass="batch-results-card">
 
-            <!-- Dynamic section title e.g. "Batch Capture Batches (8)" -->
+            <!-- Dynamic title — updated by controller on tab switch -->
             <label
                 id="batchSectionTitle"
                 sclass="batch-results-title"
                 value="Batch Capture Batches"/>
 
-
             <!-- ====================================================
-                 SINGLE LISTBOX — columns swapped by controller
+                 LISTBOX — fixed headers, rows populated by controller
                  ==================================================== -->
 
             <listbox
@@ -98,11 +117,59 @@
                 span="true"
                 emptyMessage="No records available">
 
-                <!-- Listhead injected dynamically by controller -->
+                <listhead sizable="false" menupopup="none">
+
+                    <listheader
+                        label="Batch ID"
+                        width="8%"/>
+
+                    <listheader
+                        label="Branch"
+                        width="9%"/>
+
+                    <listheader
+                        label="Cheque Count"
+                        width="10%"/>
+
+                    <listheader
+                        label="Total Amount"
+                        width="10%"/>
+
+                    <listheader
+                        label="Current Module"
+                        width="11%"/>
+
+                    <listheader
+                        label="Status"
+                        width="9%"/>
+
+                    <listheader
+                        label="Maker"
+                        width="9%"/>
+
+                    <listheader
+                        label="Checker"
+                        width="9%"/>
+
+                    <listheader
+                        label="Captured By"
+                        width="9%"/>
+
+                    <listheader
+                        label="Created At"
+                        width="17%"/>
+
+                </listhead>
+
+                <!--
+                    Rows populated by BatchMonitoringController.
+                    Same columns for all three tabs —
+                    only data changes based on batch type.
+                -->
 
             </listbox>
 
-        </div>
+        </vlayout>
 
     </vlayout>
 

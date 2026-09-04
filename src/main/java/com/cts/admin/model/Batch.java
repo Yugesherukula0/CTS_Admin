@@ -7,30 +7,17 @@ public class Batch implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /*
-     * Common fields
-     */
-    private Long   batchId;
-    private String batchType;      /* BATCH_CAPTURE | INWARD | OUTWARD */
-    private int    totalCheques;
-    private String status;
-
-    /*
-     * Batch Capture specific
-     */
-    private String sentUser;       /* username of user who sent the batch */
-
-    /*
-     * Inward specific
-     */
-    private String maker;
-    private String checker;
-
-    /*
-     * Audit
-     */
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Long      batchId;
+    private String    batchType;       /* BATCH_CAPTURE | INWARD | OUTWARD */
+    private String    branch;          /* Source branch */
+    private int       chequeCount;     /* Number of cheques */
+    private double    totalAmount;     /* Batch value */
+    private String    currentModule;   /* Where the batch currently is */
+    private String    status;          /* Current processing state */
+    private String    maker;           /* Maker currently assigned */
+    private String    checker;         /* Checker currently assigned */
+    private String    capturedBy;      /* User who created/captured the batch */
+    private Timestamp createdAt;       /* Batch creation time */
 
     /* ------------------------------------------------------------------ */
 
@@ -38,32 +25,38 @@ public class Batch implements Serializable {
 
     /* ------------------------------------------------------------------ */
 
-    public Long getBatchId()                    { return batchId; }
-    public void setBatchId(Long batchId)        { this.batchId = batchId; }
+    public Long getBatchId()                         { return batchId; }
+    public void setBatchId(Long batchId)             { this.batchId = batchId; }
 
-    public String getBatchType()                { return batchType; }
-    public void setBatchType(String batchType)  { this.batchType = batchType; }
+    public String getBatchType()                     { return batchType; }
+    public void setBatchType(String batchType)       { this.batchType = batchType; }
 
-    public int getTotalCheques()                { return totalCheques; }
-    public void setTotalCheques(int totalCheques){ this.totalCheques = totalCheques; }
+    public String getBranch()                        { return branch; }
+    public void setBranch(String branch)             { this.branch = branch; }
 
-    public String getStatus()                   { return status; }
-    public void setStatus(String status)        { this.status = status; }
+    public int getChequeCount()                      { return chequeCount; }
+    public void setChequeCount(int chequeCount)      { this.chequeCount = chequeCount; }
 
-    public String getSentUser()                 { return sentUser; }
-    public void setSentUser(String sentUser)    { this.sentUser = sentUser; }
+    public double getTotalAmount()                   { return totalAmount; }
+    public void setTotalAmount(double totalAmount)   { this.totalAmount = totalAmount; }
 
-    public String getMaker()                    { return maker; }
-    public void setMaker(String maker)          { this.maker = maker; }
+    public String getCurrentModule()                 { return currentModule; }
+    public void setCurrentModule(String currentModule){ this.currentModule = currentModule; }
 
-    public String getChecker()                  { return checker; }
-    public void setChecker(String checker)      { this.checker = checker; }
+    public String getStatus()                        { return status; }
+    public void setStatus(String status)             { this.status = status; }
 
-    public Timestamp getCreatedAt()             { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt){ this.createdAt = createdAt; }
+    public String getMaker()                         { return maker; }
+    public void setMaker(String maker)               { this.maker = maker; }
 
-    public Timestamp getUpdatedAt()             { return updatedAt; }
-    public void setUpdatedAt(Timestamp updatedAt){ this.updatedAt = updatedAt; }
+    public String getChecker()                       { return checker; }
+    public void setChecker(String checker)           { this.checker = checker; }
+
+    public String getCapturedBy()                    { return capturedBy; }
+    public void setCapturedBy(String capturedBy)     { this.capturedBy = capturedBy; }
+
+    public Timestamp getCreatedAt()                  { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt)    { this.createdAt = createdAt; }
 
     @Override
     public String toString() {
