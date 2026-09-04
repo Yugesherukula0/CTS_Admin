@@ -2,21 +2,177 @@
 
 <zk>
 
-    <style src="/css/placeholder.css"/>
+    <style src="/css/dashboard.css"/>
 
-    <!-- Outer centering wrapper stays div (CSS flex centering) -->
-    <div sclass="placeholder-page">
+    <vlayout
+        id="dashboardPage"
+        width="100%"
+        spacing="0"
+        sclass="dashboard-page">
 
-        <!-- vlayout stacks icon, title, subtitle, badge vertically -->
-        <vlayout sclass="placeholder-card" spacing="0">
-            <label sclass="placeholder-icon"     value="🏠"/>
-            <label sclass="placeholder-title"    value="Dashboard"/>
-            <label sclass="placeholder-subtitle"
-                   value="This module is currently under development and has not been implemented yet. Check back in a future release."
-                   multiline="true"/>
-            <label sclass="placeholder-badge"    value="🚧  Under Development"/>
-        </vlayout>
 
-    </div>
+        <!-- ========================================================
+             PAGE HEADER
+             ======================================================== -->
+
+        <div sclass="dashboard-header">
+            <div sclass="dashboard-header-left">
+                <label sclass="dashboard-title"    value="Admin Dashboard"/>
+                <label sclass="dashboard-subtitle" value="System-wide monitoring, user management, and session control"/>
+            </div>
+        </div>
+
+
+        <!-- ========================================================
+             OVERVIEW CARDS ROW
+             div — display:flex + gap:18px gives clean spacing
+             without the overflow issues hbox causes
+             ======================================================== -->
+
+        <div sclass="dashboard-cards-row">
+
+
+            <!-- ================================================
+                 CARD 1 — USER OVERVIEW
+                 ================================================ -->
+
+            <vlayout spacing="0" sclass="overview-card">
+
+                <div sclass="card-header-row">
+                    <div sclass="card-icon-wrap card-icon-blue">
+                        <label sclass="card-icon" value="&#x1F465;"/>
+                    </div>
+                    <div sclass="card-header-middle">
+                        <label sclass="card-title" value="User Overview"/>
+                    </div>
+                    <label id="userManageLink" sclass="card-link" value="Manage &#x2192;"/>
+                </div>
+
+                <div sclass="user-stats-row">
+                    <div sclass="user-stat-pill pill-grey">
+                        <label id="totalUsersValue"    sclass="pill-value-grey"   value="0"/>
+                        <label                         sclass="pill-label-grey"   value="Total Users"/>
+                    </div>
+                    <div sclass="user-stat-pill pill-green">
+                        <label id="activeUsersValue"   sclass="pill-value-green"  value="0"/>
+                        <label                         sclass="pill-label-green"  value="Active"/>
+                    </div>
+                    <div sclass="user-stat-pill pill-red">
+                        <label id="inactiveUsersValue" sclass="pill-value-red"    value="0"/>
+                        <label                         sclass="pill-label-red"    value="Inactive"/>
+                    </div>
+                </div>
+
+            </vlayout>
+
+
+            <!-- ================================================
+                 CARD 2 — SESSION OVERVIEW
+                 ================================================ -->
+
+            <vlayout spacing="0" sclass="overview-card">
+
+                <div sclass="card-header-row">
+                    <div sclass="card-icon-wrap card-icon-purple">
+                        <label sclass="card-icon" value="&#x23F0;"/>
+                    </div>
+                    <div sclass="card-header-middle">
+                        <label sclass="card-title" value="Session Overview"/>
+                    </div>
+                    <label id="sessionManageLink" sclass="card-link" value="Sessions &#x2192;"/>
+                </div>
+
+                <vlayout id="sessionStatusBox" spacing="0" sclass="session-status-box session-box-inactive">
+                    <label id="sessionCurrentLbl" sclass="session-current-label" value="CURRENT SESSION"/>
+                    <div sclass="session-name-row">
+                        <label id="sessionNameLbl" sclass="session-name-label"   value="No Active Session"/>
+                        <div   id="sessionBadge"   sclass="session-badge session-badge-inactive">
+                            <label id="sessionBadgeLbl" sclass="session-badge-label" value="NOT STARTED"/>
+                        </div>
+                    </div>
+                    <label id="sessionMetaLbl" sclass="session-meta-label" value="Started: - by -"/>
+                </vlayout>
+
+            </vlayout>
+
+
+            <!-- ================================================
+                 CARD 3 — BATCH OVERVIEW
+                 ================================================ -->
+
+            <vlayout spacing="0" sclass="overview-card">
+
+                <div sclass="card-header-row">
+                    <div sclass="card-icon-wrap card-icon-green">
+                        <label sclass="card-icon" value="&#x1F4C1;"/>
+                    </div>
+                    <div sclass="card-header-middle">
+                        <label sclass="card-title" value="Batch Overview"/>
+                    </div>
+                    <label id="batchTrackLink" sclass="card-link" value="Track &#x2192;"/>
+                </div>
+
+                <div sclass="batch-stats-row">
+                    <div sclass="batch-stat-block">
+                        <label                         sclass="batch-stat-label"      value="Total"/>
+                        <label id="totalBatchesValue"  sclass="batch-total-value"     value="0"/>
+                    </div>
+                    <div sclass="batch-stat-divider"/>
+                    <div sclass="batch-stat-block">
+                        <label                                sclass="batch-stat-label"       value="In Progress"/>
+                        <label id="inProgressBatchesValue"   sclass="batch-inprogress-value"  value="0"/>
+                    </div>
+                    <div sclass="batch-stat-divider"/>
+                    <div sclass="batch-stat-block">
+                        <label                               sclass="batch-stat-label"      value="Completed"/>
+                        <label id="completedBatchesValue"   sclass="batch-completed-value"  value="0"/>
+                    </div>
+                </div>
+
+            </vlayout>
+
+        </div>
+
+
+        <!-- ========================================================
+             CURRENT USER ACTIVITY HEADER
+             ======================================================== -->
+
+        <div sclass="activity-section-header">
+            <div>
+                <label sclass="activity-title"    value="Current User Activity"/>
+                <label sclass="activity-subtitle" value="Real-time user engagement and active batch processing"/>
+            </div>
+            <div sclass="live-feed-badge">
+                <label sclass="live-dot"   value="&#x25CF;"/>
+                <label sclass="live-label" value="Live System Feed"/>
+            </div>
+        </div>
+
+
+        <!-- ========================================================
+             ACTIVITY LISTBOX
+             ======================================================== -->
+
+        <listbox
+            id="activityListbox"
+            sclass="activity-listbox"
+            sizedByContent="false"
+            span="true"
+            emptyMessage="No active users at this time">
+
+            <listhead sizable="false" menupopup="none">
+                <listheader label="Username"        width="13%"/>
+                <listheader label="Full Name"        width="14%"/>
+                <listheader label="Role"             width="14%"/>
+                <listheader label="Current Activity" width="17%"/>
+                <listheader label="Current Batch"    width="14%"/>
+                <listheader label="Login Time"       width="15%"/>
+                <listheader label="Status"           width="13%"/>
+            </listhead>
+
+        </listbox>
+
+    </vlayout>
 
 </zk>

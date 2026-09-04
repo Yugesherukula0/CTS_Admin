@@ -1,0 +1,634 @@
+/* ============================================================
+   ADMIN DASHBOARD
+   ============================================================ */
+
+.dashboard-page {
+    width: 100%;
+    padding: 34px 40px 40px 40px;
+    box-sizing: border-box;
+    background: #F5F7FC;
+}
+
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+
+.dashboard-header {
+    width: 100%;
+    margin-bottom: 28px;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    box-sizing: border-box;
+}
+
+.dashboard-header-left {
+    flex: 1 1 0 !important;
+}
+
+.dashboard-title {
+    color: #18243A;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+    display: block !important;
+}
+
+.dashboard-subtitle {
+    color: #60738F;
+    font-size: 15px;
+    display: block !important;
+    margin-top: 5px;
+}
+
+
+/* ============================================================
+   CARDS ROW
+   div — display:flex + gap:18px
+   This is why div is used: hbox renders as display:table
+   which ignores gap and causes overflow past 100% width
+   ============================================================ */
+
+.dashboard-cards-row {
+    width: 100%;
+    margin-bottom: 28px;
+    box-sizing: border-box;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    gap: 18px;
+}
+
+
+/* ============================================================
+   OVERVIEW CARD — base
+   flex:1 so all 3 share width equally
+   ============================================================ */
+
+.overview-card {
+    flex: 1 1 0 !important;
+    min-width: 0;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 12px;
+    padding: 20px 22px 24px 22px;
+    box-sizing: border-box;
+    overflow: visible !important;
+}
+
+/* Strip vlayout chrome — let content determine height */
+.overview-card.z-vlayout > table,
+.overview-card.z-vlayout > table > tbody > tr > td {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+
+/* ============================================================
+   CARD HEADER ROW
+   div — display:flex so icon | title | link align perfectly
+   ============================================================ */
+
+.card-header-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100%;
+    margin-bottom: 18px;
+    box-sizing: border-box;
+}
+
+/* Icon circle */
+.card-icon-wrap {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 9px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.card-icon-blue   { background: #EFF6FF !important; }
+.card-icon-purple { background: #F3EEFF !important; }
+.card-icon-green  { background: #ECFDF5 !important; }
+
+.card-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* Title takes remaining space */
+.card-header-middle {
+    flex: 1 1 0 !important;
+    min-width: 0;
+}
+
+.card-title {
+    color: #18243A;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    display: block !important;
+}
+
+/* Link pinned to right */
+.card-link {
+    color: #2454D6;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 12px;
+}
+
+
+/* ============================================================
+   USER OVERVIEW — stats row
+   ============================================================ */
+
+.user-stats-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 14px;
+    width: 100%;
+    margin-top: 6px;
+    box-sizing: border-box;
+}
+
+/* All three pills share the same base */
+.user-stat-pill {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px;
+    padding: 10px 22px;
+    min-width: 76px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.pill-grey  { background: #F3F4F6 !important; }
+.pill-green { background: #ECFDF5 !important; }
+.pill-red   { background: #FEF2F2 !important; }
+
+.pill-value-grey {
+    color: #18243A;
+    font-size: 26px;
+    font-weight: 700;
+    display: block !important;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.pill-value-green {
+    color: #16A34A;
+    font-size: 26px;
+    font-weight: 700;
+    display: block !important;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.pill-value-red {
+    color: #DC2626;
+    font-size: 26px;
+    font-weight: 700;
+    display: block !important;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.pill-label-grey {
+    color: #6B7280;
+    font-size: 12px;
+    font-weight: 600;
+    display: block !important;
+    text-align: center;
+    margin-top: 2px;
+}
+
+.pill-label-green {
+    color: #16A34A;
+    font-size: 12px;
+    font-weight: 600;
+    display: block !important;
+    text-align: center;
+    margin-top: 2px;
+}
+
+.pill-label-red {
+    color: #DC2626;
+    font-size: 12px;
+    font-weight: 600;
+    display: block !important;
+    text-align: center;
+    margin-top: 2px;
+}
+
+
+/* ============================================================
+   SESSION OVERVIEW — status box
+   vlayout — strip chrome, add coloured background
+   ============================================================ */
+
+.session-status-box {
+    width: 100%;
+    border-radius: 9px;
+    padding: 14px 16px;
+    box-sizing: border-box;
+    overflow: visible !important;
+}
+
+/* Strip vlayout chrome — must not set fixed height */
+.session-status-box.z-vlayout > table,
+.session-status-box.z-vlayout > table > tbody > tr > td {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+.session-box-inactive {
+    background: #FFF7ED !important;
+    border: 1px solid #FED7AA !important;
+}
+
+.session-box-active {
+    background: #F0FDF4 !important;
+    border: 1px solid #BBF7D0 !important;
+}
+
+.session-current-label {
+    color: #92400E;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block !important;
+    margin-bottom: 6px;
+}
+
+.session-current-label-active {
+    color: #15803D;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block !important;
+    margin-bottom: 6px;
+}
+
+/* Name row — div with flex so name + badge sit on one line */
+.session-name-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100%;
+    margin-bottom: 6px;
+    box-sizing: border-box;
+}
+
+.session-name-label {
+    color: #18243A;
+    font-size: 18px;
+    font-weight: 700;
+    flex: 1 !important;
+    white-space: nowrap;
+    display: block !important;
+}
+
+/* Badge div — display:flex so label centres */
+.session-badge {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 999px;
+    padding: 5px 14px;
+    flex-shrink: 0;
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+
+.session-badge-inactive {
+    background: #EA580C !important;
+}
+
+.session-badge-active {
+    background: #16A34A !important;
+}
+
+.session-badge-label {
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    display: block !important;
+}
+
+.session-meta-label {
+    color: #78716C;
+    font-size: 12px;
+    display: block !important;
+}
+
+
+/* ============================================================
+   BATCH OVERVIEW — stats row
+   div — display:flex with dividers
+   ============================================================ */
+
+.batch-stats-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.batch-stat-block {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 1 0 !important;
+    text-align: center;
+    padding: 4px 0;
+}
+
+.batch-stat-divider {
+    width: 1px;
+    height: 40px;
+    background: #E5E7EB !important;
+    flex-shrink: 0;
+}
+
+.batch-stat-label {
+    color: #6B7280;
+    font-size: 12px;
+    font-weight: 500;
+    display: block !important;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.batch-total-value {
+    color: #18243A;
+    font-size: 28px;
+    font-weight: 700;
+    display: block !important;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.batch-inprogress-value {
+    color: #2454D6;
+    font-size: 26px;
+    font-weight: 700;
+    display: block !important;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.batch-completed-value {
+    color: #16A34A;
+    font-size: 26px;
+    font-weight: 700;
+    display: block !important;
+    text-align: center;
+    line-height: 1.1;
+}
+
+
+/* ============================================================
+   ACTIVITY SECTION HEADER
+   ============================================================ */
+
+.activity-section-header {
+    width: 100%;
+    margin-bottom: 16px;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    box-sizing: border-box;
+}
+
+.activity-title {
+    color: #18243A;
+    font-size: 22px;
+    font-weight: 700;
+    display: block !important;
+}
+
+.activity-subtitle {
+    color: #60738F;
+    font-size: 14px;
+    display: block !important;
+    margin-top: 3px;
+}
+
+/* Live feed badge */
+.live-feed-badge {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px;
+    background: #ECFDF5 !important;
+    border: 1px solid #BBF7D0 !important;
+    border-radius: 999px;
+    padding: 6px 14px;
+    flex-shrink: 0;
+    margin-left: 16px;
+    margin-top: 4px;
+    box-sizing: border-box;
+}
+
+.live-dot {
+    color: #16A34A;
+    font-size: 10px;
+    line-height: 1;
+}
+
+.live-label {
+    color: #16A34A;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   ACTIVITY LISTBOX
+   ============================================================ */
+
+.activity-listbox {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: none !important;
+    overflow: hidden;
+}
+
+.activity-listbox .z-listhead {
+    background: #F9FAFB;
+    border: none !important;
+}
+
+.activity-listbox .z-listheader {
+    height: 50px;
+    background: #F9FAFB;
+    border-top: none !important;
+    border-left: none !important;
+    border-bottom: 1px solid #E5E7EB !important;
+    border-right: none !important;
+    padding: 0 20px;
+    box-sizing: border-box;
+    box-shadow: none !important;
+    overflow: visible !important;
+}
+
+.activity-listbox .z-listheader-content {
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+}
+
+.activity-listbox .z-listitem {
+    min-height: 64px;
+    background: #FFFFFF;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #F3F4F6 !important;
+    box-shadow: none !important;
+}
+
+.activity-listbox .z-listitem:last-child {
+    border-bottom: none !important;
+}
+
+.activity-listbox .z-listitem:hover {
+    background: #FAFAFA;
+}
+
+.activity-listbox .z-listcell {
+    background: transparent;
+    border: none !important;
+    padding: 0 20px;
+    box-sizing: border-box;
+    box-shadow: none !important;
+    vertical-align: middle;
+}
+
+.activity-listbox .z-listcell-content {
+    color: #374151;
+    font-size: 13px;
+}
+
+.activity-listbox .z-listbox-emptybody td {
+    color: #9CA3AF;
+    font-size: 14px;
+    text-align: center;
+    padding: 36px 0;
+}
+
+
+/* ============================================================
+   ACTIVITY ROW CELL LABELS
+   ============================================================ */
+
+.act-username-label {
+    color: #18243A;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.act-fullname-label {
+    color: #374151;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.act-role-badge {
+    background: #EFF6FF !important;
+    border-radius: 5px;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    display: inline-block !important;
+}
+
+.act-role-label {
+    color: #2454D6;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.act-activity-label {
+    color: #374151;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.act-batch-label {
+    color: #2454D6;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.act-login-label {
+    color: #6B7280;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.act-status-active {
+    background: #DCFCE7 !important;
+    border: 1px solid #86EFAC !important;
+    border-radius: 999px;
+    padding: 4px 14px;
+    display: inline-block !important;
+    box-sizing: border-box;
+}
+
+.act-status-active-label {
+    color: #166534;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.act-status-inactive {
+    background: #F3F4F6 !important;
+    border: 1px solid #D1D5DB !important;
+    border-radius: 999px;
+    padding: 4px 14px;
+    display: inline-block !important;
+    box-sizing: border-box;
+}
+
+.act-status-inactive-label {
+    color: #374151;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
