@@ -27,18 +27,6 @@
                 <label
                     sclass="audit-page-title"
                     value="Audit Logs"/>
-                <label
-                    sclass="audit-page-subtitle"
-                    value="Immutable, chronological system audit trail of authentication, batch transitions, and administrative events"/>
-            </div>
-
-            <div sclass="audit-readonly-badge">
-                <label
-                    sclass="audit-readonly-icon"
-                    value="&#x25CE;"/>
-                <label
-                    sclass="audit-readonly-label"
-                    value="Read-Only Compliance Log"/>
             </div>
 
         </div>
@@ -61,24 +49,16 @@
                     id="auditSearchTextbox"
                     hflex="1"
                     height="38px"
-                    placeholder="Search description, user, action, batch ID..."
+                    placeholder=""
                     sclass="audit-search-textbox"
                     style="border:none !important; box-shadow:none !important; outline:none !important; background:transparent !important;"/>
             </div>
 
-            <!-- All Modules -->
-            <combobox
-                id="auditModuleCombobox"
-                readonly="true"
-                value="All Modules"
-                sclass="audit-filter-combobox audit-modules-combobox">
-                <comboitem label="All Modules"/>
-                <comboitem label="Authentication"/>
-                <comboitem label="Inward"/>
-                <comboitem label="Outward"/>
-                <comboitem label="Batch Capture"/>
-                <comboitem label="Session"/>
-            </combobox>
+            <button
+                id="auditSearchButton"
+                sclass="audit-search-btn"
+                label="Search"
+                iconSclass="z-icon-search"/>
 
             <!-- All Roles -->
             <combobox
@@ -87,47 +67,12 @@
                 value="All Roles"
                 sclass="audit-filter-combobox audit-roles-combobox">
                 <comboitem label="All Roles"/>
-                <comboitem label="ADMIN"/>
                 <comboitem label="INWARD_MAKER"/>
                 <comboitem label="INWARD_CHECKER"/>
                 <comboitem label="OUTWARD_MAKER"/>
                 <comboitem label="OUTWARD_CHECKER"/>
                 <comboitem label="CAPTURE_OPERATOR"/>
             </combobox>
-
-            <!-- All Actions -->
-            <combobox
-                id="auditActionCombobox"
-                readonly="true"
-                value="All Actions"
-                sclass="audit-filter-combobox audit-actions-combobox">
-                <comboitem label="All Actions"/>
-                <comboitem label="USER_LOGIN"/>
-                <comboitem label="USER_LOGOUT"/>
-                <comboitem label="BATCH_LOCKED"/>
-                <comboitem label="CHECKER_STARTED_PROCESSING"/>
-            </combobox>
-
-        </div>
-
-
-        <!-- ========================================================
-             COUNT ROW
-             "Showing X of Y log records" left | Clear Filters right.
-             div used so display:flex + space-between works.
-             ======================================================== -->
-
-        <div sclass="audit-count-row">
-
-            <label
-                id="auditCountLabel"
-                sclass="audit-count-label"
-                value="Showing 0 log records"/>
-
-            <button
-                id="auditClearFilterBtn"
-                sclass="audit-clear-btn"
-                label="&#x21BA;   Clear Filters"/>
 
         </div>
 
@@ -161,28 +106,20 @@
                 <listhead sizable="false" menupopup="none">
 
                     <listheader
-                        label="Date / Time"
-                        width="13%"/>
+                        label="User ID"
+                        width="15%"/>
 
                     <listheader
-                        label="User"
-                        width="14%"/>
+                        label="Role"
+                        width="25%"/>
 
                     <listheader
-                        label="Module"
-                        width="14%"/>
+                        label="Login"
+                        width="30%"/>
 
                     <listheader
-                        label="Action"
-                        width="23%"/>
-
-                    <listheader
-                        label="Batch ID"
-                        width="18%"/>
-
-                    <listheader
-                        label="Session ID"
-                        width="18%"/>
+                        label="Logout"
+                        width="30%"/>
 
                 </listhead>
 
