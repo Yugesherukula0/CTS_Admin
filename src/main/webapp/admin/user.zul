@@ -20,19 +20,11 @@
              PAGE HEADER
              ======================================================== -->
 
-        <hbox
-            id="userPageHeader"
-            width="100%"
-            align="center"
-            spacing="0"
-            sclass="user-page-header">
+        <div sclass="user-page-header">
 
-
-            <!-- LEFT SIDE -->
-
+            <!-- LEFT: title + subtitle -->
             <vlayout
                 id="userPageHeaderLeft"
-                hflex="1"
                 spacing="0"
                 sclass="user-page-header-left">
 
@@ -48,32 +40,22 @@
 
             </vlayout>
 
-
-            <!-- RIGHT SIDE -->
-
+            <!-- RIGHT: create button -->
             <button
                 id="createUserButton"
-                label="Create User"
-                iconSclass="z-icon-user-plus"
+                label="+ Create User"
                 sclass="create-user-button"/>
 
-        </hbox>
+        </div>
 
 
         <!-- ========================================================
              SEARCH / FILTER CARD
              ======================================================== -->
 
-        <hbox
-            id="userFilterCard"
-            width="100%"
-            align="center"
-            spacing="0"
-            sclass="user-filter-card">
+        <div sclass="user-filter-card">
 
-
-            <!-- SEARCH -->
-
+            <!-- SEARCH BOX -->
             <hbox
                 id="userSearchContainer"
                 hflex="1"
@@ -89,71 +71,58 @@
                 <textbox
                     id="userSearchTextbox"
                     hflex="1"
-                    height="43px"
                     placeholder="Search by username, full name, or user ID..."
                     sclass="user-search-textbox"/>
 
             </hbox>
 
+            <!-- SEARCH + CLEAR BUTTONS -->
             <button
                 id="searchUserButton"
                 label="Search"
                 iconSclass="z-icon-search"
-                sclass="user-filter-action-button"/>
+                sclass="btn-search"/>
 
-            <!-- CLEAR FILTER BUTTON -->
             <button
                 id="clearUserFilterButton"
                 label="Clear"
-                sclass="user-clear-filter-button"/>
+                sclass="btn-clear"/>
 
-
-            <!-- ROLE LABEL -->
-
-            <label
-                id="roleFilterLabel"
-                value="Role:"
-                sclass="user-filter-label"/>
-
+            <!-- DIVIDER -->
+            <div sclass="filter-divider"/>
 
             <!-- ROLE FILTER -->
+            <label
+                id="roleFilterLabel"
+                value="Role"
+                sclass="user-filter-label"/>
 
             <combobox
                 id="roleFilterCombobox"
                 readonly="true"
                 sclass="user-filter-combobox role-filter-combobox">
-
-                <comboitem id="roleInwardChecker"  label="INWARD_CHECKER"/>
-                <comboitem id="roleInwardMaker"    label="INWARD_MAKER"/>
-                <comboitem id="roleOutwardMaker"   label="OUTWARD_MAKER"/>
-                <comboitem id="roleOutwardChecker" label="OUTWARD_CHECKER"/>
+                <comboitem id="roleInwardChecker"   label="INWARD_CHECKER"/>
+                <comboitem id="roleInwardMaker"     label="INWARD_MAKER"/>
+                <comboitem id="roleOutwardMaker"    label="OUTWARD_MAKER"/>
+                <comboitem id="roleOutwardChecker"  label="OUTWARD_CHECKER"/>
                 <comboitem id="roleCaptureOperator" label="CAPTURE_OPERATOR"/>
-                <comboitem id="roleAdmin"          label="ADMIN"/>
-
             </combobox>
 
-
-            <!-- STATUS LABEL -->
-
+            <!-- STATUS FILTER -->
             <label
                 id="statusFilterLabel"
-                value="Status:"
+                value="Status"
                 sclass="user-filter-label"/>
-
-
-            <!-- STATUS FILTER -->
 
             <combobox
                 id="statusFilterCombobox"
                 readonly="true"
                 sclass="user-filter-combobox status-filter-combobox">
-
                 <comboitem id="userActive"   label="ACTIVE"/>
                 <comboitem id="userInActive" label="INACTIVE"/>
-
             </combobox>
 
-        </hbox>
+        </div>
 
 
         <!-- ========================================================
@@ -165,24 +134,13 @@
             width="100%"
             sclass="system-users-card">
 
-
             <!-- CARD HEADER -->
-
-            <hbox
-                id="systemUsersHeader"
-                width="100%"
-                height="73px"
-                align="center"
-                spacing="0"
-                sclass="system-users-header">
-
+            <div sclass="system-users-header">
                 <label
                     id="systemUsersTitle"
                     value="System Users"
                     sclass="system-users-title"/>
-
-            </hbox>
-
+            </div>
 
             <!-- ====================================================
                  USER LISTBOX
@@ -190,36 +148,23 @@
 
             <listbox
                 id="userListbox"
-                width="calc(100% - 60px)"
+                width="calc(100% - 48px)"
                 sclass="user-listbox"
-                emptyMessage="No users available">
-
-
-                <!-- =================================================
-                     STATIC HEADINGS
-                     ================================================= -->
+                emptyMessage="No users found">
 
                 <listhead
                     id="userListHead"
                     sizable="false"
                     menupopup="none">
 
-                    <listheader id="userIdHeader"       label="S.No"          width="9%"/>
-                    <listheader id="usernameHeader"     label="Username"       width="14%"/>
-                    <listheader id="fullNameHeader"     label="Full Name"      width="14%"/>
-                    <listheader id="assignedRoleHeader" label="Assigned Role"  width="17%"/>
-                    <listheader id="userStatusHeader"   label="Status"         width="12%" align="center"/>
-                    <listheader id="lastLoginHeader"    label="Last Login"     width="13%" align="center"/>
-                    <listheader id="userActionsHeader"  label="Actions"        width="15%" align="center"/>
+                    <listheader id="userIdHeader"       label="S.No"          width="8%"/>
+                    <listheader id="usernameHeader"     label="Username"       width="17%"/>
+                    <listheader id="fullNameHeader"     label="Full Name"      width="19%"/>
+                    <listheader id="assignedRoleHeader" label="Assigned Role"  width="22%"/>
+                    <listheader id="userStatusHeader"   label="Status"         width="16%" align="center"/>
+                    <listheader id="userActionsHeader"  label="Actions"        width="18%" align="center"/>
 
                 </listhead>
-
-
-                <!-- =================================================
-                     NO HARDCODED ROWS
-
-                     DB → DAO → SERVICE → CONTROLLER → userListbox
-                     ================================================= -->
 
             </listbox>
 
@@ -227,7 +172,7 @@
                 id="userPaging"
                 pageSize="10"
                 detailed="true"
-                style="margin: 15px 30px 25px 30px;"/>
+                sclass="user-paging"/>
 
         </div>
 

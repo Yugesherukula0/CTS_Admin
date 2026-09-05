@@ -282,33 +282,6 @@ public class UserController extends GenericForwardComposer<Component> {
 				item.appendChild(statusCell);
 
 				// =================================================
-				// LAST LOGIN
-				// =================================================
-
-				Listcell lastLoginCell = new Listcell();
-
-				String lastLogin = "-";
-
-				if (user.getLastLoginAt() != null) {
-
-					lastLogin = user.getLastLoginAt().toString();
-				}
-
-				Hbox lastLoginContainer = new Hbox();
-
-				lastLoginContainer.setSclass("last-login-container");
-
-				Label lastLoginLabel = new Label(lastLogin);
-
-				lastLoginLabel.setSclass("last-login-label");
-
-				lastLoginContainer.appendChild(lastLoginLabel);
-
-				lastLoginCell.appendChild(lastLoginContainer);
-
-				item.appendChild(lastLoginCell);
-
-				// =================================================
 				// ACTIONS
 				// =================================================
 
@@ -513,6 +486,11 @@ public class UserController extends GenericForwardComposer<Component> {
 			for (Role role : roles) {
 
 				Comboitem item = new Comboitem();
+
+				// Skip ADMIN from filter
+				if ("ADMIN".equalsIgnoreCase(role.getRoleName())) {
+					continue;
+				}
 
 				item.setLabel(role.getRoleName());
 
@@ -749,6 +727,11 @@ public class UserController extends GenericForwardComposer<Component> {
 		for (Role role : roles) {
 
 			Comboitem roleItem = new Comboitem();
+
+			// Skip ADMIN — cannot assign admin role via this form
+			if ("ADMIN".equalsIgnoreCase(role.getRoleName())) {
+				continue;
+			}
 
 			roleItem.setLabel(role.getRoleName());
 
