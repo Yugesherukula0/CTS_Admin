@@ -1,12 +1,20 @@
 /* ============================================================
-   USER MANAGEMENT CENTER PAGE
+   USER MANAGEMENT PAGE
    ============================================================ */
 
 .user-management-page {
     width: 100%;
-    padding: 34px 40px 40px 40px;
+    padding: 32px 36px 40px 36px;
     box-sizing: border-box;
-    background: #F5F7FC;
+    background: #F4F6FB;
+}
+
+/* vlayout renders as a table — keep it contained */
+.user-management-page.z-vlayout,
+.user-management-page > table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    box-sizing: border-box !important;
 }
 
 
@@ -15,39 +23,46 @@
    ============================================================ */
 
 .user-page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
     box-sizing: border-box;
-    /* Force flex so the button never gets pushed off-screen */
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    overflow: hidden;
 }
 
 .user-page-header-left {
-    /* Take all remaining space, never overflow */
-    flex: 1 1 0 !important;
-    min-width: 0 !important;
+    flex: 1 1 0;
+    min-width: 0;
     overflow: hidden;
 }
 
+/* vlayout inside header — strip table default sizing */
+.user-page-header-left.z-vlayout,
+.user-page-header-left > table {
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
 .user-page-title {
-    color: #18243A;
-    font-size: 32px;
+    display: block;
+    color: #111827;
+    font-size: 26px;
     font-weight: 700;
-    line-height: 38px;
+    line-height: 32px;
+    letter-spacing: -0.3px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .user-page-subtitle {
-    color: #60738F;
-    font-size: 16px;
+    display: block;
+    color: #6B7A99;
+    font-size: 14px;
     font-weight: 400;
-    line-height: 22px;
-    margin-top: 3px;
+    line-height: 20px;
+    margin-top: 4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -59,27 +74,30 @@
    ============================================================ */
 
 .create-user-button {
-    height: 42px;
-    width: 150px;
-    min-width: 150px;
-    /* Never shrink — always stays at its fixed width */
-    flex-shrink: 0 !important;
+    flex-shrink: 0;
+    height: 40px;
+    padding: 0 20px;
+    margin-left: 20px;
     background: #2454D6;
-    border: 1px solid #2454D6;
-    border-radius: 7px;
+    border: none;
+    border-radius: 8px;
     color: #FFFFFF;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
-    padding: 0 16px;
-    box-sizing: border-box;
-    box-shadow: none;
-    margin-left: 16px;
     white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(36, 84, 214, 0.30);
+    transition: background 0.15s ease, box-shadow 0.15s ease;
 }
 
 .create-user-button:hover {
-    background: #1D4ED8;
-    border-color: #1D4ED8;
+    background: #1B44C8;
+    box-shadow: 0 3px 8px rgba(36, 84, 214, 0.35);
+}
+
+.create-user-button:active {
+    background: #1538A8;
+    box-shadow: none;
 }
 
 
@@ -88,61 +106,144 @@
    ============================================================ */
 
 .user-filter-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     width: 100%;
-    height: 87px;
-    background: #FFFFFF;
-    border: 1px solid #DDE4ED !important;
-    border-radius: 9px;
-    padding: 20px 25px;
     box-sizing: border-box;
-    margin-bottom: 22px;
-    box-shadow: none !important;
+    background: #FFFFFF;
+    border: 1px solid #E1E8F4;
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(15, 25, 50, 0.05);
     overflow: hidden;
 }
 
 
 /* ============================================================
-   SEARCH CONTAINER
+   SEARCH INPUT BOX
    ============================================================ */
 
 .user-search-container {
-    height: 45px;
-    background: #FFFFFF;
-    border: 1px solid #D9E1EB;
-    border-radius: 7px;
+    height: 40px;
+    min-width: 0;
+    background: #F7F9FD;
+    border: 1.5px solid #D1DBF0;
+    border-radius: 8px;
     box-sizing: border-box;
     overflow: hidden;
+    transition: border-color 0.15s ease;
+}
+
+.user-search-container:focus-within {
+    border-color: #2454D6;
+    background: #FFFFFF;
+}
+
+/* hbox inside search — constrain to container */
+.user-search-container.z-hbox,
+.user-search-container > table {
+    width: 100% !important;
+    table-layout: fixed !important;
 }
 
 .user-search-icon {
-    color: #8EA2BE;
-    font-size: 18px;
-    margin-left: 14px;
-    margin-right: 9px;
+    color: #9AABC8;
+    font-size: 20px;
+    line-height: 40px;
+    margin-left: 12px;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+.user-search-textbox {
+    border: none !important;
+    background: transparent !important;
+    color: #1F2D45;
+    font-size: 14px;
+    box-shadow: none !important;
+    outline: none !important;
+    height: 38px !important;
+    padding: 0 !important;
+}
+
+.user-search-textbox .z-textbox,
+.user-search-textbox input {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    font-size: 14px;
+    color: #1F2D45;
+    height: 38px !important;
+    padding: 0 !important;
+}
+
+.user-search-textbox:focus,
+.user-search-textbox .z-textbox:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 
 /* ============================================================
-   SEARCH TEXTBOX
+   SEARCH & CLEAR BUTTONS
    ============================================================ */
 
-.user-search-textbox {
-    height: 43px;
-    width: 100%;
-    border: none !important;
-    background: transparent !important;
-    color: #344054;
-    font-size: 15px;
-    padding: 0;
-    box-shadow: none !important;
-    outline: none !important;
-    box-sizing: border-box;
+.btn-search {
+    flex-shrink: 0;
+    height: 40px;
+    padding: 0 18px;
+    background: #2454D6;
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(36, 84, 214, 0.25);
+    transition: background 0.15s ease;
 }
 
-.user-search-textbox:focus {
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+.btn-search:hover {
+    background: #1B44C8;
+}
+
+.btn-clear {
+    flex-shrink: 0;
+    height: 40px;
+    padding: 0 16px;
+    background: #FFFFFF;
+    border: 1.5px solid #D1DBF0 !important;
+    border-radius: 8px;
+    color: #4B5E7A;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-clear:hover {
+    background: #F0F4FD;
+    border-color: #A8B8D8 !important;
+    color: #1F2D45;
+}
+
+
+/* ============================================================
+   FILTER DIVIDER
+   ============================================================ */
+
+.filter-divider {
+    width: 1px;
+    height: 28px;
+    background: #E1E8F4;
+    flex-shrink: 0;
+    margin: 0 4px;
 }
 
 
@@ -151,58 +252,45 @@
    ============================================================ */
 
 .user-filter-label {
-    color: #60738F;
-    font-size: 14px;
+    flex-shrink: 0;
+    color: #4B5E7A;
+    font-size: 13px;
     font-weight: 600;
-    margin-left: 19px;
-    margin-right: 9px;
     white-space: nowrap;
 }
 
 
 /* ============================================================
-   COMBOBOX
-   ============================================================ */
-
-.user-filter-combobox {
-    height: 45px;
-    background: #FFFFFF;
-    border: none !important;
-    color: #344054;
-    font-size: 14px;
-    padding: 0;
-    box-sizing: border-box;
-    box-shadow: none !important;
-}
-
-
-/* ============================================================
-   COMBOBOX OUTER BORDER
+   COMBOBOX — OUTER
    ============================================================ */
 
 .user-filter-combobox.z-combobox {
-    height: 45px;
-    background: #FFFFFF;
-    border: 1px solid #D9E1EB !important;
-    border-radius: 7px !important;
+    height: 40px;
+    background: #F7F9FD;
+    border: 1.5px solid #D1DBF0 !important;
+    border-radius: 8px !important;
     box-shadow: none !important;
     box-sizing: border-box;
     overflow: hidden;
+    transition: border-color 0.15s ease;
 }
 
+.user-filter-combobox.z-combobox:focus-within {
+    border-color: #2454D6 !important;
+    background: #FFFFFF;
+}
 
 /* ============================================================
-   COMBOBOX INPUT
+   COMBOBOX — INPUT
    ============================================================ */
 
 .user-filter-combobox .z-combobox-input {
-    height: 43px;
-    background: #FFFFFF !important;
+    height: 38px;
+    background: transparent !important;
     border: none !important;
-    border-right: none !important;
-    color: #344054;
+    color: #1F2D45;
     font-size: 14px;
-    padding: 0 12px;
+    padding: 0 10px;
     box-shadow: none !important;
     outline: none !important;
     box-sizing: border-box;
@@ -216,47 +304,41 @@
 
 
 /* ============================================================
-   COMBOBOX BUTTON
+   COMBOBOX — DROPDOWN BUTTON
    ============================================================ */
 
 .user-filter-combobox .z-combobox-button {
-    width: 44px;
-    height: 43px;
-    background: #FFFFFF !important;
+    width: 34px;
+    height: 38px;
+    background: transparent !important;
     border: none !important;
-    border-left: 1px solid #D9E1EB !important;
+    border-left: 1px solid #D1DBF0 !important;
     box-shadow: none !important;
-    box-sizing: border-box;
+    transition: background 0.12s ease;
 }
 
 .user-filter-combobox .z-combobox-button:hover {
-    background: #F8FAFC !important;
-    border-left: 1px solid #D9E1EB !important;
+    background: rgba(36, 84, 214, 0.06) !important;
 }
-
-
-/* ============================================================
-   COMBOBOX ARROW
-   ============================================================ */
 
 .user-filter-combobox .z-combobox-button .z-icon {
-    color: #18243A;
-    font-size: 14px;
+    color: #4B5E7A;
+    font-size: 13px;
 }
 
 
 /* ============================================================
-   FILTER WIDTHS
+   COMBOBOX WIDTHS
    ============================================================ */
 
 .role-filter-combobox {
-    width: 205px;
-    min-width: 205px;
+    width: 195px;
+    min-width: 195px;
 }
 
 .status-filter-combobox {
-    width: 158px;
-    min-width: 158px;
+    width: 148px;
+    min-width: 148px;
 }
 
 
@@ -267,32 +349,34 @@
 .system-users-card {
     width: 100%;
     background: #FFFFFF;
-    border: 1px solid #DDE4ED !important;
-    border-radius: 9px;
+    border: 1px solid #E1E8F4;
+    border-radius: 10px;
     box-sizing: border-box;
-    box-shadow: none !important;
+    box-shadow: 0 1px 3px rgba(15, 25, 50, 0.05);
     overflow: hidden;
 }
 
 
 /* ============================================================
-   SYSTEM USERS HEADER
+   CARD HEADER
    ============================================================ */
 
 .system-users-header {
+    display: flex;
+    align-items: center;
     width: 100%;
-    height: 68px;
-    padding: 0 30px;
+    height: 60px;
+    padding: 0 24px;
     box-sizing: border-box;
     background: #FFFFFF;
-    border-bottom: 1px solid #DDE4ED !important;
+    border-bottom: 1px solid #E8EEF8;
 }
 
 .system-users-title {
-    color: #18243A;
-    font-size: 23px;
+    color: #111827;
+    font-size: 16px;
     font-weight: 700;
-    line-height: 28px;
+    letter-spacing: -0.1px;
 }
 
 
@@ -301,10 +385,10 @@
    ============================================================ */
 
 .user-listbox {
-    width: calc(100% - 60px);
-    margin: 20px 30px 28px 30px;
+    width: calc(100% - 48px) !important;
+    margin: 18px 24px 0 24px;
     background: #FFFFFF;
-    border: 1px solid #D9E1EB !important;
+    border: 1px solid #E1E8F4 !important;
     border-radius: 8px;
     box-sizing: border-box;
     box-shadow: none !important;
@@ -313,22 +397,22 @@
 
 
 /* ============================================================
-   LISTBOX HEADER
+   LISTBOX — HEADER ROW
    ============================================================ */
 
 .user-listbox .z-listhead {
-    background: #F8FAFC;
-    border: none !important;
+    background: #F3F6FB;
+    border-bottom: 1px solid #E1E8F4 !important;
 }
 
 .user-listbox .z-listheader {
-    height: 62px;
-    background: #F8FAFC;
+    height: 44px;
+    background: #F3F6FB;
     border-top: none !important;
     border-left: none !important;
-    border-bottom: 1px solid #D9E1EB !important;
-    border-right: 1px solid #D9E1EB !important;
-    padding: 0 20px;
+    border-bottom: none !important;
+    border-right: 1px solid #E8EEF8 !important;
+    padding: 0 16px;
     box-sizing: border-box;
     box-shadow: none !important;
 }
@@ -338,25 +422,28 @@
 }
 
 .user-listbox .z-listheader-content {
-    color: #18243A;
-    font-size: 15px;
+    color: #5A6E8C;
+    font-size: 11.5px;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
     white-space: nowrap;
 }
 
 
 /* ============================================================
-   LISTBOX ROW
+   LISTBOX — DATA ROWS
    ============================================================ */
 
 .user-listbox .z-listitem {
-    min-height: 80px;
+    height: 68px;
     background: #FFFFFF;
     border-top: none !important;
     border-left: none !important;
     border-right: none !important;
-    border-bottom: 1px solid #E3E8EF !important;
+    border-bottom: 1px solid #EEF2FA !important;
     box-shadow: none !important;
+    transition: background 0.1s ease;
 }
 
 .user-listbox .z-listitem:last-child {
@@ -364,7 +451,7 @@
 }
 
 .user-listbox .z-listitem:hover {
-    background: #FBFCFE;
+    background: #F8FAFF;
 }
 
 
@@ -375,24 +462,27 @@
 .user-listbox .z-listcell {
     background: transparent;
     border: none !important;
-    padding: 0 20px;
+    padding: 0 16px;
     box-sizing: border-box;
     box-shadow: none !important;
+    vertical-align: middle;
 }
 
 .user-listbox .z-listcell-content {
-    color: #344054;
-    font-size: 15px;
+    color: #1F2D45;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
 }
 
 
 /* ============================================================
-   USER ID
+   S.NO
    ============================================================ */
 
 .user-id-label {
-    color: #18243A;
-    font-size: 15px;
+    color: #9AABC8;
+    font-size: 13px;
     font-weight: 600;
     white-space: nowrap;
 }
@@ -404,7 +494,7 @@
 
 .username-label {
     color: #2454D6;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
 }
@@ -415,76 +505,83 @@
    ============================================================ */
 
 .full-name-label {
-    color: #344054;
-    font-size: 15px;
+    color: #1F2D45;
+    font-size: 14px;
     font-weight: 400;
     white-space: nowrap;
 }
 
 
 /* ============================================================
-   ASSIGNED ROLE
+   ASSIGNED ROLE BADGE
    ============================================================ */
 
 .assigned-role-container {
-    background: #EFF6FF;
-    border-radius: 5px;
-    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    background: #EEF3FF;
+    border: 1px solid #CCDCFA;
+    border-radius: 6px;
+    padding: 4px 12px;
     box-sizing: border-box;
 }
 
 .assigned-role-label {
     color: #2454D6;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     white-space: nowrap;
+    letter-spacing: 0.3px;
 }
 
 
 /* ============================================================
-   STATUS
+   STATUS BADGE
    ============================================================ */
 
+/* The hbox wrapping the badge — full cell width, centered */
 .status-container {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
     width: 100%;
 }
 
+.status-container.z-hbox,
+.status-container > table {
+    width: 100% !important;
+}
+
+/* The badge pill itself */
 .status-badge {
-    background: #DCFCE7;
-    border: 1px solid #B7EFCA;
-    border-radius: 18px;
-    padding: 6px 13px;
+    display: inline-flex !important;
+    align-items: center;
+    background: #E8FAF0;
+    border: 1px solid #A3E6C0;
+    border-radius: 20px;
+    padding: 4px 12px;
     box-sizing: border-box;
+    gap: 5px;
+}
+
+.status-badge.z-hbox,
+.status-badge > table {
+    width: auto !important;
 }
 
 .status-icon {
-    color: #15803D;
-    font-size: 12px;
-    font-weight: 700;
-    margin-right: 6px;
+    font-size: 8px;
+    color: #16A34A;
+    font-weight: 900;
+    line-height: 1;
 }
 
 .status-label {
     color: #166534;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 12.5px;
+    font-weight: 700;
     white-space: nowrap;
-}
-
-
-/* ============================================================
-   LAST LOGIN
-   ============================================================ */
-
-.last-login-container {
-    width: 100%;
-}
-
-.last-login-label {
-    color: #60738F;
-    font-size: 14px;
-    font-weight: 400;
-    white-space: nowrap;
+    letter-spacing: 0.2px;
 }
 
 
@@ -492,56 +589,99 @@
    ACTION BUTTONS
    ============================================================ */
 
+/* The hbox that holds the three buttons */
 .actions-container {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    gap: 6px;
+}
+
+.actions-container.z-hbox,
+.actions-container > table {
+    width: 100% !important;
 }
 
 .action-button {
-    width: 36px;
-    height: 40px;
-    min-width: 36px;
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
     background: #FFFFFF;
-    border: 1px solid #D9E1EB;
-    border-radius: 6px;
+    border: 1.5px solid #DDE5F2;
+    border-radius: 7px;
     padding: 0;
     box-sizing: border-box;
-    margin-right: 7px;
     box-shadow: none;
-}
-
-.action-button:last-child {
-    margin-right: 0;
-}
-
-.view-button {
-    color: #155EEF;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
 }
 
 .edit-button {
-    color: #475467;
+    color: #4B5E7A;
+}
+
+.edit-button:hover {
+    background: #F0F4FD;
+    border-color: #B8CAE8;
+    color: #1F2D45;
+    box-shadow: 0 1px 4px rgba(15, 25, 50, 0.08);
 }
 
 .power-button {
-    color: #F04438;
+    color: #DC2626;
     background: #FFF8F8;
     border-color: #FECACA;
 }
 
+.power-button:hover {
+    background: #FEF0F0;
+    border-color: #FCA5A5;
+    box-shadow: 0 1px 4px rgba(220, 38, 38, 0.15);
+}
+
 .delete-button {
-    color: #F04438;
+    color: #DC2626;
     background: #FFF8F8;
     border-color: #FECACA;
+}
+
+.delete-button:hover {
+    background: #FEF0F0;
+    border-color: #FCA5A5;
+    box-shadow: 0 1px 4px rgba(220, 38, 38, 0.15);
 }
 
 
 /* ============================================================
-   EMPTY LISTBOX
+   PAGING
+   ============================================================ */
+
+.user-paging {
+    margin: 14px 24px 18px 24px !important;
+}
+
+.user-paging.z-paging {
+    border-top: 1px solid #EEF2FA !important;
+    padding-top: 12px !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    font-size: 13px !important;
+}
+
+
+/* ============================================================
+   EMPTY STATE
    ============================================================ */
 
 .user-listbox .z-listbox-emptybody {
-    height: 80px;
-    color: #98A2B3;
+    height: 90px;
+    color: #9AABC8;
     font-size: 14px;
     text-align: center;
     box-sizing: border-box;
+    font-style: italic;
 }
