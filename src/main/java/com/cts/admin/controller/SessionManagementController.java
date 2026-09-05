@@ -605,6 +605,16 @@ public class SessionManagementController
                     )
             );
 
+            // End Date
+            item.appendChild(
+                    createCell(
+                            session.getEndedAt() != null
+                                    ? formatDate(
+                                            session.getEndedAt())
+                                    : "-"
+                    )
+            );
+
             // End Time
             item.appendChild(
                     createCell(
@@ -620,26 +630,6 @@ public class SessionManagementController
                     createCell(
                             session.getStatus() != null
                                     ? session.getStatus()
-                                    : "-"
-                    )
-            );
-
-            // Started By
-            item.appendChild(
-                    createCell(
-                            session.getStartedBy() != null
-                                    ? "Admin "
-                                      + session.getStartedBy()
-                                    : "-"
-                    )
-            );
-
-            // Ended By
-            item.appendChild(
-                    createCell(
-                            session.getEndedBy() != null
-                                    ? "Admin "
-                                      + session.getEndedBy()
                                     : "-"
                     )
             );

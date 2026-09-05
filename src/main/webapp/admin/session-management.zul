@@ -139,10 +139,6 @@
                 valign="middle">
 
                 <label
-                    sclass="history-icon"
-                    value="&#x25D7;"/>
-
-                <label
                     sclass="history-title"
                     value="Session History"/>
 
@@ -165,31 +161,27 @@
 
                     <listheader
                         label="Session ID"
-                        width="14%"/>
+                        width="16%"/>
 
                     <listheader
                         label="Start Date"
-                        width="12%"/>
+                        width="14%"/>
 
                     <listheader
                         label="Start Time"
-                        width="10%"/>
+                        width="13%"/>
+
+                    <listheader
+                        label="End Date"
+                        width="14%"/>
 
                     <listheader
                         label="End Time"
-                        width="10%"/>
+                        width="13%"/>
 
                     <listheader
                         label="Status"
-                        width="10%"/>
-
-                    <listheader
-                        label="Started By"
-                        width="10%"/>
-
-                    <listheader
-                        label="Ended By"
-                        width="9%"/>
+                        width="12%"/>
 
                 </listhead>
 
