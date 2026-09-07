@@ -4,52 +4,48 @@
 
 .user-management-page {
     width: 100%;
-    padding: 32px 36px 40px 36px;
+    padding: 34px 40px 40px 40px;
     box-sizing: border-box;
     background: #F4F6FB;
 }
 
-/* vlayout renders as a table — keep it contained */
-.user-management-page.z-vlayout,
-.user-management-page > table {
+.user-management-page.z-vlayout > table,
+.user-management-page.z-vlayout > table > tbody > tr > td {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
     width: 100% !important;
-    table-layout: fixed !important;
-    box-sizing: border-box !important;
 }
 
 
 /* ============================================================
    PAGE HEADER
+   div — display:flex, title left, button right
    ============================================================ */
 
 .user-page-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     width: 100%;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
     box-sizing: border-box;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
 }
 
+/* Left block — div so flex:1 works */
 .user-page-header-left {
-    flex: 1 1 0;
+    flex: 1 1 0 !important;
     min-width: 0;
     overflow: hidden;
 }
 
-/* vlayout inside header — strip table default sizing */
-.user-page-header-left.z-vlayout,
-.user-page-header-left > table {
-    width: 100% !important;
-    table-layout: fixed !important;
-}
-
 .user-page-title {
-    display: block;
+    display: block !important;
     color: #111827;
-    font-size: 26px;
+    font-size: 30px;
     font-weight: 700;
-    line-height: 32px;
+    line-height: 36px;
     letter-spacing: -0.3px;
     white-space: nowrap;
     overflow: hidden;
@@ -57,12 +53,12 @@
 }
 
 .user-page-subtitle {
-    display: block;
+    display: block !important;
     color: #6B7A99;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
-    margin-top: 4px;
+    margin-top: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -74,20 +70,19 @@
    ============================================================ */
 
 .create-user-button {
-    flex-shrink: 0;
+    flex-shrink: 0 !important;
     height: 40px;
     padding: 0 20px;
     margin-left: 20px;
     background: #2454D6;
-    border: none;
+    border: none !important;
     border-radius: 8px;
     color: #FFFFFF;
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(36, 84, 214, 0.30);
-    transition: background 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 1px 4px rgba(36, 84, 214, 0.30);
 }
 
 .create-user-button:hover {
@@ -95,93 +90,69 @@
     box-shadow: 0 3px 8px rgba(36, 84, 214, 0.35);
 }
 
-.create-user-button:active {
-    background: #1538A8;
-    box-shadow: none;
-}
-
 
 /* ============================================================
    SEARCH / FILTER CARD
+   div — display:flex + gap
    ============================================================ */
 
 .user-filter-card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
     width: 100%;
     box-sizing: border-box;
     background: #FFFFFF;
-    border: 1px solid #E1E8F4;
+    border: 1px solid #E1E8F4 !important;
     border-radius: 10px;
     padding: 14px 20px;
     margin-bottom: 20px;
     box-shadow: 0 1px 3px rgba(15, 25, 50, 0.05);
-    overflow: hidden;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 10px;
 }
 
 
 /* ============================================================
    SEARCH INPUT BOX
+   div — border + display:flex both work reliably
    ============================================================ */
 
 .user-search-container {
-    height: 40px;
+    flex: 1 1 0 !important;
     min-width: 0;
+    height: 40px;
     background: #F7F9FD;
-    border: 1.5px solid #D1DBF0;
+    border: 1.5px solid #D1DBF0 !important;
     border-radius: 8px;
     box-sizing: border-box;
     overflow: hidden;
-    transition: border-color 0.15s ease;
-}
-
-.user-search-container:focus-within {
-    border-color: #2454D6;
-    background: #FFFFFF;
-}
-
-/* hbox inside search — constrain to container */
-.user-search-container.z-hbox,
-.user-search-container > table {
-    width: 100% !important;
-    table-layout: fixed !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 10px 0 2px;
 }
 
 .user-search-icon {
     color: #9AABC8;
     font-size: 20px;
-    line-height: 40px;
-    margin-left: 12px;
+    line-height: 1;
+    margin-left: 10px;
     margin-right: 6px;
     flex-shrink: 0;
 }
 
 .user-search-textbox {
+    flex: 1 !important;
     border: none !important;
     background: transparent !important;
     color: #1F2D45;
     font-size: 14px;
     box-shadow: none !important;
     outline: none !important;
-    height: 38px !important;
+    height: 36px !important;
     padding: 0 !important;
 }
 
-.user-search-textbox .z-textbox,
-.user-search-textbox input {
-    border: none !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    font-size: 14px;
-    color: #1F2D45;
-    height: 38px !important;
-    padding: 0 !important;
-}
-
-.user-search-textbox:focus,
-.user-search-textbox .z-textbox:focus {
+.user-search-textbox:focus {
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
@@ -197,7 +168,7 @@
     height: 40px;
     padding: 0 18px;
     background: #2454D6;
-    border: none;
+    border: none !important;
     border-radius: 8px;
     color: #FFFFFF;
     font-size: 14px;
@@ -205,7 +176,6 @@
     white-space: nowrap;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(36, 84, 214, 0.25);
-    transition: background 0.15s ease;
 }
 
 .btn-search:hover {
@@ -224,7 +194,6 @@
     font-weight: 500;
     white-space: nowrap;
     cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .btn-clear:hover {
@@ -239,10 +208,11 @@
    ============================================================ */
 
 .filter-divider {
-    width: 1px;
+    width: 1px !important;
     height: 28px;
-    background: #E1E8F4;
+    background: #E1E8F4 !important;
     flex-shrink: 0;
+    display: block !important;
     margin: 0 4px;
 }
 
@@ -261,7 +231,7 @@
 
 
 /* ============================================================
-   COMBOBOX — OUTER
+   COMBOBOX
    ============================================================ */
 
 .user-filter-combobox.z-combobox {
@@ -272,17 +242,8 @@
     box-shadow: none !important;
     box-sizing: border-box;
     overflow: hidden;
-    transition: border-color 0.15s ease;
+    flex-shrink: 0;
 }
-
-.user-filter-combobox.z-combobox:focus-within {
-    border-color: #2454D6 !important;
-    background: #FFFFFF;
-}
-
-/* ============================================================
-   COMBOBOX — INPUT
-   ============================================================ */
 
 .user-filter-combobox .z-combobox-input {
     height: 38px;
@@ -302,11 +263,6 @@
     box-shadow: none !important;
 }
 
-
-/* ============================================================
-   COMBOBOX — DROPDOWN BUTTON
-   ============================================================ */
-
 .user-filter-combobox .z-combobox-button {
     width: 34px;
     height: 38px;
@@ -314,7 +270,6 @@
     border: none !important;
     border-left: 1px solid #D1DBF0 !important;
     box-shadow: none !important;
-    transition: background 0.12s ease;
 }
 
 .user-filter-combobox .z-combobox-button:hover {
@@ -326,20 +281,8 @@
     font-size: 13px;
 }
 
-
-/* ============================================================
-   COMBOBOX WIDTHS
-   ============================================================ */
-
-.role-filter-combobox {
-    width: 195px;
-    min-width: 195px;
-}
-
-.status-filter-combobox {
-    width: 148px;
-    min-width: 148px;
-}
+.role-filter-combobox   { width: 195px; min-width: 195px; }
+.status-filter-combobox { width: 148px; min-width: 148px; }
 
 
 /* ============================================================
@@ -349,7 +292,7 @@
 .system-users-card {
     width: 100%;
     background: #FFFFFF;
-    border: 1px solid #E1E8F4;
+    border: 1px solid #E1E8F4 !important;
     border-radius: 10px;
     box-sizing: border-box;
     box-shadow: 0 1px 3px rgba(15, 25, 50, 0.05);
@@ -362,14 +305,14 @@
    ============================================================ */
 
 .system-users-header {
-    display: flex;
-    align-items: center;
     width: 100%;
     height: 60px;
     padding: 0 24px;
     box-sizing: border-box;
     background: #FFFFFF;
-    border-bottom: 1px solid #E8EEF8;
+    border-bottom: 1px solid #E8EEF8 !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
 .system-users-title {
@@ -382,10 +325,10 @@
 
 /* ============================================================
    LISTBOX
+   span="true" makes it fill the card width automatically
    ============================================================ */
 
 .user-listbox {
-    width: calc(100% - 48px) !important;
     margin: 18px 24px 0 24px;
     background: #FFFFFF;
     border: 1px solid #E1E8F4 !important;
@@ -397,7 +340,7 @@
 
 
 /* ============================================================
-   LISTBOX — HEADER ROW
+   LISTBOX HEADER
    ============================================================ */
 
 .user-listbox .z-listhead {
@@ -415,6 +358,7 @@
     padding: 0 16px;
     box-sizing: border-box;
     box-shadow: none !important;
+    overflow: visible !important;
 }
 
 .user-listbox .z-listheader:last-child {
@@ -427,12 +371,13 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.7px;
-    white-space: nowrap;
+    white-space: nowrap !important;
+    overflow: visible !important;
 }
 
 
 /* ============================================================
-   LISTBOX — DATA ROWS
+   LISTBOX DATA ROWS
    ============================================================ */
 
 .user-listbox .z-listitem {
@@ -443,7 +388,6 @@
     border-right: none !important;
     border-bottom: 1px solid #EEF2FA !important;
     box-shadow: none !important;
-    transition: background 0.1s ease;
 }
 
 .user-listbox .z-listitem:last-child {
@@ -471,13 +415,19 @@
 .user-listbox .z-listcell-content {
     color: #1F2D45;
     font-size: 14px;
-    display: flex;
-    align-items: center;
+}
+
+.user-listbox .z-listbox-emptybody td {
+    color: #9AABC8;
+    font-size: 14px;
+    text-align: center;
+    padding: 40px 0;
+    font-style: italic;
 }
 
 
 /* ============================================================
-   S.NO
+   CELL LABEL STYLES
    ============================================================ */
 
 .user-id-label {
@@ -487,22 +437,12 @@
     white-space: nowrap;
 }
 
-
-/* ============================================================
-   USERNAME
-   ============================================================ */
-
 .username-label {
     color: #2454D6;
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
 }
-
-
-/* ============================================================
-   FULL NAME
-   ============================================================ */
 
 .full-name-label {
     color: #1F2D45;
@@ -517,13 +457,23 @@
    ============================================================ */
 
 .assigned-role-container {
-    display: inline-flex;
-    align-items: center;
-    background: #EEF3FF;
-    border: 1px solid #CCDCFA;
+    display: inline-flex !important;
+    align-items: center !important;
+    background: #EEF3FF !important;
+    border: 1px solid #CCDCFA !important;
     border-radius: 6px;
     padding: 4px 12px;
     box-sizing: border-box;
+}
+
+/* Strip hbox chrome */
+.assigned-role-container.z-hbox,
+.assigned-role-container.z-hbox > table,
+.assigned-role-container.z-hbox td {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    vertical-align: middle !important;
 }
 
 .assigned-role-label {
@@ -539,25 +489,27 @@
    STATUS BADGE
    ============================================================ */
 
-/* The hbox wrapping the badge — full cell width, centered */
 .status-container {
     display: flex !important;
-    align-items: center;
-    justify-content: center;
+    align-items: center !important;
+    justify-content: center !important;
     width: 100%;
 }
 
 .status-container.z-hbox,
-.status-container > table {
-    width: 100% !important;
+.status-container.z-hbox > table,
+.status-container.z-hbox td {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    vertical-align: middle !important;
 }
 
-/* The badge pill itself */
 .status-badge {
     display: inline-flex !important;
-    align-items: center;
-    background: #E8FAF0;
-    border: 1px solid #A3E6C0;
+    align-items: center !important;
+    background: #E8FAF0 !important;
+    border: 1px solid #A3E6C0 !important;
     border-radius: 20px;
     padding: 4px 12px;
     box-sizing: border-box;
@@ -565,8 +517,12 @@
 }
 
 .status-badge.z-hbox,
-.status-badge > table {
-    width: auto !important;
+.status-badge.z-hbox > table,
+.status-badge.z-hbox td {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    vertical-align: middle !important;
 }
 
 .status-icon {
@@ -589,18 +545,21 @@
    ACTION BUTTONS
    ============================================================ */
 
-/* The hbox that holds the three buttons */
 .actions-container {
     display: flex !important;
-    align-items: center;
-    justify-content: center;
+    align-items: center !important;
+    justify-content: center !important;
     width: 100%;
     gap: 6px;
 }
 
 .actions-container.z-hbox,
-.actions-container > table {
-    width: 100% !important;
+.actions-container.z-hbox > table,
+.actions-container.z-hbox td {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    vertical-align: middle !important;
 }
 
 .action-button {
@@ -608,16 +567,12 @@
     height: 34px;
     min-width: 34px;
     background: #FFFFFF;
-    border: 1.5px solid #DDE5F2;
+    border: 1.5px solid #DDE5F2 !important;
     border-radius: 7px;
     padding: 0;
     box-sizing: border-box;
-    box-shadow: none;
+    box-shadow: none !important;
     cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
 }
 
 .edit-button {
@@ -626,33 +581,33 @@
 
 .edit-button:hover {
     background: #F0F4FD;
-    border-color: #B8CAE8;
+    border-color: #B8CAE8 !important;
     color: #1F2D45;
-    box-shadow: 0 1px 4px rgba(15, 25, 50, 0.08);
+    box-shadow: 0 1px 4px rgba(15, 25, 50, 0.08) !important;
 }
 
 .power-button {
     color: #DC2626;
     background: #FFF8F8;
-    border-color: #FECACA;
+    border-color: #FECACA !important;
 }
 
 .power-button:hover {
     background: #FEF0F0;
-    border-color: #FCA5A5;
-    box-shadow: 0 1px 4px rgba(220, 38, 38, 0.15);
+    border-color: #FCA5A5 !important;
+    box-shadow: 0 1px 4px rgba(220, 38, 38, 0.15) !important;
 }
 
 .delete-button {
     color: #DC2626;
     background: #FFF8F8;
-    border-color: #FECACA;
+    border-color: #FECACA !important;
 }
 
 .delete-button:hover {
     background: #FEF0F0;
-    border-color: #FCA5A5;
-    box-shadow: 0 1px 4px rgba(220, 38, 38, 0.15);
+    border-color: #FCA5A5 !important;
+    box-shadow: 0 1px 4px rgba(220, 38, 38, 0.15) !important;
 }
 
 
@@ -661,7 +616,7 @@
    ============================================================ */
 
 .user-paging {
-    margin: 14px 24px 18px 24px !important;
+    margin: 14px 24px 20px 24px;
 }
 
 .user-paging.z-paging {
@@ -670,18 +625,4 @@
     box-shadow: none !important;
     background: transparent !important;
     font-size: 13px !important;
-}
-
-
-/* ============================================================
-   EMPTY STATE
-   ============================================================ */
-
-.user-listbox .z-listbox-emptybody {
-    height: 90px;
-    color: #9AABC8;
-    font-size: 14px;
-    text-align: center;
-    box-sizing: border-box;
-    font-style: italic;
 }

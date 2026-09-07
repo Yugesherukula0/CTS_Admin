@@ -84,21 +84,35 @@
     cursor: pointer;
 }
 
-.batch-tab-btn:hover {
-    background: #F9FAFB;
-    border-color: #9CA3AF;
+/* ZK overrides — force text color on all button states */
+.batch-tab-btn.z-button,
+.batch-tab-btn .z-button-cm {
+    color: #374151 !important;
 }
 
-.batch-tab-active {
+.batch-tab-btn:hover,
+.batch-tab-btn.z-button:hover,
+.batch-tab-btn:hover .z-button-cm {
+    background: #F9FAFB;
+    border-color: #9CA3AF;
+    color: #374151 !important;
+}
+
+.batch-tab-active,
+.batch-tab-active.z-button,
+.batch-tab-active .z-button-cm {
     background: #2454D6 !important;
     border-color: #2454D6 !important;
     color: #FFFFFF !important;
     font-weight: 600 !important;
 }
 
-.batch-tab-active:hover {
+.batch-tab-active:hover,
+.batch-tab-active.z-button:hover,
+.batch-tab-active:hover .z-button-cm {
     background: #1D4ED8 !important;
     border-color: #1D4ED8 !important;
+    color: #FFFFFF !important;
 }
 
 
