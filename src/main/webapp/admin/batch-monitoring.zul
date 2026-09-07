@@ -117,54 +117,12 @@
                 span="true"
                 emptyMessage="No records available">
 
-                <listhead sizable="false" menupopup="none">
-
-                    <listheader
-                        label="Batch ID"
-                        width="8%"/>
-
-                    <listheader
-                        label="Branch"
-                        width="9%"/>
-
-                    <listheader
-                        label="Cheque Count"
-                        width="10%"/>
-
-                    <listheader
-                        label="Total Amount"
-                        width="10%"/>
-
-                    <listheader
-                        label="Current Module"
-                        width="11%"/>
-
-                    <listheader
-                        label="Status"
-                        width="9%"/>
-
-                    <listheader
-                        label="Maker"
-                        width="9%"/>
-
-                    <listheader
-                        label="Checker"
-                        width="9%"/>
-
-                    <listheader
-                        label="Captured By"
-                        width="9%"/>
-
-                    <listheader
-                        label="Created At"
-                        width="17%"/>
-
-                </listhead>
-
                 <!--
-                    Rows populated by BatchMonitoringController.
-                    Same columns for all three tabs —
-                    only data changes based on batch type.
+                    Listhead injected dynamically by BatchMonitoringController.rebuildListhead()
+
+                    Batch Capture:  Batch ID | Branch | Cheque Count | Created By | Created At
+                    Inward/Outward: Batch ID | Cheque Count | Status | Maker | Checker |
+                                    Maker Receive Time | Checker Receive Time | Batch Completion Time
                 -->
 
             </listbox>

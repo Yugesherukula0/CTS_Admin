@@ -5,7 +5,7 @@
     <style src="/css/user.css"/>
 
     <!-- ============================================================
-         USER MANAGEMENT CENTER
+         USER MANAGEMENT PAGE
          ============================================================ -->
 
     <vlayout
@@ -18,15 +18,15 @@
 
         <!-- ========================================================
              PAGE HEADER
+             div — display:flex so title+subtitle left, button right
              ======================================================== -->
 
         <div sclass="user-page-header">
 
-            <!-- LEFT: title + subtitle -->
-            <vlayout
-                id="userPageHeaderLeft"
-                spacing="0"
-                sclass="user-page-header-left">
+            <!-- LEFT: title + subtitle
+                 div used (not vlayout) so flex:1 works correctly
+                 inside the flex parent                           -->
+            <div sclass="user-page-header-left">
 
                 <label
                     id="userManagementTitle"
@@ -38,9 +38,9 @@
                     value="Manage system operators, assign operational roles, and regulate system access"
                     sclass="user-page-subtitle"/>
 
-            </vlayout>
+            </div>
 
-            <!-- RIGHT: create button -->
+            <!-- RIGHT: create user button -->
             <button
                 id="createUserButton"
                 label="+ Create User"
@@ -51,17 +51,14 @@
 
         <!-- ========================================================
              SEARCH / FILTER CARD
+             div — display:flex + gap for the entire row
              ======================================================== -->
 
         <div sclass="user-filter-card">
 
-            <!-- SEARCH BOX -->
-            <hbox
-                id="userSearchContainer"
-                hflex="1"
-                align="center"
-                spacing="0"
-                sclass="user-search-container">
+            <!-- SEARCH BOX
+                 div + display:flex so border renders and it stretches -->
+            <div sclass="user-search-container">
 
                 <label
                     id="userSearchIcon"
@@ -74,21 +71,22 @@
                     placeholder="Search by username, full name, or user ID..."
                     sclass="user-search-textbox"/>
 
-            </hbox>
+            </div>
 
-            <!-- SEARCH + CLEAR BUTTONS -->
+            <!-- SEARCH BUTTON -->
             <button
                 id="searchUserButton"
                 label="Search"
                 iconSclass="z-icon-search"
                 sclass="btn-search"/>
 
+            <!-- CLEAR BUTTON -->
             <button
                 id="clearUserFilterButton"
                 label="Clear"
                 sclass="btn-clear"/>
 
-            <!-- DIVIDER -->
+            <!-- VERTICAL DIVIDER -->
             <div sclass="filter-divider"/>
 
             <!-- ROLE FILTER -->
@@ -106,6 +104,7 @@
                 <comboitem id="roleOutwardMaker"    label="OUTWARD_MAKER"/>
                 <comboitem id="roleOutwardChecker"  label="OUTWARD_CHECKER"/>
                 <comboitem id="roleCaptureOperator" label="CAPTURE_OPERATOR"/>
+                <comboitem id="roleAdmin"           label="ADMIN"/>
             </combobox>
 
             <!-- STATUS FILTER -->
@@ -131,7 +130,6 @@
 
         <div
             id="systemUsersCard"
-            width="100%"
             sclass="system-users-card">
 
             <!-- CARD HEADER -->
@@ -144,12 +142,14 @@
 
             <!-- ====================================================
                  USER LISTBOX
+                 Rows populated by UserController
                  ==================================================== -->
 
             <listbox
                 id="userListbox"
-                width="calc(100% - 48px)"
                 sclass="user-listbox"
+                sizedByContent="false"
+                span="true"
                 emptyMessage="No users found">
 
                 <listhead
@@ -157,17 +157,23 @@
                     sizable="false"
                     menupopup="none">
 
-                    <listheader id="userIdHeader"       label="S.No"          width="8%"/>
-                    <listheader id="usernameHeader"     label="Username"       width="17%"/>
-                    <listheader id="fullNameHeader"     label="Full Name"      width="19%"/>
-                    <listheader id="assignedRoleHeader" label="Assigned Role"  width="22%"/>
-                    <listheader id="userStatusHeader"   label="Status"         width="16%" align="center"/>
-                    <listheader id="userActionsHeader"  label="Actions"        width="18%" align="center"/>
+                    <listheader id="userIdHeader"       label="S.No"         width="8%"/>
+                    <listheader id="usernameHeader"     label="Username"      width="17%"/>
+                    <listheader id="fullNameHeader"     label="Full Name"     width="19%"/>
+                    <listheader id="assignedRoleHeader" label="Assigned Role" width="22%"/>
+                    <listheader id="userStatusHeader"   label="Status"        width="16%" align="center"/>
+                    <listheader id="userActionsHeader"  label="Actions"       width="18%" align="center"/>
 
                 </listhead>
 
+                <!--
+                    Rows populated by UserController.loadUsers()
+                    DB → DAO → SERVICE → CONTROLLER → userListbox
+                -->
+
             </listbox>
 
+            <!-- PAGING -->
             <paging
                 id="userPaging"
                 pageSize="10"
