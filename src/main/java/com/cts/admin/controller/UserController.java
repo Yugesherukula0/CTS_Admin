@@ -194,27 +194,6 @@ public class UserController extends GenericForwardComposer<Component> {
 				item.appendChild(usernameCell);
 
 				// =================================================
-				// FULL NAME
-				// =================================================
-
-				Listcell fullNameCell = new Listcell();
-
-				String fullName = user.getFullName();
-
-				if (fullName == null || fullName.trim().isEmpty()) {
-
-					fullName = "-";
-				}
-
-				Label fullNameLabel = new Label(fullName);
-
-				fullNameLabel.setSclass("full-name-label");
-
-				fullNameCell.appendChild(fullNameLabel);
-
-				item.appendChild(fullNameCell);
-
-				// =================================================
 				// ASSIGNED ROLE
 				// =================================================
 
@@ -669,25 +648,6 @@ public class UserController extends GenericForwardComposer<Component> {
 		mainBox.appendChild(usernameBox);
 
 		// ========================================================
-		// FULL NAME
-		// ========================================================
-
-		Label fullNameLabel = new Label("Full Name");
-
-		Textbox fullNameBox = new Textbox();
-
-		fullNameBox.setWidth("100%");
-		fullNameBox.setPlaceholder("Enter full name");
-
-		if (editMode) {
-
-			fullNameBox.setValue(existingUser.getFullName());
-		}
-
-		mainBox.appendChild(fullNameLabel);
-		mainBox.appendChild(fullNameBox);
-
-		// ========================================================
 		// PASSWORD
 		// ========================================================
 
@@ -798,7 +758,7 @@ public class UserController extends GenericForwardComposer<Component> {
 			@Override
 			public void onEvent(Event event) throws Exception {
 
-				saveUser(window, existingUser, usernameBox, fullNameBox, passwordBox, roleCombo);
+				saveUser(window, existingUser, usernameBox, passwordBox, roleCombo);
 			}
 		});
 
@@ -819,12 +779,10 @@ public class UserController extends GenericForwardComposer<Component> {
 	// SAVE USER
 	// ============================================================
 
-	private void saveUser(Window window, User existingUser, Textbox usernameBox, Textbox fullNameBox,
+	private void saveUser(Window window, User existingUser, Textbox usernameBox,
 			Textbox passwordBox, Combobox roleCombo) {
 
 		String username = usernameBox.getValue().trim();
-
-		String fullName = fullNameBox.getValue().trim();
 
 		String password = passwordBox.getValue();
 
@@ -835,13 +793,6 @@ public class UserController extends GenericForwardComposer<Component> {
 		if (username.isEmpty()) {
 
 			Messagebox.show("Username is required.", "Validation", Messagebox.OK, Messagebox.EXCLAMATION);
-
-			return;
-		}
-
-		if (fullName.isEmpty()) {
-
-			Messagebox.show("Full name is required.", "Validation", Messagebox.OK, Messagebox.EXCLAMATION);
 
 			return;
 		}
@@ -873,7 +824,6 @@ public class UserController extends GenericForwardComposer<Component> {
 				User user = new User();
 
 				user.setUsername(username);
-				user.setFullName(fullName);
 				user.setPasswordHash(password);
 
 				Role role = new Role();
@@ -903,8 +853,6 @@ public class UserController extends GenericForwardComposer<Component> {
 			// ====================================================
 
 			else {
-
-				existingUser.setFullName(fullName);
 
 				Role role = new Role();
 
