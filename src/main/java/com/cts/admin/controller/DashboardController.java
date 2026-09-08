@@ -143,7 +143,7 @@ public class DashboardController
                 userIdCell.appendChild(userIdLabel);
                 item.appendChild(userIdCell);
 
-                /* Role — stored in module field for now */
+                /* Role */
                 Listcell roleCell = new Listcell();
                 Label roleLabel = new Label(
                         log.getModule() == null ? "-" : log.getModule());
@@ -151,7 +151,7 @@ public class DashboardController
                 roleCell.appendChild(roleLabel);
                 item.appendChild(roleCell);
 
-                /* Login — event time */
+                /* Login */
                 Listcell loginCell = new Listcell();
                 Label loginLabel = new Label(
                         log.getEventTime() == null
@@ -161,7 +161,7 @@ public class DashboardController
                 loginCell.appendChild(loginLabel);
                 item.appendChild(loginCell);
 
-                /* Logout — event date as fallback */
+                /* Logout */
                 Listcell logoutCell = new Listcell();
                 Label logoutLabel = new Label(
                         log.getEventDate() == null

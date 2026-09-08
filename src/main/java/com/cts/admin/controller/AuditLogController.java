@@ -85,46 +85,36 @@ public class AuditLogController
             Listitem item =
                     new Listitem();
 
+            /* User ID */
             item.appendChild(
                     createCell(
-                            auditLog.getEventTime() != null
-                                    ? auditLog.getEventTime().toString()
-                                    : ""
+                            auditLog.getUserId() != null
+                                    ? String.valueOf(auditLog.getUserId())
+                                    : "-"
                     )
             );
 
-            item.appendChild(
-                    createCell(
-                            auditLog.getUserName()
-                    )
-            );
-
+            /* Role */
             item.appendChild(
                     createCell(
                             auditLog.getModule()
                     )
             );
 
+            /* Login */
             item.appendChild(
                     createCell(
-                            auditLog.getAction()
-                    )
-            );
-
-            item.appendChild(
-                    createCell(
-                            auditLog.getRelatedBatchId() != null
-                                    ? String.valueOf(
-                                            auditLog.getRelatedBatchId())
+                            auditLog.getEventTime() != null
+                                    ? auditLog.getEventTime().toString()
                                     : "-"
                     )
             );
 
+            /* Logout */
             item.appendChild(
                     createCell(
-                            auditLog.getRelatedSessionId() != null
-                                    ? String.valueOf(
-                                            auditLog.getRelatedSessionId())
+                            auditLog.getEventDate() != null
+                                    ? auditLog.getEventDate().toString()
                                     : "-"
                     )
             );
