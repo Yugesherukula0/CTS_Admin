@@ -68,7 +68,7 @@
                 <textbox
                     id="userSearchTextbox"
                     hflex="1"
-                    placeholder="Search by username, full name, or user ID..."
+                    placeholder="Search by username or user ID..."
                     sclass="user-search-textbox"/>
 
             </div>
@@ -157,12 +157,11 @@
                     sizable="false"
                     menupopup="none">
 
-                    <listheader id="userIdHeader"       label="S.No"         width="8%"/>
-                    <listheader id="usernameHeader"     label="Username"      width="17%"/>
-                    <listheader id="fullNameHeader"     label="Full Name"     width="19%"/>
-                    <listheader id="assignedRoleHeader" label="Assigned Role" width="22%"/>
-                    <listheader id="userStatusHeader"   label="Status"        width="16%" align="center"/>
-                    <listheader id="userActionsHeader"  label="Actions"       width="18%" align="center"/>
+                    <listheader id="userIdHeader"       label="S.No"         width="10%"/>
+                    <listheader id="usernameHeader"     label="Username"      width="26%"/>
+                    <listheader id="assignedRoleHeader" label="Assigned Role" width="26%"/>
+                    <listheader id="userStatusHeader"   label="Status"        width="19%" align="center"/>
+                    <listheader id="userActionsHeader"  label="Actions"       width="19%" align="center"/>
 
                 </listhead>
 
