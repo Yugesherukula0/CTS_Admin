@@ -12,6 +12,7 @@
         id="auditLogPage"
         width="100%"
         spacing="0"
+        apply="com.cts.admin.controller.AuditLogController"
         sclass="audit-page">
 
 
@@ -97,7 +98,7 @@
                  ==================================================== -->
 
             <listbox
-                id="auditListbox"
+                id="auditLogListbox"
                 sclass="audit-listbox"
                 sizedByContent="false"
                 span="true"
@@ -107,25 +108,25 @@
 
                     <listheader
                         label="User ID"
-                        width="15%"/>
+                        width="22%"/>
 
                     <listheader
                         label="Role"
-                        width="25%"/>
+                        width="26%"/>
 
                     <listheader
                         label="Login"
-                        width="30%"/>
+                        width="26%"/>
 
                     <listheader
                         label="Logout"
-                        width="30%"/>
+                        width="26%"/>
 
                 </listhead>
 
                 <!--
                     Rows populated by AuditLogController.loadAuditLogs()
-                    DB → DAO → SERVICE → CONTROLLER → auditListbox
+                    DB → DAO → SERVICE → CONTROLLER → auditLogListbox
                 -->
 
             </listbox>
